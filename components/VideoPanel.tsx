@@ -231,6 +231,15 @@ export function VideoPanel({ song, partIdx, partStarts, appPlaying, onVideoPlay,
             playsInline
             className="mt-2 w-full rounded-xl bg-black"
           />
+          {song.arranger && (
+            <p className="mt-1.5 text-xs text-slate-400">
+              Video di{" "}
+              <a href={song.arranger.videosUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-slate-200 hover:text-teal-200">
+                {song.arranger.name}
+              </a>{" "}
+              · {song.arranger.handle}
+            </p>
+          )}
           <p className="mt-2 text-xs text-slate-400">
             Quando il video suona, spartito, battute e tastiera lo seguono. Clic su una battuta: il video salta lì (e ripete il
             loop).

@@ -56,6 +56,18 @@ export interface Part {
   videos?: VideoDef[];
 }
 
+export interface Arranger {
+  name: string;
+  fullName?: string;
+  handle: string;
+  about?: string;
+  /** pagina con tutti i suoi video */
+  videosUrl: string;
+  /** ha dato il permesso di usare video e arrangiamenti nell'app */
+  permission?: boolean;
+  links: { label: string; url: string }[];
+}
+
 export interface Song {
   slug: string;
   title: string;
@@ -63,6 +75,8 @@ export interface Song {
   titleWithKey?: boolean;
   composer: string;
   credit: string;
+  /** autore dell'arrangiamento e dei video, mostrato con i suoi link */
+  arranger?: Arranger;
   /** maggiore o minore: cambia solo il nome mostrato della tonalità */
   mode: "major" | "minor";
   /** tonalità (maggiore relativa) in cui sono scritti i dati e registrati i video */
@@ -143,7 +157,7 @@ function parseVoice(
   measure: number,
   offset: number,
   defDur: number,
-  fingers: number[] | null,
+  fingers: number[][] | null,
   pattern: number[] | undefined,
   key: KeyDef,
   rests: ScoreRest[]
@@ -159,11 +173,13 @@ function parseVoice(
       t += dur;
       continue;
     }
-    const f = fingers ? fingers[k] : pattern ? pattern[k % pattern.length] : undefined;
+    // un dito per nota; negli accordi le dita si separano con "/" (es. "5/3/1" per Mi+Sol#+Si)
+    const fs = fingers ? fingers[k] ?? [] : pattern ? [pattern[k % pattern.length]] : [];
     pitches.split("+").forEach((p, j) => {
       const label = transposeSpelled(p, key);
-      // nelle note doppie la nota acuta va al pollice (sinistra) — dito solo sulla prima
-      out.push({ midi: noteToMidi(label), start: t, dur, hand, measure, label, finger: j === 0 ? f || undefined : hand === "L" ? 1 : undefined });
+      // senza dita per l'accordo: nella sinistra la nota acuta va al pollice
+      const f = fs[j] ?? (j > 0 && hand === "L" && fs.length < 2 ? 1 : undefined);
+      out.push({ midi: noteToMidi(label), start: t, dur, hand, measure, label, finger: f || undefined });
     });
     t += dur;
     k++;
@@ -177,7 +193,7 @@ function parseVoice(
   return out;
 }
 
-const nums = (s?: string) => (s ? s.trim().split(/\s+/).map(Number) : null);
+const nums = (s?: string) => (s ? s.trim().split(/\s+/).map((t) => t.split("/").map(Number)) : null);
 
 export interface BuiltPart {
   part: Part;

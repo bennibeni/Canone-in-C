@@ -1,5 +1,6 @@
 // Canone in Re di Pachelbel, arrangiamento in Do di @reeveswongpiano — trascrizione dai 4 video.
 import type { Part, Song } from "../score";
+import { REEVES_WONG } from "./arrangers";
 
 const v = (file: string) => `/videos/${encodeURIComponent(file)}`;
 
@@ -149,7 +150,8 @@ export const canone: Song = {
   title: "Canone",
   titleWithKey: true,
   composer: "Johann Pachelbel",
-  credit: "Trascrizione dall'arrangiamento in quattro parti di @reeveswongpiano.",
+  credit: "Trascrizione dall'arrangiamento in quattro parti e dai video",
+  arranger: REEVES_WONG,
   mode: "major",
   videoKey: "C",
   progression: ["C", "G", "Am", "Em", "F", "C", "F", "G"],

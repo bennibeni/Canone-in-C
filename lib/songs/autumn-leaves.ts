@@ -4,6 +4,7 @@
 // La melodia nel video è tenuta col pedale: qui è scritta legata fino alla nota successiva.
 // Battuta 0 = levare (le note prima del primo battere).
 import type { Song } from "../score";
+import { REEVES_WONG } from "./arrangers";
 
 const v = (file: string) => `/videos/${encodeURIComponent(file)}`;
 
@@ -11,7 +12,8 @@ export const autumnLeaves: Song = {
   slug: "autumn-leaves",
   title: "Autumn Leaves",
   composer: "Joseph Kosma",
-  credit: "Trascrizione e diteggiature dai reel di @reeveswongpiano.",
+  credit: "Trascrizione e diteggiature dall'arrangiamento e dai due reel",
+  arranger: REEVES_WONG,
   mode: "minor",
   videoKey: "C",
   progression: ["Dm", "G", "C", "F", "Dm", "E", "Am"],

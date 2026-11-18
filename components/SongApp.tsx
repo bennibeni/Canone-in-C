@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { KEYS, buildFull, buildPart, keyTonic, transposeChord } from "@/lib/score";
+import { KEYS, buildFull, buildPart, keyTonic, transposeChord, type Song } from "@/lib/score";
 import { getSong } from "@/lib/songs";
 import { SongMenu } from "./SongMenu";
 import { chordName, rangeFor, spelledName, type LabelMode, type NameSystem } from "@/lib/notes";
@@ -671,7 +671,7 @@ export default function SongApp({ slug }: { slug: string }) {
         </div>
       </main>
 
-      <p className="max-w-7xl mx-auto px-4 pb-4 text-xs text-slate-500">{song.credit}</p>
+      <ArrangerCredit song={song} />
       <footer className="projects-footer">
         <a href="https://links-page-bennibeni.vercel.app/">
           <span aria-hidden="true">← </span>All projects
@@ -709,5 +709,32 @@ function Seg({ value, onChange, options }: { value: string; onChange: (v: string
         </button>
       ))}
     </div>
+  );
+}
+
+/** riconoscimento all'autore dell'arrangiamento e dei video */
+function ArrangerCredit({ song }: { song: Song }) {
+  const a = song.arranger;
+  if (!a) return <p className="max-w-7xl mx-auto px-4 pb-4 text-xs text-slate-500">{song.credit}</p>;
+  return (
+    <section className="max-w-7xl mx-auto px-4 pb-5" aria-label="Riconoscimenti">
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/50 px-4 py-3 text-sm text-slate-400">
+        <p>
+          {song.credit} di{" "}
+          <a href={a.links[0]?.url ?? a.videosUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-slate-200 hover:text-teal-200">
+            {a.name}
+          </a>
+          {a.fullName && <> ({a.fullName})</>}, <span className="text-slate-300">{a.handle}</span>
+          {a.about && <> — {a.about}</>}. I video e l&apos;arrangiamento sono suoi{a.permission ? <> e sono usati con il suo permesso</> : null}: se l&apos;app ti è utile, segui il suo lavoro.
+        </p>
+        <p className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs">
+          {a.links.map((l) => (
+            <a key={l.url} href={l.url} target="_blank" rel="noopener noreferrer" className="text-teal-300/90 hover:text-teal-200 underline underline-offset-2">
+              {l.label}
+            </a>
+          ))}
+        </p>
+      </div>
+    </section>
   );
 }
