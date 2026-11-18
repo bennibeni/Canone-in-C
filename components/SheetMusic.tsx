@@ -13,6 +13,10 @@ interface Props {
   labelMode: LabelMode;
   loop: [number, number] | null;
   onSelect: (m: number, extend: boolean) => void;
+  /** mostra una sola riga (coppia di pentagrammi) alla volta, quella della battuta corrente */
+  singleRow: boolean;
+  /** frecce della vista a riga singola: porta la posizione alla battuta indicata */
+  onGoToMeasure: (m: number) => void;
 }
 
 // durata in sedicesimi → durata VexFlow
@@ -31,10 +35,11 @@ const vfKey = (label: string) => {
 
 interface Layout {
   rows: number;
+  perRow: number;
   measureBox: { x: number; y: number; w: number; h: number }[];
 }
 
-export function SheetMusic({ built, live, measure, playing, labelMode, loop, onSelect }: Props) {
+export function SheetMusic({ built, live, measure, playing, labelMode, loop, onSelect, singleRow, onGoToMeasure }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
@@ -199,7 +204,7 @@ export function SheetMusic({ built, live, measure, playing, labelMode, loop, onS
         layer.appendChild(rect);
       });
       svg.insertBefore(layer, svg.firstChild);
-      setLayout({ rows, measureBox });
+      setLayout({ rows, perRow, measureBox });
     })();
     return () => {
       cancelled = true;
@@ -225,20 +230,57 @@ export function SheetMusic({ built, live, measure, playing, labelMode, loop, onS
     });
   }, [measure, loop, layout]);
 
-  // durante la riproduzione tiene in vista la riga corrente
+  const row = layout ? Math.floor(measure / layout.perRow) : 0;
+
+  // tiene in vista la riga corrente: sempre nella vista a riga singola, durante la riproduzione altrimenti
   useEffect(() => {
-    if (!playing || !layout) return;
+    if (!layout) return;
     const wrap = wrapRef.current;
+    if (!wrap) return;
+    if (singleRow) {
+      wrap.scrollTo({ top: row * ROW_H, behavior: playing ? "smooth" : "auto" });
+      return;
+    }
+    if (!playing) return;
     const b = layout.measureBox[measure];
-    if (!wrap || !b) return;
+    if (!b) return;
     if (b.y < wrap.scrollTop || b.y + b.h > wrap.scrollTop + wrap.clientHeight) {
       wrap.scrollTo({ top: Math.max(0, b.y - 8), behavior: "smooth" });
     }
-  }, [measure, playing, layout]);
+  }, [measure, row, playing, layout, singleRow]);
 
   return (
-    <div ref={wrapRef} className="sheet-wrap rounded-xl bg-[#fbfaf7] overflow-y-auto overflow-x-hidden" style={{ maxHeight: 2 * ROW_H + 20 }}>
-      <div ref={hostRef} className="sheet" />
+    <div className="relative">
+      <div
+        ref={wrapRef}
+        className={`sheet-wrap rounded-xl bg-[#fbfaf7] overflow-x-hidden ${singleRow ? "overflow-y-hidden" : "overflow-y-auto"}`}
+        style={{ maxHeight: singleRow ? ROW_H : 2 * ROW_H + 20 }}
+      >
+        <div ref={hostRef} className="sheet" />
+      </div>
+      {singleRow && layout && layout.rows > 1 && (
+        <div className="absolute top-2 right-2 flex items-center gap-1 rounded-lg bg-slate-900/85 px-1.5 py-1 text-xs font-semibold text-slate-200 shadow">
+          <button
+            onClick={() => onGoToMeasure(Math.max(0, row - 1) * layout.perRow)}
+            disabled={row === 0}
+            className="w-6 h-6 rounded hover:bg-slate-700 disabled:opacity-30"
+            aria-label="Riga precedente"
+          >
+            ‹
+          </button>
+          <span className="tabular-nums px-1">
+            Riga {row + 1}/{layout.rows}
+          </span>
+          <button
+            onClick={() => onGoToMeasure(Math.min(layout.rows - 1, row + 1) * layout.perRow)}
+            disabled={row === layout.rows - 1}
+            className="w-6 h-6 rounded hover:bg-slate-700 disabled:opacity-30"
+            aria-label="Riga successiva"
+          >
+            ›
+          </button>
+        </div>
+      )}
     </div>
   );
 }

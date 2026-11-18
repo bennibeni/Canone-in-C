@@ -15,6 +15,8 @@ interface Props {
   onSelect: (m: number, extend: boolean) => void;
   partBreaks?: number; // battute per parte (vista brano completo)
   dense?: boolean; // ci sono semicrome: meno colonne
+  /** battute da mostrare [inizio, fine) — nel brano completo solo la parte corrente */
+  range?: [number, number];
 }
 
 const DUR_LABEL: Record<number, string> = {
@@ -73,11 +75,12 @@ function Row({
   );
 }
 
-export function MeasureGrid({ built, measure, loop, sys, labelMode, live, onSelect, partBreaks, dense }: Props) {
+export function MeasureGrid({ built, measure, loop, sys, labelMode, live, onSelect, partBreaks, dense, range }: Props) {
   const byMeasure = built.part.measures.map((_, i) => built.notes.filter((n) => n.measure === i));
   return (
     <div className={`grid gap-2 ${dense ? "grid-cols-1 md:grid-cols-2" : "grid-cols-2 md:grid-cols-4"}`}>
       {built.part.measures.map((m, i) => {
+        if (range && (i < range[0] || i >= range[1])) return null;
         const inLoop = loop && i >= loop[0] && i <= loop[1];
         const current = i === measure;
         const notes = byMeasure[i];

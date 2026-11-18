@@ -9,6 +9,7 @@ import { Keyboard, HAND_COLOR } from "./Keyboard";
 import { FallingNotes } from "./FallingNotes";
 import { MeasureGrid } from "./MeasureGrid";
 import { SheetMusic } from "./SheetMusic";
+import { VideoPanel } from "./VideoPanel";
 
 const STEPS: { title: string; desc: string; mode: Mode; practice: HandSet }[] = [
   { title: "Ascolta", desc: "Ascolta la parte intera seguendo le note che scendono.", mode: "listen", practice: { R: true, L: false } },
@@ -38,6 +39,7 @@ export default function CanonApp() {
   const [zoom, setZoom] = useState(13);
   const [toast, setToast] = useState<string | null>(null);
   const [sound, setSound] = useState<SoundMode>("synth");
+  const [singleRow, setSingleRow] = useState(true); // spartito: una riga alla volta
   const [loadState, setLoadState] = useState<{ done: number; total: number } | null>(null);
   const loading = useRef<Promise<void> | null>(null);
 
@@ -124,7 +126,7 @@ export default function CanonApp() {
     const down = (e: KeyboardEvent) => {
       if (e.key !== " " || e.metaKey || e.ctrlKey || e.altKey) return;
       const el = e.target as HTMLElement;
-      if (el && (el.tagName === "TEXTAREA" || (el.tagName === "INPUT" && (el as HTMLInputElement).type === "text"))) return;
+      if (el && (el.tagName === "TEXTAREA" || el.tagName === "VIDEO" || (el.tagName === "INPUT" && (el as HTMLInputElement).type === "text"))) return;
       e.preventDefault();
       if (e.repeat) return;
       if (playing && mode === "wait") pressTargets();
@@ -143,14 +145,35 @@ export default function CanonApp() {
     setLoop(null);
   };
 
+  // video: solo in Do maggiore (sono registrati in Do); quando suona guida spartito e note
+  const showVideo = key.id === "C";
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const [videoJump, setVideoJump] = useState<{ m: number; n: number } | null>(null);
+  useEffect(() => {
+    if (!showVideo) setVideoPlaying(false);
+  }, [showVideo]);
+
   const selectMeasure = (m: number, extend: boolean) => {
     if (extend && loop) setLoop([Math.min(loop[0], m), Math.max(loop[1], m)]);
     else if (loop && loop[0] === m && loop[1] === m) setLoop(null);
     else setLoop([m, m]);
+    setVideoJump({ m: extend && loop ? Math.min(loop[0], m) : m, n: Date.now() });
   };
 
   const totalMeasures = part.measures.length;
-  const dense = built.notes.some((n) => n.dur === 1);
+  // salto da applicare dopo il cambio di loop (il player riparte dall'inizio quando il loop cambia)
+  const pendingSeek = useRef<number | null>(null);
+  useEffect(() => {
+    if (pendingSeek.current != null) {
+      seek(pendingSeek.current);
+      pendingSeek.current = null;
+    }
+  }, [loop, seek]);
+
+  // battute: nel brano completo si vedono solo le 8 battute della parte corrente (due righe come nelle parti)
+  const gridPart = partIdx === 4 ? Math.floor(player.measure / 8) : 0;
+  const gridRange: [number, number] | undefined = partIdx === 4 ? [gridPart * 8, gridPart * 8 + 8] : undefined;
+  const dense = built.notes.some((n) => n.dur === 1 && (!gridRange || (n.measure >= gridRange[0] && n.measure < gridRange[1])));
 
   // note in esecuzione (o attese) da far lampeggiare nei pannelli delle battute
   const targetNotes = useMemo(
@@ -162,10 +185,10 @@ export default function CanonApp() {
   );
   const live = useMemo(() => {
     const s = new Set<string>();
-    if (playing) for (const n of player.active) s.add(n.hand + ":" + n.start);
+    if (playing || videoPlaying) for (const n of player.active) s.add(n.hand + ":" + n.start);
     for (const n of targetNotes) s.add(n.hand + ":" + n.start);
     return s;
-  }, [player.active, targetNotes, playing]);
+  }, [player.active, targetNotes, playing, videoPlaying]);
   const waitingForUser = mode === "wait" && player.targets.length > 0;
 
   return (
@@ -214,344 +237,398 @@ export default function CanonApp() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_330px]">
-        {/* ---------------- area principale ---------------- */}
-        <section className="space-y-4 min-w-0">
-          <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-xl shadow-black/40">
-            <div className="relative">
-              <FallingNotes
-                built={built}
-                posRef={player.posRef}
-                targetsRef={player.targetsRef}
-                lo={lo}
-                hi={hi}
-                sys={sys}
-                labelMode={labelMode}
-                mode={mode}
-                practice={practice}
-                loop={loop}
-                zoom={zoom}
-                height={340}
-                playing={playing}
-                onSeek={seek}
-              />
-              <div className="absolute top-2 left-1/2 -translate-x-1/2 flex gap-2 pointer-events-none">
-                {waitingForUser && (
-                  <span className="px-3 py-1 rounded-full bg-amber-500/90 text-slate-950 text-sm font-bold shadow">
-                    {targetNotes
-                      .map((n) => (labelMode === "fingers" && n.finger ? `${spelledName(n.label, sys, true)} dito ${n.finger}` : spelledName(n.label, sys, true)))
-                      .join(" + ")}{" "}
-                    · premi Spazio
-                  </span>
-                )}
-                {toast && <span className="px-3 py-1 rounded-full bg-teal-400 text-slate-950 text-sm font-bold shadow">{toast}</span>}
-              </div>
-            </div>
-            <div className="border-t border-slate-800 bg-slate-900">
-              <Keyboard
-                lo={lo}
-                hi={hi}
-                active={player.active}
-                targets={player.targets}
-                userKeys={player.userKeys}
-                sys={sys}
-                spelling={key.spelling}
-                labels={keyLabels}
-                onPress={userPress}
-                onRelease={userRelease}
-              />
-            </div>
-          </div>
-
-          {/* ---------------- trasporto ---------------- */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-3 flex flex-wrap items-center gap-3">
-            <button
-              onClick={() => (playing ? pause() : void play())}
-              className="w-12 h-12 rounded-full bg-teal-400 text-slate-950 text-xl font-bold grid place-items-center hover:bg-teal-300 shadow-lg shadow-teal-500/20"
-              aria-label={playing ? "Pausa" : "Suona"}
-              title="Spazio"
-            >
-              {playing ? "❚❚" : "▶"}
-            </button>
-            <button
-              onClick={() => {
-                pause();
-                seek(loop ? loop[0] * 16 : 0);
-              }}
-              className="w-10 h-10 rounded-full border border-slate-600 text-slate-200 grid place-items-center hover:border-slate-400"
-              aria-label="Torna all'inizio"
-              title="Torna all'inizio"
-            >
-              ⏮
-            </button>
-            <div className="text-sm leading-tight">
-              <div className="text-slate-400 text-xs">Battuta</div>
-              <div className="font-bold tabular-nums">
-                {player.measure + 1} / {totalMeasures}
-              </div>
-            </div>
-
-            <div className="flex rounded-lg overflow-hidden border border-slate-700 text-sm font-semibold ml-1">
-              {(["listen", "wait"] as Mode[]).map((m) => (
-                <button
-                  key={m}
-                  onClick={() => setMode(m)}
-                  className={`px-3 py-2 ${mode === m ? "bg-indigo-500/30 text-indigo-100" : "text-slate-300 hover:bg-slate-800"}`}
-                >
-                  {m === "listen" ? "Ascolto" : "Attesa (suono io)"}
-                </button>
-              ))}
-            </div>
-
-            {mode === "wait" && (
-              <div className="flex items-center gap-2 text-sm">
-                <span className="text-slate-400">Suono io</span>
-                <div className="flex rounded-lg overflow-hidden border border-slate-700 font-semibold">
-                  {(
-                    [
-                      ["L", "Sinistra", { R: false, L: true }],
-                      ["R", "Destra", { R: true, L: false }],
-                      ["both", "Entrambe", { R: true, L: true }],
-                    ] as [string, string, HandSet][]
-                  ).map(([k, label, hs]) => {
-                    const on = practice.R === hs.R && practice.L === hs.L;
-                    const color = k === "both" ? "#e0e7ff" : HAND_COLOR[k as "R" | "L"];
-                    return (
-                      <button
-                        key={k}
-                        onClick={() => setPractice(hs)}
-                        className={`px-3 py-2 ${on ? "bg-slate-700" : "hover:bg-slate-800"}`}
-                        style={{ color: on ? color : "#94a3b8" }}
-                      >
-                        {label}
-                      </button>
-                    );
-                  })}
+      <main className="max-w-7xl mx-auto px-4 py-5 space-y-5">
+        {/* fascia 1: note che scendono + trasporto | parte, percorso, come suonare
+            (il riquadro delle note si allunga fino all'altezza della colonna destra) */}
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_330px] items-stretch">
+          <section className="flex flex-col gap-4 min-w-0">
+            <div className="flex-1 flex flex-col rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-xl shadow-black/40">
+              <div className="relative flex-1 flex flex-col">
+                <FallingNotes
+                  built={built}
+                  posRef={player.posRef}
+                  targetsRef={player.targetsRef}
+                  lo={lo}
+                  hi={hi}
+                  sys={sys}
+                  labelMode={labelMode}
+                  mode={mode}
+                  practice={practice}
+                  loop={loop}
+                  zoom={zoom}
+                  height={340}
+                  playing={playing}
+                  onSeek={seek}
+                />
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 flex gap-2 pointer-events-none">
+                  {waitingForUser && (
+                    <span className="px-3 py-1 rounded-full bg-amber-500/90 text-slate-950 text-sm font-bold shadow">
+                      {targetNotes
+                        .map((n) => (labelMode === "fingers" && n.finger ? `${spelledName(n.label, sys, true)} dito ${n.finger}` : spelledName(n.label, sys, true)))
+                        .join(" + ")}{" "}
+                      · premi Spazio
+                    </span>
+                  )}
+                  {toast && <span className="px-3 py-1 rounded-full bg-teal-400 text-slate-950 text-sm font-bold shadow">{toast}</span>}
                 </div>
               </div>
-            )}
-
-            <label className="flex items-center gap-2 text-sm grow min-w-[220px]">
-              <span className="text-slate-400 whitespace-nowrap">Tempo</span>
-              <input
-                type="range"
-                min={30}
-                max={120}
-                step={5}
-                value={tempoPct}
-                onChange={(e) => setTempoPct(+e.target.value)}
-                className="grow accent-teal-400"
-              />
-              <span className="tabular-nums font-semibold w-24 text-right">
-                {tempoPct}% · {tempo}
-                <span className="text-slate-500 text-xs"> bpm</span>
-              </span>
-            </label>
-
-          </div>
-
-          {/* ---------------- battute ---------------- */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-3">
-            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-              <h2 className="font-semibold text-slate-200">Battute</h2>
-              <p className="text-xs text-slate-400">
-                Clic su una battuta per ripeterla in loop · Maiusc+clic per allargare il loop
-                {loop && (
-                  <button onClick={() => setLoop(null)} className="ml-2 text-amber-300 underline">
-                    togli loop ({loop[0] + 1}–{loop[1] + 1})
-                  </button>
-                )}
-              </p>
-            </div>
-            <MeasureGrid
-              built={built}
-              measure={player.measure}
-              loop={loop}
-              sys={sys}
-              labelMode={labelMode}
-              live={live}
-              onSelect={selectMeasure}
-              partBreaks={partIdx === 4 ? 8 : undefined}
-              dense={dense}
-            />
-            <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded" style={{ background: HAND_COLOR.R }} /> Mano destra
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded" style={{ background: HAND_COLOR.L }} /> Mano sinistra
-              </span>
-              <span>La larghezza di ogni nota è proporzionale alla sua durata.</span>
-              {labelMode === "fingers" && <span>Dita: 1 pollice · 2 indice · 3 medio · 4 anulare · 5 mignolo</span>}
-            </div>
-          </div>
-
-          {/* ---------------- spartito ---------------- */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-3">
-            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-              <h2 className="font-semibold text-slate-200">Spartito</h2>
-              <p className="text-xs text-slate-400">Le note che suonano si illuminano · clic su una battuta per il loop</p>
-            </div>
-            <SheetMusic
-              built={built}
-              live={live}
-              measure={player.measure}
-              playing={playing}
-              labelMode={labelMode}
-              loop={loop}
-              onSelect={selectMeasure}
-            />
-          </div>
-        </section>
-
-        {/* ---------------- pannello laterale ---------------- */}
-        <aside className="space-y-4">
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-            <div className="text-xs uppercase tracking-wider text-violet-300 font-semibold">{part.title}</div>
-            <h2 className="text-lg font-bold">{part.subtitle}</h2>
-            <p className="text-sm text-slate-400 mb-3">{part.focus}</p>
-            {key.semis !== 0 && (
-              <p className="text-xs text-amber-200/90 bg-amber-500/10 border border-amber-400/30 rounded-lg px-2.5 py-2 mb-3">
-                Suggerimenti e diteggiature sono pensati per Do maggiore: in {chordName(key.id, sys)} maggiore i nomi delle note
-                citati cambiano e sui tasti neri può servire una diteggiatura diversa.
-              </p>
-            )}
-            <ul className="space-y-2 text-sm text-slate-300">
-              {part.tips.map((t, i) => (
-                <li key={i} className="flex gap-2">
-                  <span className="text-teal-300 mt-0.5">•</span>
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {partIdx < 4 && (
-            <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-              <div className="flex items-baseline justify-between mb-1">
-                <h3 className="font-semibold">Percorso di studio</h3>
+              <div className="border-t border-slate-800 bg-slate-900">
+                <Keyboard
+                  lo={lo}
+                  hi={hi}
+                  active={player.active}
+                  targets={player.targets}
+                  userKeys={player.userKeys}
+                  sys={sys}
+                  spelling={key.spelling}
+                  labels={keyLabels}
+                  onPress={userPress}
+                  onRelease={userRelease}
+                />
               </div>
-              <p className="text-xs text-slate-400 mb-3">Clicca un passo per impostarlo.</p>
-              <ol className="space-y-1.5">
-                {STEPS.map((s, i) => {
-                  const current =
-                    s.mode === mode && (s.mode === "listen" || (s.practice.R === practice.R && s.practice.L === practice.L));
-                  return (
-                    <li key={s.title}>
-                      <button
-                        onClick={() => startStep(i)}
-                        aria-pressed={current}
-                        className={`w-full text-left flex items-start gap-3 rounded-xl px-2.5 py-2 border transition ${
-                          current
-                            ? "border-indigo-400/80 bg-indigo-500/15"
-                            : "border-transparent hover:border-slate-700 hover:bg-slate-800/50"
-                        }`}
-                      >
-                        <span
-                          className={`mt-0.5 w-6 h-6 shrink-0 rounded-full grid place-items-center text-xs font-bold ${
-                            current ? "bg-indigo-400 text-slate-950" : "bg-slate-800 text-slate-300"
+            </div>
+
+            {/* ---------------- trasporto ---------------- */}
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-3 flex flex-wrap items-center gap-3">
+              <button
+                onClick={() => (playing ? pause() : void play())}
+                className="w-12 h-12 rounded-full bg-teal-400 text-slate-950 text-xl font-bold grid place-items-center hover:bg-teal-300 shadow-lg shadow-teal-500/20"
+                aria-label={playing ? "Pausa" : "Suona"}
+                title="Spazio"
+              >
+                {playing ? "❚❚" : "▶"}
+              </button>
+              <button
+                onClick={() => {
+                  pause();
+                  seek(loop ? loop[0] * 16 : 0);
+                }}
+                className="w-10 h-10 rounded-full border border-slate-600 text-slate-200 grid place-items-center hover:border-slate-400"
+                aria-label="Torna all'inizio"
+                title="Torna all'inizio"
+              >
+                ⏮
+              </button>
+              <div className="text-sm leading-tight">
+                <div className="text-slate-400 text-xs">Battuta</div>
+                <div className="font-bold tabular-nums">
+                  {player.measure + 1} / {totalMeasures}
+                </div>
+              </div>
+
+              <div className="flex rounded-lg overflow-hidden border border-slate-700 text-sm font-semibold ml-1">
+                {(["listen", "wait"] as Mode[]).map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => setMode(m)}
+                    className={`px-3 py-2 ${mode === m ? "bg-indigo-500/30 text-indigo-100" : "text-slate-300 hover:bg-slate-800"}`}
+                  >
+                    {m === "listen" ? "Ascolto" : "Attesa (suono io)"}
+                  </button>
+                ))}
+              </div>
+
+              {mode === "wait" && (
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-slate-400">Suono io</span>
+                  <div className="flex rounded-lg overflow-hidden border border-slate-700 font-semibold">
+                    {(
+                      [
+                        ["L", "Sinistra", { R: false, L: true }],
+                        ["R", "Destra", { R: true, L: false }],
+                        ["both", "Entrambe", { R: true, L: true }],
+                      ] as [string, string, HandSet][]
+                    ).map(([k, label, hs]) => {
+                      const on = practice.R === hs.R && practice.L === hs.L;
+                      const color = k === "both" ? "#e0e7ff" : HAND_COLOR[k as "R" | "L"];
+                      return (
+                        <button
+                          key={k}
+                          onClick={() => setPractice(hs)}
+                          className={`px-3 py-2 ${on ? "bg-slate-700" : "hover:bg-slate-800"}`}
+                          style={{ color: on ? color : "#94a3b8" }}
+                        >
+                          {label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              <label className="flex items-center gap-2 text-sm grow min-w-[220px]">
+                <span className="text-slate-400 whitespace-nowrap">Tempo</span>
+                <input
+                  type="range"
+                  min={30}
+                  max={120}
+                  step={5}
+                  value={tempoPct}
+                  onChange={(e) => setTempoPct(+e.target.value)}
+                  className="grow accent-teal-400"
+                />
+                <span className="tabular-nums font-semibold w-24 text-right">
+                  {tempoPct}% · {tempo}
+                  <span className="text-slate-500 text-xs"> bpm</span>
+                </span>
+              </label>
+
+            </div>
+
+          </section>
+          <aside className="space-y-4">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+              <div className="text-xs uppercase tracking-wider text-violet-300 font-semibold">{part.title}</div>
+              <h2 className="text-lg font-bold">{part.subtitle}</h2>
+              <p className="text-sm text-slate-400 mb-3">{part.focus}</p>
+              {key.semis !== 0 && (
+                <p className="text-xs text-amber-200/90 bg-amber-500/10 border border-amber-400/30 rounded-lg px-2.5 py-2 mb-3">
+                  Suggerimenti e diteggiature sono pensati per Do maggiore: in {chordName(key.id, sys)} maggiore i nomi delle note
+                  citati cambiano e sui tasti neri può servire una diteggiatura diversa.
+                </p>
+              )}
+              <ul className="space-y-2 text-sm text-slate-300">
+                {part.tips.map((t, i) => (
+                  <li key={i} className="flex gap-2">
+                    <span className="text-teal-300 mt-0.5">•</span>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {partIdx < 4 && (
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+                <div className="flex items-baseline justify-between mb-1">
+                  <h3 className="font-semibold">Percorso di studio</h3>
+                </div>
+                <p className="text-xs text-slate-400 mb-3">Clicca un passo per impostarlo.</p>
+                <ol className="space-y-1.5">
+                  {STEPS.map((s, i) => {
+                    const current =
+                      s.mode === mode && (s.mode === "listen" || (s.practice.R === practice.R && s.practice.L === practice.L));
+                    return (
+                      <li key={s.title}>
+                        <button
+                          onClick={() => startStep(i)}
+                          aria-pressed={current}
+                          className={`w-full text-left flex items-start gap-3 rounded-xl px-2.5 py-2 border transition ${
+                            current
+                              ? "border-indigo-400/80 bg-indigo-500/15"
+                              : "border-transparent hover:border-slate-700 hover:bg-slate-800/50"
                           }`}
                         >
-                          {i + 1}
-                        </span>
-                        <div className="grow">
-                          <div className="text-sm font-semibold flex items-center gap-2">
-                            {s.title}
-                            {current && <span className="text-[10px] uppercase tracking-wide text-indigo-200">in corso</span>}
+                          <span
+                            className={`mt-0.5 w-6 h-6 shrink-0 rounded-full grid place-items-center text-xs font-bold ${
+                              current ? "bg-indigo-400 text-slate-950" : "bg-slate-800 text-slate-300"
+                            }`}
+                          >
+                            {i + 1}
+                          </span>
+                          <div className="grow">
+                            <div className="text-sm font-semibold flex items-center gap-2">
+                              {s.title}
+                              {current && <span className="text-[10px] uppercase tracking-wide text-indigo-200">in corso</span>}
+                            </div>
+                            <div className="text-xs text-slate-400">{s.desc}</div>
                           </div>
-                          <div className="text-xs text-slate-400">{s.desc}</div>
-                        </div>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ol>
-            </div>
-          )}
-
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 space-y-3 text-sm">
-            <h3 className="font-semibold">Opzioni</h3>
-            <div className="grid grid-cols-2 gap-2">
-              <Toggle label="Metronomo" value={metronome} onChange={setMetronome} />
-              <Toggle label="Battuta d'attacco" value={countIn} onChange={setCountIn} />
-              <Toggle label="Ripeti" value={repeat} onChange={setRepeat} />
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-slate-400 w-20">Suono</span>
-              <Seg
-                value={sound}
-                onChange={(v) => chooseSound(v as SoundMode)}
-                options={[
-                  ["synth", "Sintetizzato"],
-                  ["piano", "Pianoforte"],
-                ]}
-              />
-            </div>
-            {sound === "piano" && loadState && loadState.done < loadState.total && (
-              <div className="text-xs text-slate-400">
-                Caricamento campioni… {loadState.done}/{loadState.total}
-                <div className="h-1 mt-1 rounded bg-slate-800 overflow-hidden">
-                  <div className="h-full bg-teal-400" style={{ width: `${(100 * loadState.done) / loadState.total}%` }} />
-                </div>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ol>
               </div>
             )}
-            <div className="flex items-center gap-2">
-              <span className="text-slate-400 w-20">Sulle note</span>
-              <Seg
-                value={labelMode}
-                onChange={(v) => setLabelMode(v as LabelMode)}
-                options={[
-                  ["names", "Nomi"],
-                  ["fingers", "Dita"],
-                  ["none", "Niente"],
-                ]}
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-slate-400 w-20">Nomi</span>
-              <Seg
-                value={sys}
-                onChange={(v) => setSys(v as NameSystem)}
-                options={[
-                  ["it", "Do Re Mi"],
-                  ["en", "C D E"],
-                ]}
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-slate-400 w-20">Tasti</span>
-              <Seg
-                value={keyLabels}
-                onChange={(v) => setKeyLabels(v as "c" | "all" | "none")}
-                options={[
-                  ["c", "Solo Do"],
-                  ["all", "Tutti"],
-                  ["none", "Nessuno"],
-                ]}
-              />
-            </div>
-            <label className="flex items-center gap-2">
-              <span className="text-slate-400 w-20">Zoom</span>
-              <input
-                type="range"
-                min={6}
-                max={26}
-                value={zoom}
-                onChange={(e) => setZoom(+e.target.value)}
-                className="grow accent-indigo-400"
-              />
-            </label>
-          </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 space-y-2 text-sm">
-            <h3 className="font-semibold">Come suonare</h3>
-            <p className="text-xs text-slate-400">
-              In modalità attesa le note si fermano sul tasto evidenziato in arancione: premi <kbd className="kbd">Spazio</kbd> (o
-              clicca il tasto) per suonarle e andare avanti. Negli altri momenti <kbd className="kbd">Spazio</kbd> avvia e mette in
-              pausa. In pausa puoi scorrere le note con la rotellina.
-            </p>
-          </div>
-        </aside>
+            <details className="group rounded-2xl border border-slate-800 bg-slate-900/70 text-sm">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded-2xl p-4 font-semibold hover:bg-slate-800/40 [&::-webkit-details-marker]:hidden">
+                <h3>Come suonare</h3>
+                <span aria-hidden="true" className="text-slate-400 transition-transform group-open:rotate-180">
+                  ▾
+                </span>
+              </summary>
+              <p className="px-4 pb-4 text-xs text-slate-400">
+                In modalità attesa le note si fermano sul tasto evidenziato in arancione: premi <kbd className="kbd">Spazio</kbd> (o
+                clicca il tasto) per suonarle e andare avanti. Negli altri momenti <kbd className="kbd">Spazio</kbd> avvia e mette in
+                pausa. In pausa puoi scorrere le note con la rotellina.
+              </p>
+            </details>
+          </aside>
+        </div>
+        {/* fascia 2: battute + spartito, uno sotto l'altro senza spazi | video (solo in Do) + opzioni */}
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_330px] items-start">
+          <section className="space-y-5 min-w-0">
+            {/* ---------------- battute ---------------- */}
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <div className="flex flex-wrap items-center gap-3">
+                  <h2 className="font-semibold text-slate-200">Battute</h2>
+                  <span className="flex items-center gap-1.5 text-xs text-slate-400">
+                    <span className="w-3 h-3 rounded" style={{ background: HAND_COLOR.R }} /> Mano destra
+                  </span>
+                  <span className="flex items-center gap-1.5 text-xs text-slate-400">
+                    <span className="w-3 h-3 rounded" style={{ background: HAND_COLOR.L }} /> Mano sinistra
+                  </span>
+                  {partIdx === 4 && (
+                    <div className="flex rounded-lg overflow-hidden border border-slate-700 text-xs font-semibold">
+                      {[0, 1, 2, 3].map((i) => (
+                        <button
+                          key={i}
+                          onClick={() => {
+                            if (playing) pause();
+                            if (loop) {
+                              pendingSeek.current = i * 8 * 16; // dopo che il loop è stato tolto
+                              setLoop(null);
+                            } else seek(i * 8 * 16);
+                          }}
+                          className={`px-2.5 py-1 ${gridPart === i ? "bg-indigo-500/30 text-indigo-100" : "text-slate-400 hover:bg-slate-800"}`}
+                        >
+                          Parte {i + 1}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <p className="text-xs text-slate-400">
+                  Clic su una battuta per ripeterla in loop · Maiusc+clic per allargare il loop
+                  {loop && (
+                    <button onClick={() => setLoop(null)} className="ml-2 text-amber-300 underline">
+                      togli loop ({loop[0] + 1}–{loop[1] + 1})
+                    </button>
+                  )}
+                </p>
+              </div>
+              <MeasureGrid
+                built={built}
+                measure={player.measure}
+                loop={loop}
+                sys={sys}
+                labelMode={labelMode}
+                live={live}
+                onSelect={selectMeasure}
+                partBreaks={partIdx === 4 ? 8 : undefined}
+                dense={dense}
+                range={gridRange}
+              />
+              {labelMode === "fingers" && (
+                <p className="mt-2 text-xs text-slate-400">Dita: 1 pollice · 2 indice · 3 medio · 4 anulare · 5 mignolo</p>
+              )}
+            </div>
+
+            {/* ---------------- spartito ---------------- */}
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <h2 className="font-semibold text-slate-200">Spartito</h2>
+                <p className="text-xs text-slate-400">Le note che suonano si illuminano · clic su una battuta per il loop</p>
+              </div>
+              <SheetMusic
+                built={built}
+                live={live}
+                measure={player.measure}
+                playing={playing || videoPlaying}
+                labelMode={labelMode}
+                loop={loop}
+                onSelect={selectMeasure}
+                singleRow={singleRow}
+                onGoToMeasure={(m) => {
+                  if (playing) pause();
+                  seek(m * 16);
+                }}
+              />
+            </div>
+          </section>
+          <aside className="space-y-4">
+            {showVideo && (
+              <VideoPanel
+                partIdx={partIdx}
+                appPlaying={playing}
+                onVideoPlay={() => {
+                  pause();
+                  setVideoPlaying(true);
+                }}
+                onVideoStop={() => setVideoPlaying(false)}
+                onVideoPos={seek}
+                loop={loop}
+                jump={videoJump}
+              />
+            )}
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 space-y-3 text-sm">
+              <h3 className="font-semibold">Opzioni</h3>
+              <div className="grid grid-cols-2 gap-2">
+                <Toggle label="Metronomo" value={metronome} onChange={setMetronome} />
+                <Toggle label="Battuta d'attacco" value={countIn} onChange={setCountIn} />
+                <Toggle label="Ripeti" value={repeat} onChange={setRepeat} />
+                <Toggle label="Spartito: una riga" value={singleRow} onChange={setSingleRow} />
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-slate-400 w-20">Suono</span>
+                <Seg
+                  value={sound}
+                  onChange={(v) => chooseSound(v as SoundMode)}
+                  options={[
+                    ["synth", "Sintetizzato"],
+                    ["piano", "Pianoforte"],
+                  ]}
+                />
+              </div>
+              {sound === "piano" && loadState && loadState.done < loadState.total && (
+                <div className="text-xs text-slate-400">
+                  Caricamento campioni… {loadState.done}/{loadState.total}
+                  <div className="h-1 mt-1 rounded bg-slate-800 overflow-hidden">
+                    <div className="h-full bg-teal-400" style={{ width: `${(100 * loadState.done) / loadState.total}%` }} />
+                  </div>
+                </div>
+              )}
+              <div className="flex items-center gap-2">
+                <span className="text-slate-400 w-20">Sulle note</span>
+                <Seg
+                  value={labelMode}
+                  onChange={(v) => setLabelMode(v as LabelMode)}
+                  options={[
+                    ["names", "Nomi"],
+                    ["fingers", "Dita"],
+                    ["none", "Niente"],
+                  ]}
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-slate-400 w-20">Nomi</span>
+                <Seg
+                  value={sys}
+                  onChange={(v) => setSys(v as NameSystem)}
+                  options={[
+                    ["it", "Do Re Mi"],
+                    ["en", "C D E"],
+                  ]}
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-slate-400 w-20">Tasti</span>
+                <Seg
+                  value={keyLabels}
+                  onChange={(v) => setKeyLabels(v as "c" | "all" | "none")}
+                  options={[
+                    ["c", "Solo Do"],
+                    ["all", "Tutti"],
+                    ["none", "Nessuno"],
+                  ]}
+                />
+              </div>
+              <label className="flex items-center gap-2">
+                <span className="text-slate-400 w-20">Zoom</span>
+                <input
+                  type="range"
+                  min={6}
+                  max={26}
+                  value={zoom}
+                  onChange={(e) => setZoom(+e.target.value)}
+                  className="grow accent-indigo-400"
+                />
+              </label>
+            </div>
+
+          </aside>
+        </div>
       </main>
 
 <p className="max-w-7xl mx-auto px-4 pb-4 text-xs text-slate-500">

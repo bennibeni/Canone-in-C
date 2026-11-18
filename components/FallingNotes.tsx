@@ -18,6 +18,7 @@ interface Props {
   practice: HandSet;
   loop: [number, number] | null;
   zoom: number; // pixel per sedicesimo
+  /** altezza minima: il riquadro si allunga per riempire lo spazio disponibile */
   height: number;
   playing: boolean;
   onSeek: (pos: number) => void;
@@ -43,11 +44,13 @@ export function FallingNotes(p: Props) {
 
     const resize = () => {
       W = wrap.clientWidth;
-      H = props.current.height;
+      H = Math.max(props.current.height, Math.floor(wrap.clientHeight));
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
       canvas.style.width = W + "px";
       canvas.style.height = H + "px";
+      canvas.style.position = "absolute";
+      canvas.style.inset = "0";
     };
     const ro = new ResizeObserver(resize);
     ro.observe(wrap);
@@ -66,7 +69,7 @@ export function FallingNotes(p: Props) {
 
     const draw = () => {
       const { built, posRef, targetsRef, sys, labelMode, mode, practice, loop, zoom } = props.current;
-      if (H !== props.current.height) resize();
+      if (H !== Math.max(props.current.height, Math.floor(wrap.clientHeight))) resize();
       const { keys, whiteCount } = layoutRef.current;
       const kw = W / whiteCount;
       const keyX = new Map<number, [number, number]>();
@@ -204,8 +207,8 @@ export function FallingNotes(p: Props) {
   return (
     <div
       ref={wrapRef}
-      className="relative w-full overflow-hidden"
-      style={{ height: p.height, cursor: p.playing ? "default" : "ns-resize" }}
+      className="relative w-full overflow-hidden flex-1"
+      style={{ minHeight: p.height, cursor: p.playing ? "default" : "ns-resize" }}
       onWheel={onWheel}
       onPointerDown={(e) => {
         if (p.playing) return;
