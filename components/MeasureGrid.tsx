@@ -1,6 +1,6 @@
 "use client";
 
-import type { BuiltPart, Hand, ScoreNote } from "@/lib/score";
+import type { BuiltPart, Hand, ScoreNote, ScoreRest } from "@/lib/score";
 import { chordName, spelledName, type LabelMode, type NameSystem } from "@/lib/notes";
 import { HAND_COLOR } from "./Keyboard";
 
@@ -13,7 +13,8 @@ interface Props {
   /** note che stanno suonando o che l'app attende: chiavi "mano:inizio" */
   live: Set<string>;
   onSelect: (m: number, extend: boolean) => void;
-  partBreaks?: number; // battute per parte (vista brano completo)
+  /** brano completo: mostra P1, P2… davanti al numero di battuta */
+  showParts?: boolean;
   dense?: boolean; // ci sono semicrome: meno colonne
   /** battute da mostrare [inizio, fine) — nel brano completo solo la parte corrente */
   range?: [number, number];
@@ -29,12 +30,14 @@ const DUR_LABEL: Record<number, string> = {
 
 function Row({
   notes,
+  rests,
   hand,
   sys,
   labelMode,
   live,
 }: {
   notes: ScoreNote[];
+  rests: ScoreRest[];
   hand: Hand;
   sys: NameSystem;
   labelMode: LabelMode;
@@ -47,9 +50,15 @@ function Row({
     if (g && g[0].start === n.start) g.push(n);
     else groups.push([n]);
   }
+  // le pause occupano lo spazio della loro durata (senza riquadro)
+  const items: (ScoreNote[] | ScoreRest)[] = [...groups, ...rests].sort(
+    (a, b) => (Array.isArray(a) ? a[0].start : a.start) - (Array.isArray(b) ? b[0].start : b.start)
+  );
   return (
     <div className="flex gap-[2px] h-7">
-      {groups.map((g) => {
+      {items.map((g) => {
+        if (!Array.isArray(g))
+          return <div key={"r" + g.start + hand} style={{ flex: g.dur }} title={`pausa — ${DUR_LABEL[g.dur] ?? g.dur + "/16"}`} />;
         const d = g[0].dur;
         const on = live.has(hand + ":" + g[0].start);
         const text =
@@ -75,7 +84,8 @@ function Row({
   );
 }
 
-export function MeasureGrid({ built, measure, loop, sys, labelMode, live, onSelect, partBreaks, dense, range }: Props) {
+export function MeasureGrid({ built, measure, loop, sys, labelMode, live, onSelect, showParts, dense, range }: Props) {
+  const partOf = (m: number) => built.partStarts.filter((s) => s <= m).length;
   const byMeasure = built.part.measures.map((_, i) => built.notes.filter((n) => n.measure === i));
   return (
     <div className={`grid gap-2 ${dense ? "grid-cols-1 md:grid-cols-2" : "grid-cols-2 md:grid-cols-4"}`}>
@@ -98,15 +108,16 @@ export function MeasureGrid({ built, measure, loop, sys, labelMode, live, onSele
           >
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-[11px] text-slate-400 font-semibold">
-                {partBreaks ? `P${Math.floor(i / partBreaks) + 1} · ` : ""}Battuta {i + 1}
+                {showParts ? `P${partOf(i)} · ` : ""}
+                {built.labels[i] === "Levare" ? "Levare" : `Battuta ${built.labels[i]}`}
               </span>
               <span className="text-xs font-bold text-emerald-300 tracking-wide">
-                {chordName(m.chords[0], sys)} · {chordName(m.chords[1], sys)}
+                {m.chords.map((c) => chordName(c, sys)).join(" · ")}
               </span>
             </div>
             <div className="space-y-1">
-              <Row notes={notes.filter((n) => n.hand === "R")} hand="R" sys={sys} labelMode={labelMode} live={live} />
-              <Row notes={notes.filter((n) => n.hand === "L")} hand="L" sys={sys} labelMode={labelMode} live={live} />
+              <Row notes={notes.filter((n) => n.hand === "R")} rests={built.rests.filter((r) => r.measure === i && r.hand === "R")} hand="R" sys={sys} labelMode={labelMode} live={live} />
+              <Row notes={notes.filter((n) => n.hand === "L")} rests={built.rests.filter((r) => r.measure === i && r.hand === "L")} hand="L" sys={sys} labelMode={labelMode} live={live} />
             </div>
           </button>
         );

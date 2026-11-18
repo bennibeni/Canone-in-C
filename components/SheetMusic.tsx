@@ -153,18 +153,26 @@ export function SheetMusic({ built, live, measure, playing, labelMode, loop, onS
                   sn.addModifier(f, k);
                 });
               }
-              return { sn, key: `${hand}:${g[0].start}` };
+              return { sn, key: `${hand}:${g[0].start}`, start: g[0].start };
             });
+            // pause della battuta (in mezzo al pentagramma)
+            const rests = built.rests
+              .filter((r) => r.measure === m && r.hand === hand)
+              .map((r) => ({
+                sn: new StaveNote({ keys: [clef === "treble" ? "b/4" : "d/3"], duration: (VF_DUR[r.dur] ?? "8") + "r", clef }),
+                start: r.start,
+              }));
+            const ticks = [...notes, ...rests].sort((a, b) => a.start - b.start).map((x) => x.sn);
             const voice = new Voice({ numBeats: 4, beatValue: 4 }).setMode(Voice.Mode.SOFT);
-            voice.addTickables(notes.map((n) => n.sn));
+            voice.addTickables(ticks);
             Accidental.applyAccidentals([voice], keySig);
-            return { voice, notes };
+            return { voice, notes, ticks };
           };
           const rh = build("R", "treble");
           const lh = build("L", "bass");
           const beams = [
-            ...Beam.generateBeams(rh.notes.map((n) => n.sn)),
-            ...Beam.generateBeams(lh.notes.map((n) => n.sn)),
+            ...Beam.generateBeams(rh.ticks),
+            ...Beam.generateBeams(lh.ticks),
           ];
           const startX = Math.max(treble.getNoteStartX(), bass.getNoteStartX());
           treble.setNoteStartX(startX);

@@ -28,6 +28,12 @@ function KeyboardImpl({ lo, hi, active, targets, userKeys, sys, spelling, labels
     for (const n of active) m.set(n.midi, n.hand);
     return m;
   }, [active]);
+  // numero del dito sui tasti che stanno suonando
+  const fingerMap = useMemo(() => {
+    const m = new Map<number, number>();
+    for (const n of active) if (n.finger) m.set(n.midi, n.finger);
+    return m;
+  }, [active]);
   const targetSet = useMemo(() => new Set(targets), [targets]);
 
   const H = 5.2; // altezza tasti bianchi in unità
@@ -41,6 +47,28 @@ function KeyboardImpl({ lo, hi, active, targets, userKeys, sys, spelling, labels
     const h = activeMap.get(midi);
     if (h) return HAND_COLOR[h];
     return black ? "#111827" : "#f8fafc";
+  };
+
+  /** cerchietto con il numero del dito, centrato in (cx, cy) */
+  const finger = (midi: number, cx: number, cy: number, black: boolean) => {
+    const f = fingerMap.get(midi);
+    if (!f) return null;
+    const h = activeMap.get(midi) ?? "R";
+    return (
+      <g style={{ pointerEvents: "none" }} data-finger={f}>
+        <circle cx={cx} cy={cy} r={black ? 0.3 : 0.36} fill={black ? "#0f172a" : "#ffffff"} stroke={HAND_COLOR_DIM[h]} strokeWidth={0.06} />
+        <text
+          x={cx}
+          y={cy + (black ? 0.13 : 0.16)}
+          fontSize={black ? 0.38 : 0.46}
+          textAnchor="middle"
+          fontWeight={800}
+          fill={black ? HAND_COLOR[h] : HAND_COLOR_DIM[h]}
+        >
+          {f}
+        </text>
+      </g>
+    );
   };
 
   const handlers = (midi: number) => ({
@@ -91,6 +119,7 @@ function KeyboardImpl({ lo, hi, active, targets, userKeys, sys, spelling, labels
                   className="animate-pulse"
                 />
               )}
+              {finger(k.midi, k.x + k.w / 2, BH + 0.65, false)}
               {showLabel && (
                 <text
                   x={k.x + 0.5}
@@ -122,6 +151,7 @@ function KeyboardImpl({ lo, hi, active, targets, userKeys, sys, spelling, labels
               strokeWidth={targetSet.has(k.midi) ? 0.12 : 0.04}
               className={targetSet.has(k.midi) ? "animate-pulse" : undefined}
             />
+            {finger(k.midi, k.x + k.w / 2, BH - 0.45, true)}
           </g>
         ))}
     </svg>

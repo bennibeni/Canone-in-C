@@ -1,7 +1,8 @@
-# Canone in Do — app didattica
+# Brani al pianoforte — app didattica
 
-App Next.js (App Router, React 19, Tailwind 4) per imparare il Canone di Pachelbel al pianoforte,
-diviso nelle 4 parti dell'arrangiamento di @reeveswongpiano.
+App Next.js (App Router, React 19, Tailwind 4) per imparare brani al pianoforte divisi in parti,
+dagli arrangiamenti di @reeveswongpiano: **Canone** (Pachelbel, 4 parti) e **Autumn Leaves** (Kosma, 2 parti).
+I brani si scelgono dal menu verticale a sinistra; ogni brano ha il suo indirizzo (`/canone`, `/autumn-leaves`).
 
 ## Avvio
 
@@ -32,7 +33,8 @@ npm run build    # build di produzione (pronta per Vercel)
 ```
 app/                 layout, pagina, stili globali
 components/
-  CanonApp.tsx       interfaccia principale e stato
+  SongApp.tsx        interfaccia principale (generica per qualunque brano)
+  SongMenu.tsx       menu verticale dei brani
   FallingNotes.tsx   canvas con le note che scendono
   Keyboard.tsx       tastiera SVG
   MeasureGrid.tsx    griglia delle battute (loop)
@@ -40,7 +42,9 @@ components/
 hooks/
   usePlayer.ts       trasporto, scheduling audio, modalità attesa
 lib/
-  score.ts           TRASCRIZIONE delle 4 parti (modificabile)
+  score.ts           modello dei brani, lettura delle battute, trasposizione
+  songs/             i brani (canone.ts, autumn-leaves.ts) e l'elenco index.ts
+  videoSync.ts       sincronizzazione video ↔ spartito
   audio.ts           suono: sintetizzatore Web Audio o campioni (SAMPLE_EXT = "wav" | "mp3")
   audio-engine/      motore a campioni copiato da Keyboard (src/app/audio-engine)
   notes.ts           nomi delle note, geometria della tastiera
@@ -57,3 +61,14 @@ Ogni battuta ha due accordi, la mano destra e la sinistra:
 `NOTA:durata` con durata in sedicesimi (1 semicroma, 2 croma, 4 semiminima, 6 semiminima puntata, 8 minima).
 Note simultanee con `+` (es. `G2+C4`). Nella sinistra la durata predefinita è la croma.
 Ogni battuta deve sommare 16: in console compare un avviso se non torna.
+
+## Aggiungere un brano
+
+1. Crea `lib/songs/<slug>.ts` con un oggetto `Song` (vedi `canone.ts` e `autumn-leaves.ts`): titolo, compositore,
+   tonalità dei dati/video (`videoKey`), modo (`major`/`minor`), progressione, e le parti con le battute.
+2. Battute: `{ chords: ["Dm"], rh: "r:4 G4:4 A4:4 B4:4", lh: "G2:2 D3:2 …", rf: "1 2 3", lf: "5 2 1 2 …" }`
+   — `r:durata` è una pausa, `pickup: true` sulla parte se la prima battuta è un levare.
+3. Video: metti i file in `public/videos` e aggiungi a ogni parte `videos: [{ label, src, beats }]`,
+   dove `beats` è il secondo di ogni movimento (4 per battuta). Per i reel a note che scendono gli script in
+   `scripts/video-transcribe` ricavano note, ritmo, diteggiatura e `beats`.
+4. Aggiungi il brano a `SONGS` in `lib/songs/index.ts`: compare nel menu.

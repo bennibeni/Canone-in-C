@@ -1,5 +1,6 @@
-import CanonApp from "@/components/CanonApp";
+import { redirect } from "next/navigation";
+import { SONGS } from "@/lib/songs";
 
 export default function Page() {
-  return <CanonApp />;
+  redirect(`/${SONGS[0].slug}`);
 }

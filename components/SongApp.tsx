@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { KEYS, PARTS, buildFull, buildPart } from "@/lib/score";
+import { KEYS, buildFull, buildPart, keyTonic, transposeChord } from "@/lib/score";
+import { getSong } from "@/lib/songs";
+import { SongMenu } from "./SongMenu";
 import { chordName, rangeFor, spelledName, type LabelMode, type NameSystem } from "@/lib/notes";
 import { preloadPiano, setSoundMode, type SoundMode } from "@/lib/audio";
 import { usePlayer, type FinishResult, type HandSet, type Mode } from "@/hooks/usePlayer";
@@ -19,11 +21,16 @@ const STEPS: { title: string; desc: string; mode: Mode; practice: HandSet }[] = 
 ];
 
 
-export default function CanonApp() {
-  const [partIdx, setPartIdx] = useState(0); // 0..3 = parti, 4 = brano completo
+export default function SongApp({ slug }: { slug: string }) {
+  const song = getSong(slug)!;
+  const nParts = song.parts.length;
+  const [partIdx, setPartIdx] = useState(0); // 0..nParts-1 = parti, nParts = brano completo
   const [keyId, setKeyId] = useState("C");
   const key = KEYS.find((k) => k.id === keyId) ?? KEYS[0];
-  const built = useMemo(() => (partIdx < 4 ? buildPart(PARTS[partIdx], key) : buildFull(key)), [partIdx, key]);
+  const built = useMemo(
+    () => (partIdx < nParts ? buildPart(song, song.parts[partIdx], key) : buildFull(song, key)),
+    [song, nParts, partIdx, key]
+  );
   const part = built.part;
 
   const [mode, setMode] = useState<Mode>("listen");
@@ -48,28 +55,23 @@ export default function CanonApp() {
   // tonalità scelta: ricordata nel browser
   useEffect(() => {
     try {
-      const k = localStorage.getItem("canone-in-do:key");
+      const k = localStorage.getItem(`canone-in-do:key:${slug}`);
       if (k && KEYS.some((x) => x.id === k)) setKeyId(k);
     } catch {}
-  }, []);
+  }, [slug]);
   const chooseKey = (id: string) => {
     setKeyId(id);
     try {
-      localStorage.setItem("canone-in-do:key", id);
+      localStorage.setItem(`canone-in-do:key:${slug}`, id);
     } catch {}
   };
-  const progression = useMemo(
-    () =>
-      buildPart(PARTS[0], key)
-        .part.measures.slice(0, 4)
-        .flatMap((m) => m.chords)
-        .map((c) => chordName(c, sys)),
-    [key, sys]
-  );
+  const progression = useMemo(() => song.progression.map((c) => chordName(transposeChord(c, key), sys)), [song, key, sys]);
+  const keyLabel = (id: string) => `${chordName(keyTonic(song, id), sys)} ${song.mode === "minor" ? "minore" : "maggiore"}`;
 
   useEffect(() => {
     setLoop(null);
-    setZoom([10, 14, 22, 14, 14][partIdx]);
+    setZoom(built.notes.some((n) => n.dur === 1) ? 22 : 13);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [partIdx]);
 
   const onFinish = useCallback(
@@ -146,7 +148,9 @@ export default function CanonApp() {
   };
 
   // video: solo in Do maggiore (sono registrati in Do); quando suona guida spartito e note
-  const showVideo = key.id === "C";
+  const showVideo =
+    key.id === song.videoKey &&
+    (partIdx < nParts ? !!song.parts[partIdx].videos?.length : song.parts.some((p) => p.videos?.length));
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [videoJump, setVideoJump] = useState<{ m: number; n: number } | null>(null);
   useEffect(() => {
@@ -160,7 +164,6 @@ export default function CanonApp() {
     setVideoJump({ m: extend && loop ? Math.min(loop[0], m) : m, n: Date.now() });
   };
 
-  const totalMeasures = part.measures.length;
   // salto da applicare dopo il cambio di loop (il player riparte dall'inizio quando il loop cambia)
   const pendingSeek = useRef<number | null>(null);
   useEffect(() => {
@@ -170,9 +173,32 @@ export default function CanonApp() {
     }
   }, [loop, seek]);
 
-  // battute: nel brano completo si vedono solo le 8 battute della parte corrente (due righe come nelle parti)
-  const gridPart = partIdx === 4 ? Math.floor(player.measure / 8) : 0;
-  const gridRange: [number, number] | undefined = partIdx === 4 ? [gridPart * 8, gridPart * 8 + 8] : undefined;
+  // battute: si vedono al massimo 8 battute (due righe), quelle della pagina in cui si trova la musica;
+  // nel brano completo le pagine sono dentro la parte corrente
+  const isFull = partIdx === nParts;
+  const starts = built.partStarts;
+  const gridPart = isFull ? starts.filter((st) => st <= player.measure).length - 1 : 0;
+  const partRange: [number, number] = isFull
+    ? [starts[gridPart], starts[gridPart + 1] ?? built.part.measures.length]
+    : [0, built.part.measures.length];
+  const PAGE = 8;
+  const pageStarts: number[] = [];
+  for (let m = partRange[0]; m < partRange[1]; m += PAGE) pageStarts.push(m);
+  const gridPage = Math.max(0, Math.min(pageStarts.length - 1, Math.floor((player.measure - partRange[0]) / PAGE)));
+  const gridRange: [number, number] = [pageStarts[gridPage], Math.min(partRange[1], pageStarts[gridPage] + PAGE)];
+  const pageLabel = (a: number) => {
+    const b = Math.min(partRange[1], a + PAGE) - 1;
+    const l = (m: number) => built.labels[m];
+    return a === b ? l(a) : `${l(a)}–${l(b)}`;
+  };
+  /** va a una battuta (in pausa); se c'è un loop lo toglie prima */
+  const goTo = (m: number) => {
+    if (playing) pause();
+    if (loop) {
+      pendingSeek.current = m * 16; // dopo che il loop è stato tolto
+      setLoop(null);
+    } else seek(m * 16);
+  };
   const dense = built.notes.some((n) => n.dur === 1 && (!gridRange || (n.measure >= gridRange[0] && n.measure < gridRange[1])));
 
   // note in esecuzione (o attese) da far lampeggiare nei pannelli delle battute
@@ -192,15 +218,18 @@ export default function CanonApp() {
   const waitingForUser = mode === "wait" && player.targets.length > 0;
 
   return (
-    <div className="min-h-screen bg-[#060912] text-slate-200">
+    <div className="min-h-screen bg-[#060912] text-slate-200 lg:flex">
+      <SongMenu current={slug} />
+      <div className="flex-1 min-w-0">
       <header className="border-b border-slate-800/80 bg-[#070b17]">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-end gap-x-6 gap-y-3">
           <div>
             <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-indigo-300 via-violet-300 to-teal-200 bg-clip-text text-transparent">
-              Canone in {chordName(key.id, sys)}
+              {song.titleWithKey ? `${song.title} in ${chordName(keyTonic(song, key.id), sys)}` : song.title}
             </h1>
             <p className="text-sm text-slate-400">
-              Johann Pachelbel · progressione <span className="text-emerald-300 font-semibold">{progression.join(" → ")}</span>
+              {song.composer} · {song.progressionLabel ?? "progressione"}{" "}
+              <span className="text-emerald-300 font-semibold">{progression.join(" → ")}</span>
             </p>
           </div>
           <label className="flex items-center gap-2 text-sm">
@@ -212,13 +241,14 @@ export default function CanonApp() {
             >
               {KEYS.map((k) => (
                 <option key={k.id} value={k.id}>
-                  {chordName(k.id, sys)} maggiore{k.id === "D" ? " (originale)" : ""}
+                  {keyLabel(k.id)}
+                  {k.id === song.videoKey && song.parts.some((p) => p.videos?.length) ? " · video" : ""}
                 </option>
               ))}
             </select>
           </label>
           <nav className="flex flex-wrap gap-1.5 ml-auto" aria-label="Parti">
-            {[...PARTS.map((p) => p.title), "Brano completo"].map((t, i) => {
+            {[...song.parts.map((p) => p.title), ...(nParts > 1 ? ["Brano completo"] : [])].map((t, i) => {
               return (
                 <button
                   key={t}
@@ -312,7 +342,7 @@ export default function CanonApp() {
               <div className="text-sm leading-tight">
                 <div className="text-slate-400 text-xs">Battuta</div>
                 <div className="font-bold tabular-nums">
-                  {player.measure + 1} / {totalMeasures}
+                  {built.labels[player.measure] === "Levare" ? "levare" : built.labels[player.measure]} / {built.measureCount}
                 </div>
               </div>
 
@@ -397,7 +427,7 @@ export default function CanonApp() {
               </ul>
             </div>
 
-            {partIdx < 4 && (
+            {partIdx < nParts && (
               <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
                 <div className="flex items-baseline justify-between mb-1">
                   <h3 className="font-semibold">Percorso di studio</h3>
@@ -469,21 +499,28 @@ export default function CanonApp() {
                   <span className="flex items-center gap-1.5 text-xs text-slate-400">
                     <span className="w-3 h-3 rounded" style={{ background: HAND_COLOR.L }} /> Mano sinistra
                   </span>
-                  {partIdx === 4 && (
+                  {isFull && (
                     <div className="flex rounded-lg overflow-hidden border border-slate-700 text-xs font-semibold">
-                      {[0, 1, 2, 3].map((i) => (
+                      {song.parts.map((_, i) => (
                         <button
                           key={i}
-                          onClick={() => {
-                            if (playing) pause();
-                            if (loop) {
-                              pendingSeek.current = i * 8 * 16; // dopo che il loop è stato tolto
-                              setLoop(null);
-                            } else seek(i * 8 * 16);
-                          }}
+                          onClick={() => goTo(starts[i])}
                           className={`px-2.5 py-1 ${gridPart === i ? "bg-indigo-500/30 text-indigo-100" : "text-slate-400 hover:bg-slate-800"}`}
                         >
                           Parte {i + 1}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  {pageStarts.length > 1 && (
+                    <div className="flex rounded-lg overflow-hidden border border-slate-700 text-xs font-semibold" aria-label="Gruppi di battute">
+                      {pageStarts.map((a, i) => (
+                        <button
+                          key={a}
+                          onClick={() => goTo(a)}
+                          className={`px-2.5 py-1 tabular-nums ${gridPage === i ? "bg-teal-400/20 text-teal-100" : "text-slate-400 hover:bg-slate-800"}`}
+                        >
+                          {pageLabel(a)}
                         </button>
                       ))}
                     </div>
@@ -493,7 +530,7 @@ export default function CanonApp() {
                   Clic su una battuta per ripeterla in loop · Maiusc+clic per allargare il loop
                   {loop && (
                     <button onClick={() => setLoop(null)} className="ml-2 text-amber-300 underline">
-                      togli loop ({loop[0] + 1}–{loop[1] + 1})
+                      togli loop ({built.labels[loop[0]]}–{built.labels[loop[1]]})
                     </button>
                   )}
                 </p>
@@ -506,7 +543,7 @@ export default function CanonApp() {
                 labelMode={labelMode}
                 live={live}
                 onSelect={selectMeasure}
-                partBreaks={partIdx === 4 ? 8 : undefined}
+                showParts={isFull}
                 dense={dense}
                 range={gridRange}
               />
@@ -540,7 +577,9 @@ export default function CanonApp() {
           <aside className="space-y-4">
             {showVideo && (
               <VideoPanel
+                song={song}
                 partIdx={partIdx}
+                partStarts={starts}
                 appPlaying={playing}
                 onVideoPlay={() => {
                   pause();
@@ -550,6 +589,7 @@ export default function CanonApp() {
                 onVideoPos={seek}
                 loop={loop}
                 jump={videoJump}
+                onSelectPart={setPartIdx}
               />
             )}
             <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 space-y-3 text-sm">
@@ -631,14 +671,13 @@ export default function CanonApp() {
         </div>
       </main>
 
-<p className="max-w-7xl mx-auto px-4 pb-4 text-xs text-slate-500">
-        Trascrizione dall&apos;arrangiamento in quattro parti di @reeveswongpiano.
-      </p>
+      <p className="max-w-7xl mx-auto px-4 pb-4 text-xs text-slate-500">{song.credit}</p>
       <footer className="projects-footer">
         <a href="https://links-page-bennibeni.vercel.app/">
           <span aria-hidden="true">← </span>All projects
         </a>
       </footer>
+      </div>
     </div>
   );
 }

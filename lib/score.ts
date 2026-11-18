@@ -1,7 +1,9 @@
-// Canone in Re di Pachelbel, arrangiamento in Do (Reeves Wong) — trascrizione dai 4 video.
-// Notazione: "NOTA:durata" con durata in sedicesimi (2 = croma, 4 = semiminima,
-// 6 = semiminima puntata, 8 = minima). Più note insieme: "G2+C4".
-// Mano sinistra: se la durata manca vale 2 (croma).
+// Modello dei brani e costruzione delle note da suonare.
+//
+// Notazione delle battute: "NOTA:durata" con durata in sedicesimi (1 semicroma, 2 croma,
+// 4 semiminima, 6 semiminima puntata, 8 minima, 12 minima puntata, 16 semibreve).
+// Più note insieme: "G2+C4". Pausa: "r:4". Ogni battuta deve sommare 16 (4/4).
+// Nella mano sinistra la durata predefinita è la croma.
 
 export type Hand = "R" | "L";
 
@@ -12,15 +14,33 @@ export interface ScoreNote {
   hand: Hand;
   measure: number; // indice battuta (0-based)
   label: string; // nota scritta nella tonalità scelta, es. "F#5"
-  finger?: number; // diteggiatura suggerita (1 = pollice … 5 = mignolo)
+  finger?: number; // diteggiatura (1 = pollice … 5 = mignolo)
+}
+
+export interface ScoreRest {
+  start: number;
+  dur: number;
+  hand: Hand;
+  measure: number;
 }
 
 export interface Measure {
-  chords: [string, string];
+  /** accordi della battuta, distribuiti in parti uguali (1 = tutta la battuta, 2 = mezza ciascuno) */
+  chords: string[];
   rh: string;
   lh: string;
-  /** diteggiatura della mano destra, un numero per ogni nota di `rh` */
+  /** diteggiatura della mano destra: un numero per ogni nota o accordo di `rh` (pause escluse) */
   rf?: string;
+  /** diteggiatura della mano sinistra; se manca si usa `Song.lhPattern` */
+  lf?: string;
+}
+
+export interface VideoDef {
+  label: string;
+  /** percorso in /public, es. "/videos/…mp4" */
+  src: string;
+  /** secondo del video in cui cade ogni movimento (4 per battuta), dalla battuta 1 alla fine */
+  beats: number[];
 }
 
 export interface Part {
@@ -31,120 +51,29 @@ export interface Part {
   tips: string[];
   tempo: number; // BPM suggeriti (semiminima)
   measures: Measure[];
+  /** la prima battuta è un levare: si chiama "Levare" e le altre si numerano da 1 */
+  pickup?: boolean;
+  videos?: VideoDef[];
 }
 
-const LH = {
-  C_G: "C3 G3 C4 G3 G2 D3 G3 D3",
-  Am_Em: "A2 E3 A3 E3 E2 B2 E3 B2",
-  F_C: "F2 C3 F3 C3 C3 G3 C4 G3",
-  F_C_low: "F2 C3 F3 C3 C2 G2+C4 C3 G2",
-  F_C_low2: "F2 C3 F3 C3 C2 G2 C3 G2",
-  F_G: "F2 C3 F3 C3 G2 D3 G3 D3",
-  Dm_G: "D2 A2 D3 A2 G2 D3 G3 D3",
-};
-
-// Parte 1 — arpeggi aperti nella sinistra (10a), minime nella destra
-const P1_LH = {
-  C_G: "C3 G3 C4 E4 G2 D3 G3 B3",
-  Am_Em: "A2 E3 A3 C4 E2 B2 E3 G3",
-  F_C: "F2 C3 F3 A3 C3 G3 C4 E4",
-  F_G: "F2 C3 F3 A3 G2 D3 G3 B3",
-};
-
-export const PARTS: Part[] = [
-  {
-    id: 1,
-    title: "Parte 1",
-    subtitle: "Il basso del Canone",
-    focus: "Minime nella destra, arpeggi a crome nella sinistra",
-    tempo: 72,
-    tips: [
-      "La progressione è sempre la stessa: Do – Sol – Lam – Mim – Fa – Do – Fa – Sol. Due accordi per battuta.",
-      "Sinistra: ogni accordo è un arpeggio di 4 crome (fondamentale, quinta, ottava, decima). Imparala da sola finché non va in automatico.",
-      "Destra: una nota lunga (minima) per accordo, che scende per gradi: Mi Re Do Si La Sol La Si.",
-      "Al secondo giro la melodia riparte una terza sotto: Do Si La Sol Fa Mi Fa Sol.",
-    ],
-    measures: [
-      { chords: ["C", "G"], rh: "E6:8 D6:8", rf: "5 4", lh: P1_LH.C_G },
-      { chords: ["Am", "Em"], rh: "C6:8 B5:8", rf: "3 2", lh: P1_LH.Am_Em },
-      { chords: ["F", "C"], rh: "A5:8 G5:8", rf: "3 2", lh: P1_LH.F_C },
-      { chords: ["F", "G"], rh: "A5:8 B5:8", rf: "3 4", lh: P1_LH.F_G },
-      { chords: ["C", "G"], rh: "C6:8 B5:8", rf: "5 4", lh: P1_LH.C_G },
-      { chords: ["Am", "Em"], rh: "A5:8 G5:8", rf: "3 2", lh: P1_LH.Am_Em },
-      { chords: ["F", "C"], rh: "F5:8 E5:8", rf: "2 1", lh: P1_LH.F_C },
-      { chords: ["F", "G"], rh: "F5:8 G5:8", rf: "2 3", lh: P1_LH.F_G },
-    ],
-  },
-  {
-    id: 2,
-    title: "Parte 2",
-    subtitle: "La melodia a crome",
-    focus: "Crome nella destra, poi semiminime",
-    tempo: 72,
-    tips: [
-      "La sinistra cambia schema: fondamentale – quinta – ottava – quinta, sempre a crome.",
-      "Battute 1–4: la destra suona crome con salti d'ottava (Do6 → Do5). Guarda prima la forma della mano, poi le note.",
-      "Battute 5–8: semiminime, una ogni movimento. È il momento per curare il legato.",
-      "Nell'ultima battuta compare il Re minore (Dm): la sinistra scende fino al Re2.",
-    ],
-    measures: [
-      { chords: ["C", "G"], rh: "C6:2 B5:2 C6:2 C5:2 B4:2 G5:2 D5:2 E5:2", rf: "5 4 5 2 1 5 2 3", lh: LH.C_G },
-      { chords: ["Am", "Em"], rh: "C5:2 C6:2 B5:2 A5:2 B5:2 E6:2 G6:2 A6:2", rf: "1 5 4 3 1 2 4 5", lh: LH.Am_Em },
-      { chords: ["F", "C"], rh: "F6:2 E6:2 D6:2 F6:2 E6:2 D6:2 C6:2 B5:2", rf: "5 4 3 5 4 3 2 1", lh: LH.F_C },
-      { chords: ["F", "G"], rh: "A5:2 G5:2 F5:2 E5:2 D5:2 F5:2 E5:2 D5:2", rf: "3 2 1 3 2 4 3 2", lh: LH.F_G },
-      { chords: ["C", "G"], rh: "C5:4 C6:4 G5:4 B5:4", rf: "1 5 2 4", lh: LH.C_G },
-      { chords: ["Am", "Em"], rh: "E5:4 A5:4 D5:4 G5:4", rf: "1 4 1 4", lh: LH.Am_Em },
-      { chords: ["F", "C"], rh: "A4:4 F5:4 E5:4 G5:4", rf: "1 4 3 5", lh: LH.F_C },
-      { chords: ["Dm", "G"], rh: "D5:4 C6:4 G5:4 B5:4", rf: "1 5 2 4", lh: LH.Dm_G },
-    ],
-  },
-  {
-    id: 3,
-    title: "Parte 3",
-    subtitle: "Le semicrome",
-    focus: "Croma + due semicrome e scale veloci",
-    tempo: 66,
-    tips: [
-      "Ritmo base della destra: croma + due semicrome («taaa-ti-ti»). Contalo ad alta voce prima di suonare.",
-      "Le scale a semicrome (Sol4 → Sol5) vanno diteggiate con il passaggio del pollice: provale lente, a mani separate.",
-      "Battuta 3: attenzione alla sincope semicroma – croma – semicroma (Mi Re · Re).",
-      "Le battute 5–8 ripetono esattamente le battute 1–4.",
-    ],
-    measures: [
-      { chords: ["C", "G"], rh: "G5:2 E5:1 F5:1 G5:2 E5:1 F5:1 G5:1 G4:1 A4:1 B4:1 C5:1 D5:1 E5:1 F5:1", rf: "4 2 3 4 2 3 4 1 2 3 1 2 3 4", lh: LH.C_G },
-      { chords: ["Am", "Em"], rh: "E5:2 C5:1 D5:1 E5:2 E4:1 F4:1 G4:1 A4:1 G4:1 F4:1 G4:1 E4:1 F4:1 G4:1", rf: "3 1 2 3 1 2 3 4 3 2 3 1 2 3", lh: LH.Am_Em },
-      { chords: ["F", "C"], rh: "F4:2 A4:1 G4:1 F4:2 E4:1 D4:1 E4:1 D4:2 D4:1 E4:1 F4:1 G4:1 A4:1", rf: "3 5 4 3 2 1 2 1 1 2 3 4 5", lh: LH.F_C_low },
-      { chords: ["F", "G"], rh: "F4:2 A4:1 G4:1 A4:2 B4:1 C5:1 G4:1 A4:1 B4:1 C5:1 D5:1 E5:1 F5:1 G5:1", rf: "1 3 2 3 4 5 1 2 3 1 2 3 4 5", lh: LH.F_G },
-      { chords: ["C", "G"], rh: "G5:2 E5:1 F5:1 G5:2 E5:1 F5:1 G5:1 G4:1 A4:1 B4:1 C5:1 D5:1 E5:1 F5:1", rf: "4 2 3 4 2 3 4 1 2 3 1 2 3 4", lh: LH.C_G },
-      { chords: ["Am", "Em"], rh: "E5:2 C5:1 D5:1 E5:2 E4:1 F4:1 G4:1 A4:1 G4:1 F4:1 G4:1 E4:1 F4:1 G4:1", rf: "3 1 2 3 1 2 3 4 3 2 3 1 2 3", lh: LH.Am_Em },
-      { chords: ["F", "C"], rh: "F4:2 A4:1 G4:1 F4:2 E4:1 D4:1 E4:1 D4:2 D4:1 E4:1 F4:1 G4:1 A4:1", rf: "3 5 4 3 2 1 2 1 1 2 3 4 5", lh: LH.F_C_low },
-      { chords: ["F", "G"], rh: "F4:2 A4:1 G4:1 A4:2 B4:1 C5:1 G4:1 A4:1 B4:1 C5:1 D5:1 E5:1 F5:1 G5:1", rf: "1 3 2 3 4 5 1 2 3 1 2 3 4 5", lh: LH.F_G },
-    ],
-  },
-  {
-    id: 4,
-    title: "Parte 4",
-    subtitle: "Il ritmo puntato",
-    focus: "Semiminima puntata + croma, il Si bemolle",
-    tempo: 72,
-    tips: [
-      "Ritmo chiave: semiminima puntata + croma («taaa–a-ti»). La nota puntata dura tre crome della sinistra.",
-      "Battuta 4 e 8: compare il Si♭ (tasto nero). Nella battuta 8 il Si♭ si risolve sul Si naturale.",
-      "La sinistra torna allo schema della Parte 2, con il Do grave (Do2) sull'accordo di Do.",
-      "Battute 5–8: la melodia riparte dal Sol5, una terza sopra. Nella battuta 7 c'è il salto Do5 → La5, nella 8 si sale fino al Do6.",
-    ],
-    measures: [
-      { chords: ["C", "G"], rh: "E5:6 E5:2 E5:2 F5:2 E5:2 D5:2", rf: "3 3 3 4 3 2", lh: LH.C_G },
-      { chords: ["Am", "Em"], rh: "C5:6 C5:2 C5:2 D5:2 C5:2 B4:2", rf: "2 2 2 3 2 1", lh: LH.Am_Em },
-      { chords: ["F", "C"], rh: "A4:6 A4:2 G4:6 G4:2", rf: "2 2 1 1", lh: LH.F_C_low2 },
-      { chords: ["F", "G"], rh: "C5:2 Bb4:2 A4:2 Bb4:2 G4:8", rf: "4 3 2 3 1", lh: LH.F_G },
-      { chords: ["C", "G"], rh: "G5:6 G5:2 G5:2 A5:2 G5:2 F5:2", rf: "3 3 3 4 3 2", lh: LH.C_G },
-      { chords: ["Am", "Em"], rh: "E5:6 E5:2 E5:2 F5:2 E5:2 D5:2", rf: "3 3 3 4 3 2", lh: LH.Am_Em },
-      { chords: ["F", "C"], rh: "C5:6 A5:2 G5:8", rf: "1 5 4", lh: LH.F_C_low2 },
-      { chords: ["F", "G"], rh: "C6:2 Bb5:2 A5:2 Bb5:2 B5:8", rf: "5 4 3 4 4", lh: LH.F_G },
-    ],
-  },
-];
+export interface Song {
+  slug: string;
+  title: string;
+  /** il titolo mostra la tonalità ("Canone in Do") */
+  titleWithKey?: boolean;
+  composer: string;
+  credit: string;
+  /** maggiore o minore: cambia solo il nome mostrato della tonalità */
+  mode: "major" | "minor";
+  /** tonalità (maggiore relativa) in cui sono scritti i dati e registrati i video */
+  videoKey: string;
+  progression: string[];
+  progressionLabel?: string;
+  /** diteggiatura ciclica della sinistra quando la battuta non ha `lf` */
+  lhPattern?: number[];
+  fullTips: string[];
+  parts: Part[];
+}
 
 const STEP: Record<string, number> = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
 
@@ -207,8 +136,6 @@ export function noteToMidi(n: string): number {
   return v;
 }
 
-// mano sinistra: ogni gruppo di 4 crome (fondamentale, quinta, ottava, quinta/decima) si suona 5-2-1-2
-const LH_FINGERS = [5, 2, 1, 2];
 
 function parseVoice(
   src: string,
@@ -216,81 +143,118 @@ function parseVoice(
   measure: number,
   offset: number,
   defDur: number,
-  fingers: string | undefined,
-  key: KeyDef
+  fingers: number[] | null,
+  pattern: number[] | undefined,
+  key: KeyDef,
+  rests: ScoreRest[]
 ): ScoreNote[] {
   const out: ScoreNote[] = [];
   let t = offset;
-  const toks = src.trim().split(/\s+/);
-  const fl = fingers ? fingers.trim().split(/\s+/).map(Number) : null;
-  if (fl && fl.length !== toks.length) {
-    console.warn(`Battuta ${measure + 1} (${hand}): ${toks.length} note ma ${fl.length} diteggiature`);
-  }
-  toks.forEach((tok, i) => {
+  let k = 0; // indice tra le note (pause escluse)
+  for (const tok of src.trim().split(/\s+/)) {
     const [pitches, d] = tok.split(":");
     const dur = d ? parseInt(d) : defDur;
-    const f = hand === "L" ? LH_FINGERS[i % 4] : fl?.[i];
-    pitches.split("+").forEach((p, k) => {
-      // nelle note doppie della sinistra la nota acuta va al pollice
+    if (pitches === "r") {
+      rests.push({ start: t, dur, hand, measure });
+      t += dur;
+      continue;
+    }
+    const f = fingers ? fingers[k] : pattern ? pattern[k % pattern.length] : undefined;
+    pitches.split("+").forEach((p, j) => {
       const label = transposeSpelled(p, key);
-      out.push({ midi: noteToMidi(label), start: t, dur, hand, measure, label, finger: k === 0 ? f : 1 });
+      // nelle note doppie la nota acuta va al pollice (sinistra) — dito solo sulla prima
+      out.push({ midi: noteToMidi(label), start: t, dur, hand, measure, label, finger: j === 0 ? f || undefined : hand === "L" ? 1 : undefined });
     });
     t += dur;
-  });
+    k++;
+  }
+  if (fingers && fingers.length !== k) {
+    console.warn(`Battuta ${measure + 1} (${hand}): ${k} note ma ${fingers.length} diteggiature`);
+  }
   if (t - offset !== 16) {
     console.warn(`Battuta ${measure + 1} (${hand}) dura ${t - offset} sedicesimi`);
   }
   return out;
 }
 
+const nums = (s?: string) => (s ? s.trim().split(/\s+/).map(Number) : null);
+
 export interface BuiltPart {
   part: Part;
   notes: ScoreNote[];
+  rests: ScoreRest[];
   length: number; // sedicesimi
   minMidi: number;
   maxMidi: number;
   key: KeyDef;
+  /** battuta in cui inizia ciascuna parte (nel brano completo; altrimenti [0]) */
+  partStarts: number[];
+  /** nome di ogni battuta da mostrare ("Levare", "1", "2", …) */
+  labels: string[];
+  /** battute vere (levare escluso) */
+  measureCount: number;
 }
 
-export function buildPart(source: Part, key: KeyDef = KEYS[0]): BuiltPart {
+const measureLabels = (p: Part) => p.measures.map((_, i) => (p.pickup ? (i === 0 ? "Levare" : String(i)) : String(i + 1)));
+
+export function buildPart(
+  song: Song,
+  source: Part,
+  key: KeyDef = KEYS[0],
+  partStarts: number[] = [0],
+  labels: string[] = measureLabels(source)
+): BuiltPart {
   // accordi trasposti nella tonalità scelta
   const part: Part = {
     ...source,
-    measures: source.measures.map((m) => ({
-      ...m,
-      chords: [transposeChord(m.chords[0], key), transposeChord(m.chords[1], key)],
-    })),
+    measures: source.measures.map((m) => ({ ...m, chords: m.chords.map((c) => transposeChord(c, key)) })),
   };
   const notes: ScoreNote[] = [];
+  const rests: ScoreRest[] = [];
   source.measures.forEach((m, i) => {
-    notes.push(...parseVoice(m.rh, "R", i, i * 16, 4, m.rf, key));
-    notes.push(...parseVoice(m.lh, "L", i, i * 16, 2, undefined, key));
+    notes.push(...parseVoice(m.rh, "R", i, i * 16, 4, nums(m.rf), undefined, key, rests));
+    notes.push(...parseVoice(m.lh, "L", i, i * 16, 2, nums(m.lf), song.lhPattern, key, rests));
   });
   notes.sort((a, b) => a.start - b.start || a.midi - b.midi);
   const midis = notes.map((n) => n.midi);
   return {
     part,
     notes,
+    rests,
     length: part.measures.length * 16,
     minMidi: Math.min(...midis),
     maxMidi: Math.max(...midis),
     key,
+    partStarts,
+    labels,
+    measureCount: labels.filter((l) => l !== "Levare").length,
   };
 }
 
-// Brano completo: le 4 parti in sequenza
-export function buildFull(key: KeyDef = KEYS[0]): BuiltPart {
+/** Brano completo: tutte le parti in sequenza */
+export function buildFull(song: Song, key: KeyDef = KEYS[0]): BuiltPart {
+  const starts: number[] = [];
+  let acc = 0;
+  for (const p of song.parts) {
+    starts.push(acc);
+    acc += p.measures.length;
+  }
   const all: Part = {
     id: 0,
     title: "Brano completo",
-    subtitle: "Le quattro parti di seguito",
-    focus: "32 battute, sempre la stessa progressione",
-    tempo: 70,
-    tips: [
-      "Suona le quattro parti senza fermarti: il passaggio tra una parte e l'altra è il punto più delicato.",
-      "Ogni parte inizia con l'accordo della tonica: usa la prima battuta come ancora.",
-    ],
-    measures: PARTS.flatMap((p) => p.measures),
+    subtitle: `Le ${song.parts.length} parti di seguito`,
+    focus: `${acc} battute`,
+    tempo: Math.round(song.parts.reduce((a, p) => a + p.tempo, 0) / song.parts.length),
+    tips: song.fullTips,
+    measures: song.parts.flatMap((p) => p.measures),
   };
-  return buildPart(all, key);
+  return buildPart(song, all, key, starts, song.parts.flatMap(measureLabels));
+}
+
+/** nome della tonalità per il menu: maggiore, oppure la relativa minore */
+const RELATIVE_MINOR: Record<string, string> = {
+  C: "A", Db: "Bb", D: "B", Eb: "C", E: "C#", F: "D", "F#": "D#", G: "E", Ab: "F", A: "F#", Bb: "G", B: "G#",
+};
+export function keyTonic(song: Song, keyId: string) {
+  return song.mode === "minor" ? RELATIVE_MINOR[keyId] : keyId;
 }

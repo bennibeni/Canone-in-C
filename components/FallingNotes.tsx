@@ -57,7 +57,11 @@ export function FallingNotes(p: Props) {
     resize();
 
     const roundRect = (x: number, y: number, w: number, h: number, r: number) => {
-      const rr = Math.min(r, w / 2, h / 2);
+      // con il riquadro ancora largo 0 (prima dell'impaginazione) o molto stretto le misure
+      // possono diventare negative: arcTo non accetta raggi negativi
+      w = Math.max(0, w);
+      h = Math.max(0, h);
+      const rr = Math.max(0, Math.min(r, w / 2, h / 2));
       ctx.beginPath();
       ctx.moveTo(x + rr, y);
       ctx.arcTo(x + w, y, x + w, y + h, rr);
@@ -69,7 +73,11 @@ export function FallingNotes(p: Props) {
 
     const draw = () => {
       const { built, posRef, targetsRef, sys, labelMode, mode, practice, loop, zoom } = props.current;
-      if (H !== Math.max(props.current.height, Math.floor(wrap.clientHeight))) resize();
+      if (H !== Math.max(props.current.height, Math.floor(wrap.clientHeight)) || W !== wrap.clientWidth) resize();
+      if (W < 10) {
+        raf = requestAnimationFrame(draw); // riquadro non ancora impaginato
+        return;
+      }
       const { keys, whiteCount } = layoutRef.current;
       const kw = W / whiteCount;
       const keyX = new Map<number, [number, number]>();
@@ -117,14 +125,17 @@ export function FallingNotes(p: Props) {
             if (m < total) {
               ctx.fillStyle = "#94a3b8";
               ctx.font = "600 11px ui-sans-serif, system-ui";
-              ctx.fillText(`${m + 1}`, 6, y - 5);
+              ctx.fillText(built.labels[m] === "Levare" ? "levare" : built.labels[m], 6, y - 5);
             }
           } else {
             ctx.fillStyle = "rgba(148,163,184,0.10)";
             ctx.fillRect(0, y, W, 1);
           }
-          if (m < total && (beat === 0 || beat === 2)) {
-            const ch = built.part.measures[m].chords[beat === 0 ? 0 : 1];
+          // accordi distribuiti in parti uguali della battuta (1 = sul primo movimento, 2 = sul primo e sul terzo…)
+          const chs = m < total ? built.part.measures[m].chords : [];
+          const slot = chs.length ? (beat * chs.length) / 4 : -1;
+          if (m < total && chs.length && Number.isInteger(slot)) {
+            const ch = chs[slot];
             const label = chordName(ch, sys);
             ctx.font = "700 13px ui-sans-serif, system-ui";
             const tw = ctx.measureText(label).width;
@@ -162,6 +173,10 @@ export function FallingNotes(p: Props) {
         }
         ctx.fillStyle = mode === "wait" && !isUser ? HAND_COLOR_DIM[n.hand] : HAND_COLOR[n.hand];
         ctx.globalAlpha = sounding ? 1 : 0.88;
+        if (w < 1) {
+          ctx.restore();
+          continue; // tasto troppo stretto per disegnare la nota
+        }
         roundRect(x, top, w, h, 5);
         ctx.fill();
         if (isTarget) {
