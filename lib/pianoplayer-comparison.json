@@ -1,0 +1,1078 @@
+[
+  {
+    "id": "canone-1",
+    "slug": "canone",
+    "title": "Canone",
+    "firstMeasure": 1,
+    "notes": [
+      {
+        "midi": 48,
+        "start": 0,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "C3",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 88,
+        "start": 0,
+        "dur": 8,
+        "hand": "R",
+        "measure": 0,
+        "label": "E6",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 55,
+        "start": 2,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "G3",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 60,
+        "start": 4,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "C4",
+        "finger": 1,
+        "alternative": 2
+      },
+      {
+        "midi": 64,
+        "start": 6,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "E4",
+        "finger": 2,
+        "alternative": 1
+      },
+      {
+        "midi": 43,
+        "start": 8,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "G2",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 86,
+        "start": 8,
+        "dur": 8,
+        "hand": "R",
+        "measure": 0,
+        "label": "D6",
+        "finger": 4,
+        "alternative": 4
+      },
+      {
+        "midi": 50,
+        "start": 10,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "D3",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 55,
+        "start": 12,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "G3",
+        "finger": 1,
+        "alternative": 2
+      },
+      {
+        "midi": 59,
+        "start": 14,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "B3",
+        "finger": 2,
+        "alternative": 1
+      },
+      {
+        "midi": 45,
+        "start": 16,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A2",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 84,
+        "start": 16,
+        "dur": 8,
+        "hand": "R",
+        "measure": 1,
+        "label": "C6",
+        "finger": 3,
+        "alternative": 3
+      },
+      {
+        "midi": 52,
+        "start": 18,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "E3",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 57,
+        "start": 20,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A3",
+        "finger": 1,
+        "alternative": 2
+      },
+      {
+        "midi": 60,
+        "start": 22,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "C4",
+        "finger": 2,
+        "alternative": 1
+      },
+      {
+        "midi": 40,
+        "start": 24,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "E2",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 83,
+        "start": 24,
+        "dur": 8,
+        "hand": "R",
+        "measure": 1,
+        "label": "B5",
+        "finger": 2,
+        "alternative": 2
+      },
+      {
+        "midi": 47,
+        "start": 26,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "B2",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 52,
+        "start": 28,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "E3",
+        "finger": 1,
+        "alternative": 2
+      },
+      {
+        "midi": 55,
+        "start": 30,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "G3",
+        "finger": 2,
+        "alternative": 1
+      }
+    ],
+    "rests": []
+  },
+  {
+    "id": "canone-5",
+    "slug": "canone",
+    "title": "Canone",
+    "firstMeasure": 5,
+    "notes": [
+      {
+        "midi": 48,
+        "start": 0,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "C3",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 84,
+        "start": 0,
+        "dur": 8,
+        "hand": "R",
+        "measure": 0,
+        "label": "C6",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 55,
+        "start": 2,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "G3",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 60,
+        "start": 4,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "C4",
+        "finger": 1,
+        "alternative": 2
+      },
+      {
+        "midi": 64,
+        "start": 6,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "E4",
+        "finger": 2,
+        "alternative": 1
+      },
+      {
+        "midi": 43,
+        "start": 8,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "G2",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 83,
+        "start": 8,
+        "dur": 8,
+        "hand": "R",
+        "measure": 0,
+        "label": "B5",
+        "finger": 4,
+        "alternative": 4
+      },
+      {
+        "midi": 50,
+        "start": 10,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "D3",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 55,
+        "start": 12,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "G3",
+        "finger": 1,
+        "alternative": 2
+      },
+      {
+        "midi": 59,
+        "start": 14,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "B3",
+        "finger": 2,
+        "alternative": 1
+      },
+      {
+        "midi": 45,
+        "start": 16,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A2",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 81,
+        "start": 16,
+        "dur": 8,
+        "hand": "R",
+        "measure": 1,
+        "label": "A5",
+        "finger": 3,
+        "alternative": 3
+      },
+      {
+        "midi": 52,
+        "start": 18,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "E3",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 57,
+        "start": 20,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A3",
+        "finger": 1,
+        "alternative": 2
+      },
+      {
+        "midi": 60,
+        "start": 22,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "C4",
+        "finger": 2,
+        "alternative": 1
+      },
+      {
+        "midi": 40,
+        "start": 24,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "E2",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 79,
+        "start": 24,
+        "dur": 8,
+        "hand": "R",
+        "measure": 1,
+        "label": "G5",
+        "finger": 2,
+        "alternative": 2
+      },
+      {
+        "midi": 47,
+        "start": 26,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "B2",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 52,
+        "start": 28,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "E3",
+        "finger": 1,
+        "alternative": 2
+      },
+      {
+        "midi": 55,
+        "start": 30,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "G3",
+        "finger": 2,
+        "alternative": 1
+      }
+    ],
+    "rests": []
+  },
+  {
+    "id": "passacaglia-1",
+    "slug": "passacaglia",
+    "title": "Passacaglia",
+    "firstMeasure": 1,
+    "notes": [
+      {
+        "midi": 45,
+        "start": 0,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "A2",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 72,
+        "start": 0,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "C5",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 52,
+        "start": 2,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "E3",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 84,
+        "start": 2,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "C6",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 57,
+        "start": 4,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "A3",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 83,
+        "start": 4,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "B5",
+        "finger": 4,
+        "alternative": 4
+      },
+      {
+        "midi": 52,
+        "start": 6,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "E3",
+        "finger": 2,
+        "alternative": 4
+      },
+      {
+        "midi": 84,
+        "start": 6,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "C6",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 60,
+        "start": 8,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "C4",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 81,
+        "start": 8,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "A5",
+        "finger": 3,
+        "alternative": 3
+      },
+      {
+        "midi": 52,
+        "start": 10,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "E3",
+        "finger": 2,
+        "alternative": 5
+      },
+      {
+        "midi": 84,
+        "start": 10,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "C6",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 57,
+        "start": 12,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "A3",
+        "finger": 1,
+        "alternative": 2
+      },
+      {
+        "midi": 79,
+        "start": 12,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "G5",
+        "finger": 2,
+        "alternative": 2
+      },
+      {
+        "midi": 52,
+        "start": 14,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "E3",
+        "finger": 2,
+        "alternative": 1
+      },
+      {
+        "midi": 84,
+        "start": 14,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "C6",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 38,
+        "start": 16,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "D2",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 77,
+        "start": 16,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "F5",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 45,
+        "start": 18,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A2",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 84,
+        "start": 18,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "C6",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 50,
+        "start": 20,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "D3",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 76,
+        "start": 20,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "E5",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 45,
+        "start": 22,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A2",
+        "finger": 2,
+        "alternative": 4
+      },
+      {
+        "midi": 84,
+        "start": 22,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "C6",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 53,
+        "start": 24,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "F3",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 74,
+        "start": 24,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "D5",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 45,
+        "start": 26,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A2",
+        "finger": 2,
+        "alternative": 5
+      },
+      {
+        "midi": 84,
+        "start": 26,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "C6",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 50,
+        "start": 28,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "D3",
+        "finger": 1,
+        "alternative": 2
+      },
+      {
+        "midi": 72,
+        "start": 28,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "C5",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 45,
+        "start": 30,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A2",
+        "finger": 2,
+        "alternative": 4
+      },
+      {
+        "midi": 84,
+        "start": 30,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "C6",
+        "finger": 5,
+        "alternative": 5
+      }
+    ],
+    "rests": []
+  },
+  {
+    "id": "passacaglia-5",
+    "slug": "passacaglia",
+    "title": "Passacaglia",
+    "firstMeasure": 5,
+    "notes": [
+      {
+        "midi": 41,
+        "start": 0,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "F2",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 69,
+        "start": 0,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "A4",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 48,
+        "start": 2,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "C3",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 81,
+        "start": 2,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "A5",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 53,
+        "start": 4,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "F3",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 79,
+        "start": 4,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "G5",
+        "finger": 4,
+        "alternative": 4
+      },
+      {
+        "midi": 48,
+        "start": 6,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "C3",
+        "finger": 2,
+        "alternative": 4
+      },
+      {
+        "midi": 81,
+        "start": 6,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "A5",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 57,
+        "start": 8,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "A3",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 77,
+        "start": 8,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "F5",
+        "finger": 3,
+        "alternative": 3
+      },
+      {
+        "midi": 48,
+        "start": 10,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "C3",
+        "finger": 2,
+        "alternative": 5
+      },
+      {
+        "midi": 81,
+        "start": 10,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "A5",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 53,
+        "start": 12,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "F3",
+        "finger": 1,
+        "alternative": 2
+      },
+      {
+        "midi": 76,
+        "start": 12,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "E5",
+        "finger": 2,
+        "alternative": 2
+      },
+      {
+        "midi": 48,
+        "start": 14,
+        "dur": 2,
+        "hand": "L",
+        "measure": 0,
+        "label": "C3",
+        "finger": 2,
+        "alternative": 1
+      },
+      {
+        "midi": 81,
+        "start": 14,
+        "dur": 2,
+        "hand": "R",
+        "measure": 0,
+        "label": "A5",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 38,
+        "start": 16,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "D2",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 74,
+        "start": 16,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "D5",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 45,
+        "start": 18,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A2",
+        "finger": 2,
+        "alternative": 3
+      },
+      {
+        "midi": 81,
+        "start": 18,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "A5",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 50,
+        "start": 20,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "D3",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 72,
+        "start": 20,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "C5",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 45,
+        "start": 22,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A2",
+        "finger": 2,
+        "alternative": 4
+      },
+      {
+        "midi": 81,
+        "start": 22,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "A5",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 53,
+        "start": 24,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "F3",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 71,
+        "start": 24,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "B4",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 45,
+        "start": 26,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A2",
+        "finger": 2,
+        "alternative": 5
+      },
+      {
+        "midi": 81,
+        "start": 26,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "A5",
+        "finger": 5,
+        "alternative": 5
+      },
+      {
+        "midi": 50,
+        "start": 28,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "D3",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 69,
+        "start": 28,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "A4",
+        "finger": 1,
+        "alternative": 1
+      },
+      {
+        "midi": 45,
+        "start": 30,
+        "dur": 2,
+        "hand": "L",
+        "measure": 1,
+        "label": "A2",
+        "finger": 2,
+        "alternative": 2
+      },
+      {
+        "midi": 81,
+        "start": 30,
+        "dur": 2,
+        "hand": "R",
+        "measure": 1,
+        "label": "A5",
+        "finger": 5,
+        "alternative": 5
+      }
+    ],
+    "rests": []
+  }
+]

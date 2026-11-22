@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { songTitle } from "@/lib/score";
 import { SONGS } from "@/lib/songs";
+import { chordName } from "@/lib/notes";
 
 /** Menu dei brani: colonna verticale a sinistra su schermi larghi, riga orizzontale su telefono. */
 export function SongMenu({ current }: { current: string }) {
@@ -24,13 +26,14 @@ export function SongMenu({ current }: { current: string }) {
                   : "border-transparent text-slate-300 hover:border-slate-700 hover:bg-slate-800/40"
               }`}
             >
-              <div className="text-sm font-semibold leading-tight">{s.title}</div>
+              <div className="text-sm font-semibold leading-tight">{songTitle(s, (t) => chordName(t, "it"))}</div>
               <div className="text-xs text-slate-400 leading-tight mt-0.5">
                 {s.composer} · {s.parts.length} {s.parts.length === 1 ? "parte" : "parti"}
               </div>
             </Link>
           );
         })}
+        <Link href="/confronto-pianoplayer" aria-current={current === "confronto-pianoplayer" ? "page" : undefined} className="shrink-0 rounded-xl border border-teal-800 px-3 py-2 text-sm text-teal-200 hover:bg-teal-950">Confronto PianoPlayer</Link>
       </nav>
     </aside>
   );

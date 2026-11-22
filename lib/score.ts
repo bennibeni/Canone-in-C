@@ -53,6 +53,8 @@ export interface Part {
   measures: Measure[];
   /** la prima battuta è un levare: si chiama "Levare" e le altre si numerano da 1 */
   pickup?: boolean;
+  /** numero della prima battuta (default 1): per numerare le battute di seguito nel brano */
+  firstMeasure?: number;
   videos?: VideoDef[];
 }
 
@@ -79,8 +81,10 @@ export interface Song {
   arranger?: Arranger;
   /** maggiore o minore: cambia solo il nome mostrato della tonalità */
   mode: "major" | "minor";
-  /** tonalità (maggiore relativa) in cui sono scritti i dati e registrati i video */
+  /** tonalità (maggiore relativa) in cui sono registrati i video */
   videoKey: string;
+  /** tonalità (maggiore relativa) in cui sono scritte le note dei dati (default "C") */
+  baseKey?: string;
   progression: string[];
   progressionLabel?: string;
   /** diteggiatura ciclica della sinistra quando la battuta non ha `lf` */
@@ -115,6 +119,21 @@ export const KEYS: KeyDef[] = [
   { id: "B", shift: -1, semis: -1, spelling: "sharp" },
 ];
 
+/** trasposizione da applicare ai dati (scritti in `baseId`) per arrivare alla tonalità `target` */
+export function relativeKey(baseId: string, target: KeyDef): KeyDef {
+  const base = KEYS.find((k) => k.id === baseId) ?? KEYS[0];
+  let shift = target.shift - base.shift;
+  let semis = target.semis - base.semis;
+  if (semis > 6) {
+    semis -= 12;
+    shift -= 7;
+  } else if (semis < -6) {
+    semis += 12;
+    shift += 7;
+  }
+  return { id: target.id, shift, semis, spelling: target.spelling };
+}
+
 const LETTERS = "CDEFGAB";
 const ACC_STR: Record<number, string> = { [-2]: "bb", [-1]: "b", 0: "", 1: "#", 2: "##" };
 
@@ -133,13 +152,19 @@ export function transposeSpelled(n: string, key: KeyDef): string {
 /** Traspone il nome di un accordo ("Am" → "F#m" in Re maggiore) */
 export function transposeChord(ch: string, key: KeyDef): string {
   if (key.semis === 0) return ch;
-  const m = /^([A-G])(.*)$/.exec(ch)!;
-  const l = LETTERS.indexOf(m[1]);
-  const nl = (((l + key.shift) % 7) + 7) % 7;
-  let acc = (STEP[m[1]] + key.semis - STEP[LETTERS[nl]]) % 12;
-  if (acc > 6) acc -= 12;
-  if (acc < -6) acc += 12;
-  return LETTERS[nl] + ACC_STR[acc] + m[2];
+  const m = /^([A-G](?:##|#|bb|b)?)([^/]*)(?:\/([A-G](?:##|#|bb|b)?))?$/.exec(ch);
+  if (!m) return ch;
+  // traspone una nota senza ottava (con alterazione) mantenendo la grafia diatonica
+  const tr = (n: string) => {
+    const l = LETTERS.indexOf(n[0]);
+    const nl = (((l + key.shift) % 7) + 7) % 7;
+    const alt = n.slice(1);
+    const src = STEP[n[0]] + (alt.startsWith("#") ? alt.length : -alt.length);
+    let acc = (((src + key.semis - STEP[LETTERS[nl]]) % 12) + 12) % 12;
+    if (acc > 6) acc -= 12;
+    return LETTERS[nl] + ACC_STR[acc];
+  };
+  return tr(m[1]) + m[2] + (m[3] ? "/" + tr(m[3]) : "");
 }
 
 export function noteToMidi(n: string): number {
@@ -211,7 +236,10 @@ export interface BuiltPart {
   measureCount: number;
 }
 
-const measureLabels = (p: Part) => p.measures.map((_, i) => (p.pickup ? (i === 0 ? "Levare" : String(i)) : String(i + 1)));
+const measureLabels = (p: Part) => {
+  const first = p.firstMeasure ?? 1;
+  return p.measures.map((_, i) => (p.pickup ? (i === 0 ? "Levare" : String(i + first - 1)) : String(i + first)));
+};
 
 export function buildPart(
   song: Song,
@@ -273,4 +301,10 @@ const RELATIVE_MINOR: Record<string, string> = {
 };
 export function keyTonic(song: Song, keyId: string) {
   return song.mode === "minor" ? RELATIVE_MINOR[keyId] : keyId;
+}
+
+/** titolo mostrato: "Canone in Do", "Preludio in Mi minore" (nei nomi italiani, tonalità dei dati se non indicata) */
+export function songTitle(song: Song, keyName: (tonic: string) => string, keyId = song.baseKey ?? "C") {
+  if (!song.titleWithKey) return song.title;
+  return `${song.title} in ${keyName(keyTonic(song, keyId))}${song.mode === "minor" ? " minore" : ""}`;
 }

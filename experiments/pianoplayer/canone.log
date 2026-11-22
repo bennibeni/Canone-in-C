@@ -1,0 +1,17 @@
+  Run Summary                                                                  
++-----------------------------------------------------------------------------+
+| Input      | C:\Users\torre\Desktop\I miei                                  |
+|            | progetti\canone\experiments\pianoplayer\canone-input.musicxml  |
+| Output     | C:\Users\torre\Desktop\I miei                                  |
+|            | progetti\canone\experiments\pianoplayer\canone-pianoplayer.mus |
+|            | icxml                                                          |
+| Depth      | auto                                                           |
+| Parts      | 2                                                              |
+| RH Route   | part 0                                                         |
+| LH Route   | part 1                                                         |
+| Elapsed    | 16.62 s                                                        |
+| Right Hand | ok(part 0) | notes=16                                          |
+| Left Hand  | ok(part 1) | notes=64                                          |
++-----------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
+| 

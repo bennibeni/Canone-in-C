@@ -1,0 +1,18 @@
+  Run Summary                                                                  
++-----------------------------------------------------------------------------+
+| Input      | C:\Users\torre\Desktop\I miei                                  |
+|            | progetti\canone\experiments\pianoplayer\passacaglia-input.musi |
+|            | cxml                                                           |
+| Output     | C:\Users\torre\Desktop\I miei                                  |
+|            | progetti\canone\experiments\pianoplayer\passacaglia-pianoplaye |
+|            | r.musicxml                                                     |
+| Depth      | auto                                                           |
+| Parts      | 2                                                              |
+| RH Route   | part 0                                                         |
+| LH Route   | part 1                                                         |
+| Elapsed    | 24.85 s                                                        |
+| Right Hand | ok(part 0) | notes=55                                          |
+| Left Hand  | ok(part 1) | notes=64                                          |
++-----------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
+| 

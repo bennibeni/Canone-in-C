@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { KEYS, buildFull, buildPart, keyTonic, transposeChord, type Song } from "@/lib/score";
+import { KEYS, buildFull, buildPart, keyTonic, relativeKey, songTitle, transposeChord, type Song } from "@/lib/score";
 import { getSong } from "@/lib/songs";
 import { SongMenu } from "./SongMenu";
 import { chordName, rangeFor, spelledName, type LabelMode, type NameSystem } from "@/lib/notes";
@@ -25,11 +25,14 @@ export default function SongApp({ slug }: { slug: string }) {
   const song = getSong(slug)!;
   const nParts = song.parts.length;
   const [partIdx, setPartIdx] = useState(0); // 0..nParts-1 = parti, nParts = brano completo
-  const [keyId, setKeyId] = useState("C");
+  const baseKey = song.baseKey ?? "C";
+  const [keyId, setKeyId] = useState(baseKey);
   const key = KEYS.find((k) => k.id === keyId) ?? KEYS[0];
+  // trasposizione dai dati (scritti in baseKey) alla tonalità scelta
+  const tkey = useMemo(() => relativeKey(baseKey, key), [baseKey, key]);
   const built = useMemo(
-    () => (partIdx < nParts ? buildPart(song, song.parts[partIdx], key) : buildFull(song, key)),
-    [song, nParts, partIdx, key]
+    () => (partIdx < nParts ? buildPart(song, song.parts[partIdx], tkey) : buildFull(song, tkey)),
+    [song, nParts, partIdx, tkey]
   );
   const part = built.part;
 
@@ -65,7 +68,7 @@ export default function SongApp({ slug }: { slug: string }) {
       localStorage.setItem(`canone-in-do:key:${slug}`, id);
     } catch {}
   };
-  const progression = useMemo(() => song.progression.map((c) => chordName(transposeChord(c, key), sys)), [song, key, sys]);
+  const progression = useMemo(() => song.progression.map((c) => chordName(transposeChord(c, tkey), sys)), [song, tkey, sys]);
   const keyLabel = (id: string) => `${chordName(keyTonic(song, id), sys)} ${song.mode === "minor" ? "minore" : "maggiore"}`;
 
   useEffect(() => {
@@ -173,7 +176,8 @@ export default function SongApp({ slug }: { slug: string }) {
     }
   }, [loop, seek]);
 
-  // battute: si vedono al massimo 8 battute (due righe), quelle della pagina in cui si trova la musica;
+  // battute: si vedono al massimo due righe, quelle della pagina in cui si trova la musica:
+  // 8 battute (4 per riga), oppure 4 (2 per riga) se nella pagina ci sono semicrome;
   // nel brano completo le pagine sono dentro la parte corrente
   const isFull = partIdx === nParts;
   const starts = built.partStarts;
@@ -181,15 +185,21 @@ export default function SongApp({ slug }: { slug: string }) {
   const partRange: [number, number] = isFull
     ? [starts[gridPart], starts[gridPart + 1] ?? built.part.measures.length]
     : [0, built.part.measures.length];
-  const PAGE = 8;
-  const pageStarts: number[] = [];
-  for (let m = partRange[0]; m < partRange[1]; m += PAGE) pageStarts.push(m);
-  const gridPage = Math.max(0, Math.min(pageStarts.length - 1, Math.floor((player.measure - partRange[0]) / PAGE)));
-  const gridRange: [number, number] = [pageStarts[gridPage], Math.min(partRange[1], pageStarts[gridPage] + PAGE)];
+  const hasSixteenths = (a: number, b: number) => built.notes.some((n) => n.dur === 1 && n.measure >= a && n.measure < b);
+  const pages: [number, number][] = [];
+  for (let m = partRange[0]; m < partRange[1]; ) {
+    const end8 = Math.min(partRange[1], m + 8);
+    const end = hasSixteenths(m, end8) ? Math.min(partRange[1], m + 4) : end8;
+    pages.push([m, end]);
+    m = end;
+  }
+  const pageStarts = pages.map((pg) => pg[0]);
+  const gridPage = Math.max(0, pages.findIndex(([a, b]) => player.measure >= a && player.measure < b));
+  const gridRange = pages[gridPage];
   const pageLabel = (a: number) => {
-    const b = Math.min(partRange[1], a + PAGE) - 1;
+    const [, end] = pages.find((pg) => pg[0] === a)!;
     const l = (m: number) => built.labels[m];
-    return a === b ? l(a) : `${l(a)}–${l(b)}`;
+    return a === end - 1 ? l(a) : `${l(a)}–${l(end - 1)}`;
   };
   /** va a una battuta (in pausa); se c'è un loop lo toglie prima */
   const goTo = (m: number) => {
@@ -199,7 +209,7 @@ export default function SongApp({ slug }: { slug: string }) {
       setLoop(null);
     } else seek(m * 16);
   };
-  const dense = built.notes.some((n) => n.dur === 1 && (!gridRange || (n.measure >= gridRange[0] && n.measure < gridRange[1])));
+  const dense = hasSixteenths(gridRange[0], gridRange[1]);
 
   // note in esecuzione (o attese) da far lampeggiare nei pannelli delle battute
   const targetNotes = useMemo(
@@ -225,7 +235,7 @@ export default function SongApp({ slug }: { slug: string }) {
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-end gap-x-6 gap-y-3">
           <div>
             <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-indigo-300 via-violet-300 to-teal-200 bg-clip-text text-transparent">
-              {song.titleWithKey ? `${song.title} in ${chordName(keyTonic(song, key.id), sys)}` : song.title}
+              {songTitle(song, (t) => chordName(t, sys), key.id)}
             </h1>
             <p className="text-sm text-slate-400">
               {song.composer} · {song.progressionLabel ?? "progressione"}{" "}
@@ -342,7 +352,7 @@ export default function SongApp({ slug }: { slug: string }) {
               <div className="text-sm leading-tight">
                 <div className="text-slate-400 text-xs">Battuta</div>
                 <div className="font-bold tabular-nums">
-                  {built.labels[player.measure] === "Levare" ? "levare" : built.labels[player.measure]} / {built.measureCount}
+                  {built.labels[player.measure] === "Levare" ? "levare" : built.labels[player.measure]} / {built.labels.filter((l) => l !== "Levare").at(-1)}
                 </div>
               </div>
 
@@ -411,9 +421,9 @@ export default function SongApp({ slug }: { slug: string }) {
               <div className="text-xs uppercase tracking-wider text-violet-300 font-semibold">{part.title}</div>
               <h2 className="text-lg font-bold">{part.subtitle}</h2>
               <p className="text-sm text-slate-400 mb-3">{part.focus}</p>
-              {key.semis !== 0 && (
+              {key.id !== baseKey && (
                 <p className="text-xs text-amber-200/90 bg-amber-500/10 border border-amber-400/30 rounded-lg px-2.5 py-2 mb-3">
-                  Suggerimenti e diteggiature sono pensati per Do maggiore: in {chordName(key.id, sys)} maggiore i nomi delle note
+                  Suggerimenti e diteggiature sono pensati per {keyLabel(baseKey)}: in {keyLabel(key.id)} i nomi delle note
                   citati cambiano e sui tasti neri può servire una diteggiatura diversa.
                 </p>
               )}

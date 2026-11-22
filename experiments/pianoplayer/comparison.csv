@@ -1,0 +1,584 @@
+﻿slug;brano;battuta;mano;nota;inizio_sedicesimi;dito_app;dito_pianoplayer;confronto
+canone;Canone;1;R;E6;0;5;5;uguale
+canone;Canone;1;R;D6;8;4;4;uguale
+canone;Canone;2;R;C6;16;3;3;uguale
+canone;Canone;2;R;B5;24;2;2;uguale
+canone;Canone;3;R;A5;32;3;1;diverso
+canone;Canone;3;R;G5;40;2;2;uguale
+canone;Canone;4;R;A5;48;3;3;uguale
+canone;Canone;4;R;B5;56;4;4;uguale
+canone;Canone;5;R;C6;64;5;5;uguale
+canone;Canone;5;R;B5;72;4;4;uguale
+canone;Canone;6;R;A5;80;3;3;uguale
+canone;Canone;6;R;G5;88;2;2;uguale
+canone;Canone;7;R;F5;96;2;1;diverso
+canone;Canone;7;R;E5;104;1;2;diverso
+canone;Canone;8;R;F5;112;2;3;diverso
+canone;Canone;8;R;G5;120;3;3;uguale
+canone;Canone;1;L;C3;0;5;5;uguale
+canone;Canone;1;L;G3;2;2;3;diverso
+canone;Canone;1;L;C4;4;1;2;diverso
+canone;Canone;1;L;E4;6;2;1;diverso
+canone;Canone;1;L;G2;8;5;5;uguale
+canone;Canone;1;L;D3;10;2;3;diverso
+canone;Canone;1;L;G3;12;1;2;diverso
+canone;Canone;1;L;B3;14;2;1;diverso
+canone;Canone;2;L;A2;16;5;5;uguale
+canone;Canone;2;L;E3;18;2;3;diverso
+canone;Canone;2;L;A3;20;1;2;diverso
+canone;Canone;2;L;C4;22;2;1;diverso
+canone;Canone;2;L;E2;24;5;5;uguale
+canone;Canone;2;L;B2;26;2;3;diverso
+canone;Canone;2;L;E3;28;1;2;diverso
+canone;Canone;2;L;G3;30;2;1;diverso
+canone;Canone;3;L;F2;32;5;5;uguale
+canone;Canone;3;L;C3;34;2;3;diverso
+canone;Canone;3;L;F3;36;1;2;diverso
+canone;Canone;3;L;A3;38;2;1;diverso
+canone;Canone;3;L;C3;40;5;5;uguale
+canone;Canone;3;L;G3;42;2;3;diverso
+canone;Canone;3;L;C4;44;1;2;diverso
+canone;Canone;3;L;E4;46;2;1;diverso
+canone;Canone;4;L;F2;48;5;5;uguale
+canone;Canone;4;L;C3;50;2;3;diverso
+canone;Canone;4;L;F3;52;1;2;diverso
+canone;Canone;4;L;A3;54;2;1;diverso
+canone;Canone;4;L;G2;56;5;5;uguale
+canone;Canone;4;L;D3;58;2;3;diverso
+canone;Canone;4;L;G3;60;1;2;diverso
+canone;Canone;4;L;B3;62;2;1;diverso
+canone;Canone;5;L;C3;64;5;5;uguale
+canone;Canone;5;L;G3;66;2;3;diverso
+canone;Canone;5;L;C4;68;1;2;diverso
+canone;Canone;5;L;E4;70;2;1;diverso
+canone;Canone;5;L;G2;72;5;5;uguale
+canone;Canone;5;L;D3;74;2;3;diverso
+canone;Canone;5;L;G3;76;1;2;diverso
+canone;Canone;5;L;B3;78;2;1;diverso
+canone;Canone;6;L;A2;80;5;5;uguale
+canone;Canone;6;L;E3;82;2;3;diverso
+canone;Canone;6;L;A3;84;1;2;diverso
+canone;Canone;6;L;C4;86;2;1;diverso
+canone;Canone;6;L;E2;88;5;5;uguale
+canone;Canone;6;L;B2;90;2;3;diverso
+canone;Canone;6;L;E3;92;1;2;diverso
+canone;Canone;6;L;G3;94;2;1;diverso
+canone;Canone;7;L;F2;96;5;5;uguale
+canone;Canone;7;L;C3;98;2;3;diverso
+canone;Canone;7;L;F3;100;1;2;diverso
+canone;Canone;7;L;A3;102;2;1;diverso
+canone;Canone;7;L;C3;104;5;5;uguale
+canone;Canone;7;L;G3;106;2;3;diverso
+canone;Canone;7;L;C4;108;1;2;diverso
+canone;Canone;7;L;E4;110;2;1;diverso
+canone;Canone;8;L;F2;112;5;5;uguale
+canone;Canone;8;L;C3;114;2;3;diverso
+canone;Canone;8;L;F3;116;1;2;diverso
+canone;Canone;8;L;A3;118;2;1;diverso
+canone;Canone;8;L;G2;120;5;5;uguale
+canone;Canone;8;L;D3;122;2;3;diverso
+canone;Canone;8;L;G3;124;1;1;uguale
+canone;Canone;8;L;B3;126;2;1;diverso
+autumn-leaves;Autumn Leaves;1;R;A4;10;1;1;uguale
+autumn-leaves;Autumn Leaves;1;R;B4;12;2;2;uguale
+autumn-leaves;Autumn Leaves;1;R;C5;14;3;3;uguale
+autumn-leaves;Autumn Leaves;2;R;F5;16;5;5;uguale
+autumn-leaves;Autumn Leaves;3;R;G4;36;1;2;diverso
+autumn-leaves;Autumn Leaves;3;R;A4;40;2;3;diverso
+autumn-leaves;Autumn Leaves;3;R;B4;44;3;4;diverso
+autumn-leaves;Autumn Leaves;4;R;E5;48;5;5;uguale
+autumn-leaves;Autumn Leaves;5;R;F4;68;1;1;uguale
+autumn-leaves;Autumn Leaves;5;R;G4;72;2;2;uguale
+autumn-leaves;Autumn Leaves;5;R;A4;76;3;3;uguale
+autumn-leaves;Autumn Leaves;6;R;D5;80;5;5;uguale
+autumn-leaves;Autumn Leaves;7;R;E4;100;1;1;uguale
+autumn-leaves;Autumn Leaves;7;R;G#4;108;3;3;uguale
+autumn-leaves;Autumn Leaves;8;R;C5;112;5;3;diverso
+autumn-leaves;Autumn Leaves;2;L;D2;16;5;5;uguale
+autumn-leaves;Autumn Leaves;2;L;A2;18;2;3;diverso
+autumn-leaves;Autumn Leaves;2;L;D3;20;1;1;uguale
+autumn-leaves;Autumn Leaves;2;L;A2;22;2;4;diverso
+autumn-leaves;Autumn Leaves;2;L;D3;24;1;1;uguale
+autumn-leaves;Autumn Leaves;2;L;A2;26;2;4;diverso
+autumn-leaves;Autumn Leaves;2;L;D3;28;1;1;uguale
+autumn-leaves;Autumn Leaves;2;L;A2;30;2;4;diverso
+autumn-leaves;Autumn Leaves;3;L;G2;32;5;5;uguale
+autumn-leaves;Autumn Leaves;3;L;D3;34;2;3;diverso
+autumn-leaves;Autumn Leaves;3;L;G3;36;1;1;uguale
+autumn-leaves;Autumn Leaves;3;L;D3;38;2;4;diverso
+autumn-leaves;Autumn Leaves;3;L;G3;40;1;1;uguale
+autumn-leaves;Autumn Leaves;3;L;D3;42;2;4;diverso
+autumn-leaves;Autumn Leaves;3;L;G3;44;1;1;uguale
+autumn-leaves;Autumn Leaves;3;L;D3;46;2;4;diverso
+autumn-leaves;Autumn Leaves;4;L;C3;48;5;5;uguale
+autumn-leaves;Autumn Leaves;4;L;G3;50;2;3;diverso
+autumn-leaves;Autumn Leaves;4;L;C4;52;1;1;uguale
+autumn-leaves;Autumn Leaves;4;L;G3;54;2;4;diverso
+autumn-leaves;Autumn Leaves;4;L;C4;56;1;1;uguale
+autumn-leaves;Autumn Leaves;4;L;G3;58;2;4;diverso
+autumn-leaves;Autumn Leaves;4;L;C4;60;1;1;uguale
+autumn-leaves;Autumn Leaves;4;L;G3;62;2;2;uguale
+autumn-leaves;Autumn Leaves;5;L;F2;64;5;5;uguale
+autumn-leaves;Autumn Leaves;5;L;C3;66;2;3;diverso
+autumn-leaves;Autumn Leaves;5;L;F3;68;1;1;uguale
+autumn-leaves;Autumn Leaves;5;L;C3;70;2;4;diverso
+autumn-leaves;Autumn Leaves;5;L;F3;72;1;1;uguale
+autumn-leaves;Autumn Leaves;5;L;C3;74;2;4;diverso
+autumn-leaves;Autumn Leaves;5;L;F3;76;1;1;uguale
+autumn-leaves;Autumn Leaves;5;L;C3;78;2;2;uguale
+autumn-leaves;Autumn Leaves;6;L;D2;80;5;5;uguale
+autumn-leaves;Autumn Leaves;6;L;A2;82;2;3;diverso
+autumn-leaves;Autumn Leaves;6;L;D3;84;1;1;uguale
+autumn-leaves;Autumn Leaves;6;L;A2;86;2;4;diverso
+autumn-leaves;Autumn Leaves;6;L;D3;88;1;1;uguale
+autumn-leaves;Autumn Leaves;6;L;A2;90;2;4;diverso
+autumn-leaves;Autumn Leaves;6;L;D3;92;1;1;uguale
+autumn-leaves;Autumn Leaves;6;L;A2;94;2;2;uguale
+autumn-leaves;Autumn Leaves;7;L;E2;96;5;5;uguale
+autumn-leaves;Autumn Leaves;7;L;B2;98;2;3;diverso
+autumn-leaves;Autumn Leaves;7;L;E3;100;1;1;uguale
+autumn-leaves;Autumn Leaves;7;L;B2;102;2;4;diverso
+autumn-leaves;Autumn Leaves;7;L;E3;104;1;1;uguale
+autumn-leaves;Autumn Leaves;7;L;B2;106;2;4;diverso
+autumn-leaves;Autumn Leaves;7;L;E3;108;1;1;uguale
+autumn-leaves;Autumn Leaves;7;L;B2;110;2;4;diverso
+autumn-leaves;Autumn Leaves;8;L;A2;112;5;5;uguale
+autumn-leaves;Autumn Leaves;8;L;E3;114;2;3;diverso
+autumn-leaves;Autumn Leaves;8;L;A3;116;1;1;uguale
+autumn-leaves;Autumn Leaves;8;L;E3;118;2;4;diverso
+autumn-leaves;Autumn Leaves;8;L;A3;120;1;1;uguale
+autumn-leaves;Autumn Leaves;8;L;E3;122;2;4;diverso
+autumn-leaves;Autumn Leaves;8;L;A3;124;1;1;uguale
+autumn-leaves;Autumn Leaves;8;L;E3;126;2;1;diverso
+passacaglia;Passacaglia;1;R;C5;0;1;1;uguale
+passacaglia;Passacaglia;1;R;C6;2;5;5;uguale
+passacaglia;Passacaglia;1;R;B5;4;4;4;uguale
+passacaglia;Passacaglia;1;R;C6;6;5;5;uguale
+passacaglia;Passacaglia;1;R;A5;8;3;3;uguale
+passacaglia;Passacaglia;1;R;C6;10;5;5;uguale
+passacaglia;Passacaglia;1;R;G5;12;2;2;uguale
+passacaglia;Passacaglia;1;R;C6;14;5;5;uguale
+passacaglia;Passacaglia;2;R;F5;16;1;1;uguale
+passacaglia;Passacaglia;2;R;C6;18;5;5;uguale
+passacaglia;Passacaglia;2;R;E5;20;1;1;uguale
+passacaglia;Passacaglia;2;R;C6;22;5;5;uguale
+passacaglia;Passacaglia;2;R;D5;24;1;1;uguale
+passacaglia;Passacaglia;2;R;C6;26;5;5;uguale
+passacaglia;Passacaglia;2;R;C5;28;1;1;uguale
+passacaglia;Passacaglia;2;R;C6;30;5;5;uguale
+passacaglia;Passacaglia;3;R;B4;32;1;1;uguale
+passacaglia;Passacaglia;3;R;B5;34;5;5;uguale
+passacaglia;Passacaglia;3;R;A5;36;4;4;uguale
+passacaglia;Passacaglia;3;R;B5;38;5;5;uguale
+passacaglia;Passacaglia;3;R;G5;40;3;3;uguale
+passacaglia;Passacaglia;3;R;B5;42;5;5;uguale
+passacaglia;Passacaglia;3;R;F5;44;2;2;uguale
+passacaglia;Passacaglia;3;R;B5;46;5;5;uguale
+passacaglia;Passacaglia;4;R;E5;48;1;1;uguale
+passacaglia;Passacaglia;4;R;B5;50;5;5;uguale
+passacaglia;Passacaglia;4;R;D5;52;1;1;uguale
+passacaglia;Passacaglia;4;R;B5;54;5;5;uguale
+passacaglia;Passacaglia;4;R;C5;56;1;1;uguale
+passacaglia;Passacaglia;4;R;B5;58;5;5;uguale
+passacaglia;Passacaglia;4;R;B4;60;1;1;uguale
+passacaglia;Passacaglia;4;R;B5;62;5;5;uguale
+passacaglia;Passacaglia;5;R;A4;64;1;1;uguale
+passacaglia;Passacaglia;5;R;A5;66;5;5;uguale
+passacaglia;Passacaglia;5;R;G5;68;4;4;uguale
+passacaglia;Passacaglia;5;R;A5;70;5;5;uguale
+passacaglia;Passacaglia;5;R;F5;72;3;3;uguale
+passacaglia;Passacaglia;5;R;A5;74;5;5;uguale
+passacaglia;Passacaglia;5;R;E5;76;2;2;uguale
+passacaglia;Passacaglia;5;R;A5;78;5;5;uguale
+passacaglia;Passacaglia;6;R;D5;80;1;1;uguale
+passacaglia;Passacaglia;6;R;A5;82;5;5;uguale
+passacaglia;Passacaglia;6;R;C5;84;1;1;uguale
+passacaglia;Passacaglia;6;R;A5;86;5;5;uguale
+passacaglia;Passacaglia;6;R;B4;88;1;1;uguale
+passacaglia;Passacaglia;6;R;A5;90;5;5;uguale
+passacaglia;Passacaglia;6;R;A4;92;1;1;uguale
+passacaglia;Passacaglia;6;R;A5;94;5;5;uguale
+passacaglia;Passacaglia;7;R;A5;96;5;5;uguale
+passacaglia;Passacaglia;7;R;G#5;100;4;4;uguale
+passacaglia;Passacaglia;7;R;G#5;104;3;4;diverso
+passacaglia;Passacaglia;7;R;A5;106;4;5;diverso
+passacaglia;Passacaglia;7;R;F#5;108;2;3;diverso
+passacaglia;Passacaglia;7;R;G#5;110;3;4;diverso
+passacaglia;Passacaglia;8;R;A5;112;4;4;uguale
+passacaglia;Passacaglia;1;L;A2;0;5;5;uguale
+passacaglia;Passacaglia;1;L;E3;2;2;3;diverso
+passacaglia;Passacaglia;1;L;A3;4;1;1;uguale
+passacaglia;Passacaglia;1;L;E3;6;2;4;diverso
+passacaglia;Passacaglia;1;L;C4;8;1;1;uguale
+passacaglia;Passacaglia;1;L;E3;10;2;5;diverso
+passacaglia;Passacaglia;1;L;A3;12;1;2;diverso
+passacaglia;Passacaglia;1;L;E3;14;2;1;diverso
+passacaglia;Passacaglia;2;L;D2;16;5;5;uguale
+passacaglia;Passacaglia;2;L;A2;18;2;3;diverso
+passacaglia;Passacaglia;2;L;D3;20;1;1;uguale
+passacaglia;Passacaglia;2;L;A2;22;2;4;diverso
+passacaglia;Passacaglia;2;L;F3;24;1;1;uguale
+passacaglia;Passacaglia;2;L;A2;26;2;5;diverso
+passacaglia;Passacaglia;2;L;D3;28;1;2;diverso
+passacaglia;Passacaglia;2;L;A2;30;2;4;diverso
+passacaglia;Passacaglia;3;L;G2;32;5;5;uguale
+passacaglia;Passacaglia;3;L;D3;34;2;3;diverso
+passacaglia;Passacaglia;3;L;G3;36;1;1;uguale
+passacaglia;Passacaglia;3;L;D3;38;2;4;diverso
+passacaglia;Passacaglia;3;L;B3;40;1;1;uguale
+passacaglia;Passacaglia;3;L;D3;42;2;5;diverso
+passacaglia;Passacaglia;3;L;G3;44;1;2;diverso
+passacaglia;Passacaglia;3;L;D3;46;2;1;diverso
+passacaglia;Passacaglia;4;L;C2;48;5;5;uguale
+passacaglia;Passacaglia;4;L;G2;50;2;3;diverso
+passacaglia;Passacaglia;4;L;C3;52;1;1;uguale
+passacaglia;Passacaglia;4;L;G2;54;2;4;diverso
+passacaglia;Passacaglia;4;L;E3;56;1;1;uguale
+passacaglia;Passacaglia;4;L;G2;58;2;5;diverso
+passacaglia;Passacaglia;4;L;C3;60;1;2;diverso
+passacaglia;Passacaglia;4;L;G2;62;2;4;diverso
+passacaglia;Passacaglia;5;L;F2;64;5;5;uguale
+passacaglia;Passacaglia;5;L;C3;66;2;3;diverso
+passacaglia;Passacaglia;5;L;F3;68;1;1;uguale
+passacaglia;Passacaglia;5;L;C3;70;2;4;diverso
+passacaglia;Passacaglia;5;L;A3;72;1;1;uguale
+passacaglia;Passacaglia;5;L;C3;74;2;5;diverso
+passacaglia;Passacaglia;5;L;F3;76;1;2;diverso
+passacaglia;Passacaglia;5;L;C3;78;2;1;diverso
+passacaglia;Passacaglia;6;L;D2;80;5;5;uguale
+passacaglia;Passacaglia;6;L;A2;82;2;3;diverso
+passacaglia;Passacaglia;6;L;D3;84;1;1;uguale
+passacaglia;Passacaglia;6;L;A2;86;2;4;diverso
+passacaglia;Passacaglia;6;L;F3;88;1;1;uguale
+passacaglia;Passacaglia;6;L;A2;90;2;5;diverso
+passacaglia;Passacaglia;6;L;D3;92;1;1;uguale
+passacaglia;Passacaglia;6;L;A2;94;2;2;uguale
+passacaglia;Passacaglia;7;L;E2;96;5;5;uguale
+passacaglia;Passacaglia;7;L;B2;98;2;3;diverso
+passacaglia;Passacaglia;7;L;E3;100;1;1;uguale
+passacaglia;Passacaglia;7;L;B2;102;2;4;diverso
+passacaglia;Passacaglia;7;L;G#3;104;1;2;diverso
+passacaglia;Passacaglia;7;L;E3;108;5;5;uguale
+passacaglia;Passacaglia;7;L;G#3;108;3;2;diverso
+passacaglia;Passacaglia;7;L;B3;108;1;1;uguale
+passacaglia;Passacaglia;8;L;A2;112;5;5;uguale
+passacaglia;Passacaglia;8;L;E3;114;2;3;diverso
+passacaglia;Passacaglia;8;L;A3;116;1;1;uguale
+passacaglia;Passacaglia;8;L;E3;118;2;4;diverso
+passacaglia;Passacaglia;8;L;C4;120;1;1;uguale
+passacaglia;Passacaglia;8;L;A3;124;5;4;diverso
+passacaglia;Passacaglia;8;L;C4;124;3;2;diverso
+passacaglia;Passacaglia;8;L;E4;124;1;;diverso
+preludio-in-do;Preludio;1;R;G4;2;1;1;uguale
+preludio-in-do;Preludio;1;R;C5;3;2;3;diverso
+preludio-in-do;Preludio;1;R;E5;4;4;5;diverso
+preludio-in-do;Preludio;1;R;G4;5;1;1;uguale
+preludio-in-do;Preludio;1;R;C5;6;2;3;diverso
+preludio-in-do;Preludio;1;R;E5;7;4;5;diverso
+preludio-in-do;Preludio;1;R;G4;10;1;1;uguale
+preludio-in-do;Preludio;1;R;C5;11;2;3;diverso
+preludio-in-do;Preludio;1;R;E5;12;4;5;diverso
+preludio-in-do;Preludio;1;R;G4;13;1;1;uguale
+preludio-in-do;Preludio;1;R;C5;14;2;3;diverso
+preludio-in-do;Preludio;1;R;E5;15;4;5;diverso
+preludio-in-do;Preludio;2;R;A4;18;1;1;uguale
+preludio-in-do;Preludio;2;R;D5;19;3;3;uguale
+preludio-in-do;Preludio;2;R;F5;20;5;5;uguale
+preludio-in-do;Preludio;2;R;A4;21;1;1;uguale
+preludio-in-do;Preludio;2;R;D5;22;3;3;uguale
+preludio-in-do;Preludio;2;R;F5;23;5;5;uguale
+preludio-in-do;Preludio;2;R;A4;26;1;1;uguale
+preludio-in-do;Preludio;2;R;D5;27;3;3;uguale
+preludio-in-do;Preludio;2;R;F5;28;5;5;uguale
+preludio-in-do;Preludio;2;R;A4;29;1;1;uguale
+preludio-in-do;Preludio;2;R;D5;30;3;3;uguale
+preludio-in-do;Preludio;2;R;F5;31;5;5;uguale
+preludio-in-do;Preludio;3;R;G4;34;1;1;uguale
+preludio-in-do;Preludio;3;R;D5;35;3;3;uguale
+preludio-in-do;Preludio;3;R;F5;36;5;5;uguale
+preludio-in-do;Preludio;3;R;G4;37;1;1;uguale
+preludio-in-do;Preludio;3;R;D5;38;3;3;uguale
+preludio-in-do;Preludio;3;R;F5;39;5;5;uguale
+preludio-in-do;Preludio;3;R;G4;42;1;1;uguale
+preludio-in-do;Preludio;3;R;D5;43;3;3;uguale
+preludio-in-do;Preludio;3;R;F5;44;5;5;uguale
+preludio-in-do;Preludio;3;R;G4;45;1;1;uguale
+preludio-in-do;Preludio;3;R;D5;46;3;3;uguale
+preludio-in-do;Preludio;3;R;F5;47;5;5;uguale
+preludio-in-do;Preludio;4;R;G4;50;1;1;uguale
+preludio-in-do;Preludio;4;R;C5;51;2;3;diverso
+preludio-in-do;Preludio;4;R;E5;52;4;5;diverso
+preludio-in-do;Preludio;4;R;G4;53;1;1;uguale
+preludio-in-do;Preludio;4;R;C5;54;2;3;diverso
+preludio-in-do;Preludio;4;R;E5;55;4;5;diverso
+preludio-in-do;Preludio;4;R;G4;58;1;1;uguale
+preludio-in-do;Preludio;4;R;C5;59;2;3;diverso
+preludio-in-do;Preludio;4;R;E5;60;4;5;diverso
+preludio-in-do;Preludio;4;R;G4;61;1;1;uguale
+preludio-in-do;Preludio;4;R;C5;62;2;3;diverso
+preludio-in-do;Preludio;4;R;E5;63;4;5;diverso
+preludio-in-do;Preludio;5;R;A4;66;1;1;uguale
+preludio-in-do;Preludio;5;R;E5;67;3;2;diverso
+preludio-in-do;Preludio;5;R;A5;68;5;5;uguale
+preludio-in-do;Preludio;5;R;A4;69;1;1;uguale
+preludio-in-do;Preludio;5;R;E5;70;3;2;diverso
+preludio-in-do;Preludio;5;R;A5;71;5;5;uguale
+preludio-in-do;Preludio;5;R;A4;74;1;1;uguale
+preludio-in-do;Preludio;5;R;E5;75;3;2;diverso
+preludio-in-do;Preludio;5;R;A5;76;5;5;uguale
+preludio-in-do;Preludio;5;R;A4;77;1;1;uguale
+preludio-in-do;Preludio;5;R;E5;78;3;2;diverso
+preludio-in-do;Preludio;5;R;A5;79;5;5;uguale
+preludio-in-do;Preludio;6;R;F#4;82;1;2;diverso
+preludio-in-do;Preludio;6;R;A4;83;2;3;diverso
+preludio-in-do;Preludio;6;R;D5;84;5;5;uguale
+preludio-in-do;Preludio;6;R;F#4;85;1;1;uguale
+preludio-in-do;Preludio;6;R;A4;86;2;2;uguale
+preludio-in-do;Preludio;6;R;D5;87;5;5;uguale
+preludio-in-do;Preludio;6;R;F#4;90;1;1;uguale
+preludio-in-do;Preludio;6;R;A4;91;2;2;uguale
+preludio-in-do;Preludio;6;R;D5;92;5;5;uguale
+preludio-in-do;Preludio;6;R;F#4;93;1;1;uguale
+preludio-in-do;Preludio;6;R;A4;94;2;2;uguale
+preludio-in-do;Preludio;6;R;D5;95;5;5;uguale
+preludio-in-do;Preludio;7;R;G4;98;1;1;uguale
+preludio-in-do;Preludio;7;R;D5;99;3;2;diverso
+preludio-in-do;Preludio;7;R;G5;100;5;5;uguale
+preludio-in-do;Preludio;7;R;G4;101;1;1;uguale
+preludio-in-do;Preludio;7;R;D5;102;3;2;diverso
+preludio-in-do;Preludio;7;R;G5;103;5;5;uguale
+preludio-in-do;Preludio;7;R;G4;106;1;1;uguale
+preludio-in-do;Preludio;7;R;D5;107;3;2;diverso
+preludio-in-do;Preludio;7;R;G5;108;5;5;uguale
+preludio-in-do;Preludio;7;R;G4;109;1;1;uguale
+preludio-in-do;Preludio;7;R;D5;110;3;2;diverso
+preludio-in-do;Preludio;7;R;G5;111;5;5;uguale
+preludio-in-do;Preludio;8;R;E4;114;1;1;uguale
+preludio-in-do;Preludio;8;R;G4;115;2;2;uguale
+preludio-in-do;Preludio;8;R;C5;116;5;5;uguale
+preludio-in-do;Preludio;8;R;E4;117;1;1;uguale
+preludio-in-do;Preludio;8;R;G4;118;2;2;uguale
+preludio-in-do;Preludio;8;R;C5;119;5;5;uguale
+preludio-in-do;Preludio;8;R;E4;122;1;1;uguale
+preludio-in-do;Preludio;8;R;G4;123;2;2;uguale
+preludio-in-do;Preludio;8;R;C5;124;5;5;uguale
+preludio-in-do;Preludio;8;R;E4;125;1;1;uguale
+preludio-in-do;Preludio;8;R;G4;126;2;3;diverso
+preludio-in-do;Preludio;8;R;C5;127;5;3;diverso
+preludio-in-do;Preludio;1;L;C4;0;2;5;diverso
+preludio-in-do;Preludio;1;L;E4;1;1;3;diverso
+preludio-in-do;Preludio;1;L;C4;8;2;5;diverso
+preludio-in-do;Preludio;1;L;E4;9;1;3;diverso
+preludio-in-do;Preludio;2;L;C4;16;2;5;diverso
+preludio-in-do;Preludio;2;L;D4;17;1;4;diverso
+preludio-in-do;Preludio;2;L;C4;24;2;5;diverso
+preludio-in-do;Preludio;2;L;D4;25;1;4;diverso
+preludio-in-do;Preludio;3;L;B3;32;2;5;diverso
+preludio-in-do;Preludio;3;L;D4;33;1;3;diverso
+preludio-in-do;Preludio;3;L;B3;40;2;5;diverso
+preludio-in-do;Preludio;3;L;D4;41;1;3;diverso
+preludio-in-do;Preludio;4;L;C4;48;2;4;diverso
+preludio-in-do;Preludio;4;L;E4;49;1;2;diverso
+preludio-in-do;Preludio;4;L;C4;56;2;4;diverso
+preludio-in-do;Preludio;4;L;E4;57;1;2;diverso
+preludio-in-do;Preludio;5;L;C4;64;2;4;diverso
+preludio-in-do;Preludio;5;L;E4;65;1;2;diverso
+preludio-in-do;Preludio;5;L;C4;72;2;4;diverso
+preludio-in-do;Preludio;5;L;E4;73;1;2;diverso
+preludio-in-do;Preludio;6;L;C4;80;2;4;diverso
+preludio-in-do;Preludio;6;L;D4;81;1;3;diverso
+preludio-in-do;Preludio;6;L;C4;88;2;4;diverso
+preludio-in-do;Preludio;6;L;D4;89;1;3;diverso
+preludio-in-do;Preludio;7;L;B3;96;2;5;diverso
+preludio-in-do;Preludio;7;L;D4;97;1;3;diverso
+preludio-in-do;Preludio;7;L;B3;104;2;5;diverso
+preludio-in-do;Preludio;7;L;D4;105;1;3;diverso
+preludio-in-do;Preludio;8;L;B3;112;2;5;diverso
+preludio-in-do;Preludio;8;L;C4;113;1;4;diverso
+preludio-in-do;Preludio;8;L;B3;120;2;5;diverso
+preludio-in-do;Preludio;8;L;C4;121;1;5;diverso
+preludio-mi-minore;Preludio;1;R;B3;12;1;1;uguale
+preludio-mi-minore;Preludio;1;R;B4;15;3;4;diverso
+preludio-mi-minore;Preludio;2;R;B4;16;3;4;diverso
+preludio-mi-minore;Preludio;2;R;C5;28;4;5;diverso
+preludio-mi-minore;Preludio;3;R;B4;32;3;4;diverso
+preludio-mi-minore;Preludio;3;R;C5;44;4;5;diverso
+preludio-mi-minore;Preludio;4;R;B4;48;3;4;diverso
+preludio-mi-minore;Preludio;4;R;C5;60;4;5;diverso
+preludio-mi-minore;Preludio;5;R;B4;64;3;4;diverso
+preludio-mi-minore;Preludio;5;R;Bb4;76;2;3;diverso
+preludio-mi-minore;Preludio;6;R;A4;80;1;2;diverso
+preludio-mi-minore;Preludio;6;R;B4;92;2;3;diverso
+preludio-mi-minore;Preludio;7;R;A4;96;1;2;diverso
+preludio-mi-minore;Preludio;7;R;B4;108;2;3;diverso
+preludio-mi-minore;Preludio;8;R;A4;112;1;2;diverso
+preludio-mi-minore;Preludio;8;R;B4;124;2;3;diverso
+preludio-mi-minore;Preludio;8;R;A4;127;1;3;diverso
+preludio-mi-minore;Preludio;2;L;G3;16;4;5;diverso
+preludio-mi-minore;Preludio;2;L;B3;16;2;3;diverso
+preludio-mi-minore;Preludio;2;L;E4;16;1;1;uguale
+preludio-mi-minore;Preludio;2;L;G3;18;4;5;diverso
+preludio-mi-minore;Preludio;2;L;B3;18;2;3;diverso
+preludio-mi-minore;Preludio;2;L;E4;18;1;1;uguale
+preludio-mi-minore;Preludio;2;L;G3;20;4;5;diverso
+preludio-mi-minore;Preludio;2;L;B3;20;2;3;diverso
+preludio-mi-minore;Preludio;2;L;E4;20;1;1;uguale
+preludio-mi-minore;Preludio;2;L;G3;22;4;5;diverso
+preludio-mi-minore;Preludio;2;L;B3;22;2;3;diverso
+preludio-mi-minore;Preludio;2;L;E4;22;1;1;uguale
+preludio-mi-minore;Preludio;2;L;G3;24;4;5;diverso
+preludio-mi-minore;Preludio;2;L;B3;24;2;3;diverso
+preludio-mi-minore;Preludio;2;L;E4;24;1;1;uguale
+preludio-mi-minore;Preludio;2;L;G3;26;4;5;diverso
+preludio-mi-minore;Preludio;2;L;B3;26;2;3;diverso
+preludio-mi-minore;Preludio;2;L;E4;26;1;1;uguale
+preludio-mi-minore;Preludio;2;L;G3;28;4;5;diverso
+preludio-mi-minore;Preludio;2;L;B3;28;2;3;diverso
+preludio-mi-minore;Preludio;2;L;E4;28;1;1;uguale
+preludio-mi-minore;Preludio;2;L;G3;30;4;5;diverso
+preludio-mi-minore;Preludio;2;L;B3;30;2;3;diverso
+preludio-mi-minore;Preludio;2;L;E4;30;1;1;uguale
+preludio-mi-minore;Preludio;3;L;F#3;32;5;5;uguale
+preludio-mi-minore;Preludio;3;L;A3;32;3;4;diverso
+preludio-mi-minore;Preludio;3;L;E4;32;1;1;uguale
+preludio-mi-minore;Preludio;3;L;F#3;34;5;5;uguale
+preludio-mi-minore;Preludio;3;L;A3;34;3;4;diverso
+preludio-mi-minore;Preludio;3;L;E4;34;1;1;uguale
+preludio-mi-minore;Preludio;3;L;F#3;36;5;5;uguale
+preludio-mi-minore;Preludio;3;L;A3;36;3;4;diverso
+preludio-mi-minore;Preludio;3;L;E4;36;1;1;uguale
+preludio-mi-minore;Preludio;3;L;F#3;38;5;5;uguale
+preludio-mi-minore;Preludio;3;L;A3;38;3;4;diverso
+preludio-mi-minore;Preludio;3;L;E4;38;1;1;uguale
+preludio-mi-minore;Preludio;3;L;F#3;40;5;5;uguale
+preludio-mi-minore;Preludio;3;L;A3;40;4;4;uguale
+preludio-mi-minore;Preludio;3;L;Eb4;40;2;1;diverso
+preludio-mi-minore;Preludio;3;L;F#3;42;5;5;uguale
+preludio-mi-minore;Preludio;3;L;A3;42;3;4;diverso
+preludio-mi-minore;Preludio;3;L;Eb4;42;1;1;uguale
+preludio-mi-minore;Preludio;3;L;F#3;44;5;5;uguale
+preludio-mi-minore;Preludio;3;L;A3;44;3;4;diverso
+preludio-mi-minore;Preludio;3;L;Eb4;44;1;1;uguale
+preludio-mi-minore;Preludio;3;L;F#3;46;5;5;uguale
+preludio-mi-minore;Preludio;3;L;A3;46;3;4;diverso
+preludio-mi-minore;Preludio;3;L;Eb4;46;1;1;uguale
+preludio-mi-minore;Preludio;4;L;F3;48;5;5;uguale
+preludio-mi-minore;Preludio;4;L;A3;48;3;4;diverso
+preludio-mi-minore;Preludio;4;L;Eb4;48;1;1;uguale
+preludio-mi-minore;Preludio;4;L;F3;50;5;5;uguale
+preludio-mi-minore;Preludio;4;L;A3;50;3;4;diverso
+preludio-mi-minore;Preludio;4;L;Eb4;50;1;1;uguale
+preludio-mi-minore;Preludio;4;L;F3;52;5;5;uguale
+preludio-mi-minore;Preludio;4;L;A3;52;3;4;diverso
+preludio-mi-minore;Preludio;4;L;Eb4;52;1;1;uguale
+preludio-mi-minore;Preludio;4;L;F3;54;5;5;uguale
+preludio-mi-minore;Preludio;4;L;A3;54;3;4;diverso
+preludio-mi-minore;Preludio;4;L;Eb4;54;1;1;uguale
+preludio-mi-minore;Preludio;4;L;F3;56;5;5;uguale
+preludio-mi-minore;Preludio;4;L;A3;56;3;3;uguale
+preludio-mi-minore;Preludio;4;L;D4;56;1;1;uguale
+preludio-mi-minore;Preludio;4;L;F3;58;5;5;uguale
+preludio-mi-minore;Preludio;4;L;A3;58;3;3;uguale
+preludio-mi-minore;Preludio;4;L;D4;58;1;1;uguale
+preludio-mi-minore;Preludio;4;L;F3;60;5;5;uguale
+preludio-mi-minore;Preludio;4;L;G#3;60;3;4;diverso
+preludio-mi-minore;Preludio;4;L;D4;60;1;1;uguale
+preludio-mi-minore;Preludio;4;L;F3;62;5;5;uguale
+preludio-mi-minore;Preludio;4;L;G#3;62;3;4;diverso
+preludio-mi-minore;Preludio;4;L;D4;62;1;1;uguale
+preludio-mi-minore;Preludio;5;L;E3;64;5;5;uguale
+preludio-mi-minore;Preludio;5;L;G#3;64;3;3;uguale
+preludio-mi-minore;Preludio;5;L;D4;64;1;1;uguale
+preludio-mi-minore;Preludio;5;L;E3;66;5;5;uguale
+preludio-mi-minore;Preludio;5;L;G#3;66;3;3;uguale
+preludio-mi-minore;Preludio;5;L;D4;66;1;1;uguale
+preludio-mi-minore;Preludio;5;L;E3;68;5;5;uguale
+preludio-mi-minore;Preludio;5;L;G#3;68;3;3;uguale
+preludio-mi-minore;Preludio;5;L;D4;68;1;1;uguale
+preludio-mi-minore;Preludio;5;L;E3;70;5;5;uguale
+preludio-mi-minore;Preludio;5;L;G#3;70;3;3;uguale
+preludio-mi-minore;Preludio;5;L;D4;70;1;1;uguale
+preludio-mi-minore;Preludio;5;L;E3;72;5;5;uguale
+preludio-mi-minore;Preludio;5;L;G3;72;3;3;uguale
+preludio-mi-minore;Preludio;5;L;D4;72;1;1;uguale
+preludio-mi-minore;Preludio;5;L;E3;74;5;5;uguale
+preludio-mi-minore;Preludio;5;L;G3;74;3;3;uguale
+preludio-mi-minore;Preludio;5;L;D4;74;1;1;uguale
+preludio-mi-minore;Preludio;5;L;E3;76;5;5;uguale
+preludio-mi-minore;Preludio;5;L;G3;76;4;4;uguale
+preludio-mi-minore;Preludio;5;L;C#4;76;2;1;diverso
+preludio-mi-minore;Preludio;5;L;E3;78;5;5;uguale
+preludio-mi-minore;Preludio;5;L;G3;78;4;4;uguale
+preludio-mi-minore;Preludio;5;L;C#4;78;2;1;diverso
+preludio-mi-minore;Preludio;6;L;E3;80;4;5;diverso
+preludio-mi-minore;Preludio;6;L;G3;80;2;3;diverso
+preludio-mi-minore;Preludio;6;L;C4;80;1;1;uguale
+preludio-mi-minore;Preludio;6;L;E3;82;4;5;diverso
+preludio-mi-minore;Preludio;6;L;G3;82;2;3;diverso
+preludio-mi-minore;Preludio;6;L;C4;82;1;1;uguale
+preludio-mi-minore;Preludio;6;L;E3;84;4;5;diverso
+preludio-mi-minore;Preludio;6;L;G3;84;2;3;diverso
+preludio-mi-minore;Preludio;6;L;C4;84;1;1;uguale
+preludio-mi-minore;Preludio;6;L;E3;86;4;5;diverso
+preludio-mi-minore;Preludio;6;L;G3;86;2;3;diverso
+preludio-mi-minore;Preludio;6;L;C4;86;1;1;uguale
+preludio-mi-minore;Preludio;6;L;E3;88;4;5;diverso
+preludio-mi-minore;Preludio;6;L;F#3;88;3;4;diverso
+preludio-mi-minore;Preludio;6;L;C4;88;1;1;uguale
+preludio-mi-minore;Preludio;6;L;E3;90;4;5;diverso
+preludio-mi-minore;Preludio;6;L;F#3;90;3;4;diverso
+preludio-mi-minore;Preludio;6;L;C4;90;1;1;uguale
+preludio-mi-minore;Preludio;6;L;E3;92;4;5;diverso
+preludio-mi-minore;Preludio;6;L;F#3;92;3;4;diverso
+preludio-mi-minore;Preludio;6;L;C4;92;1;1;uguale
+preludio-mi-minore;Preludio;6;L;E3;94;4;5;diverso
+preludio-mi-minore;Preludio;6;L;F#3;94;3;4;diverso
+preludio-mi-minore;Preludio;6;L;C4;94;1;1;uguale
+preludio-mi-minore;Preludio;7;L;E3;96;4;5;diverso
+preludio-mi-minore;Preludio;7;L;F#3;96;3;4;diverso
+preludio-mi-minore;Preludio;7;L;C4;96;1;1;uguale
+preludio-mi-minore;Preludio;7;L;E3;98;4;5;diverso
+preludio-mi-minore;Preludio;7;L;F#3;98;3;4;diverso
+preludio-mi-minore;Preludio;7;L;C4;98;1;1;uguale
+preludio-mi-minore;Preludio;7;L;E3;100;4;5;diverso
+preludio-mi-minore;Preludio;7;L;F#3;100;3;4;diverso
+preludio-mi-minore;Preludio;7;L;C4;100;1;1;uguale
+preludio-mi-minore;Preludio;7;L;E3;102;4;5;diverso
+preludio-mi-minore;Preludio;7;L;F#3;102;3;4;diverso
+preludio-mi-minore;Preludio;7;L;C4;102;1;1;uguale
+preludio-mi-minore;Preludio;7;L;D#3;104;5;5;uguale
+preludio-mi-minore;Preludio;7;L;F#3;104;3;3;uguale
+preludio-mi-minore;Preludio;7;L;C4;104;1;1;uguale
+preludio-mi-minore;Preludio;7;L;D#3;106;5;5;uguale
+preludio-mi-minore;Preludio;7;L;F#3;106;3;3;uguale
+preludio-mi-minore;Preludio;7;L;C4;106;1;1;uguale
+preludio-mi-minore;Preludio;7;L;D#3;108;5;5;uguale
+preludio-mi-minore;Preludio;7;L;F#3;108;3;3;uguale
+preludio-mi-minore;Preludio;7;L;C4;108;1;1;uguale
+preludio-mi-minore;Preludio;7;L;D#3;110;5;5;uguale
+preludio-mi-minore;Preludio;7;L;F#3;110;3;3;uguale
+preludio-mi-minore;Preludio;7;L;C4;110;1;1;uguale
+preludio-mi-minore;Preludio;8;L;D3;112;5;5;uguale
+preludio-mi-minore;Preludio;8;L;F#3;112;3;3;uguale
+preludio-mi-minore;Preludio;8;L;C4;112;1;1;uguale
+preludio-mi-minore;Preludio;8;L;D3;114;5;5;uguale
+preludio-mi-minore;Preludio;8;L;F#3;114;3;3;uguale
+preludio-mi-minore;Preludio;8;L;C4;114;1;1;uguale
+preludio-mi-minore;Preludio;8;L;D3;116;5;5;uguale
+preludio-mi-minore;Preludio;8;L;F#3;116;3;3;uguale
+preludio-mi-minore;Preludio;8;L;C4;116;1;1;uguale
+preludio-mi-minore;Preludio;8;L;D3;118;5;5;uguale
+preludio-mi-minore;Preludio;8;L;F#3;118;3;3;uguale
+preludio-mi-minore;Preludio;8;L;C4;118;1;1;uguale
+preludio-mi-minore;Preludio;8;L;D3;120;5;5;uguale
+preludio-mi-minore;Preludio;8;L;F#3;120;3;3;uguale
+preludio-mi-minore;Preludio;8;L;C4;120;1;1;uguale
+preludio-mi-minore;Preludio;8;L;D3;122;5;5;uguale
+preludio-mi-minore;Preludio;8;L;F#3;122;3;3;uguale
+preludio-mi-minore;Preludio;8;L;C4;122;1;1;uguale
+preludio-mi-minore;Preludio;8;L;D3;124;5;5;uguale
+preludio-mi-minore;Preludio;8;L;F#3;124;3;3;uguale
+preludio-mi-minore;Preludio;8;L;C4;124;1;1;uguale
+preludio-mi-minore;Preludio;8;L;D3;126;5;5;uguale
+preludio-mi-minore;Preludio;8;L;F#3;126;3;2;diverso
+preludio-mi-minore;Preludio;8;L;C4;126;1;;diverso

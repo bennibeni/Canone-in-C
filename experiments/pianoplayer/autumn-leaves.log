@@ -1,0 +1,18 @@
+  Run Summary                                                                  
++-----------------------------------------------------------------------------+
+| Input      | C:\Users\torre\Desktop\I miei                                  |
+|            | progetti\canone\experiments\pianoplayer\autumn-leaves-input.mu |
+|            | sicxml                                                         |
+| Output     | C:\Users\torre\Desktop\I miei                                  |
+|            | progetti\canone\experiments\pianoplayer\autumn-leaves-pianopla |
+|            | yer.musicxml                                                   |
+| Depth      | auto                                                           |
+| Parts      | 2                                                              |
+| RH Route   | part 0                                                         |
+| LH Route   | part 1                                                         |
+| Elapsed    | 19.39 s                                                        |
+| Right Hand | ok(part 0) | notes=15                                          |
+| Left Hand  | ok(part 1) | notes=56                                          |
++-----------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
+| 

@@ -1,0 +1,18 @@
+  Run Summary                                                                  
++-----------------------------------------------------------------------------+
+| Input      | C:\Users\torre\Desktop\I miei                                  |
+|            | progetti\canone\experiments\pianoplayer\preludio-mi-minore-inp |
+|            | ut.musicxml                                                    |
+| Output     | C:\Users\torre\Desktop\I miei                                  |
+|            | progetti\canone\experiments\pianoplayer\preludio-mi-minore-pia |
+|            | noplayer.musicxml                                              |
+| Depth      | auto                                                           |
+| Parts      | 2                                                              |
+| RH Route   | part 0                                                         |
+| LH Route   | part 1                                                         |
+| Elapsed    | 6.95 s                                                         |
+| Right Hand | ok(part 0) | notes=17                                          |
+| Left Hand  | ok(part 1) | notes=168                                         |
++-----------------------------------------------------------------------------+
++-----------------------------------------------------------------------------+
+| 

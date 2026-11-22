@@ -1,0 +1,52 @@
+[
+  {
+    "song": "Canone",
+    "measures": 8,
+    "notes": 80,
+    "generated": 80,
+    "reference": 80,
+    "equal": 29,
+    "seconds": 17.23,
+    "slug": "canone"
+  },
+  {
+    "song": "Autumn Leaves",
+    "measures": 8,
+    "notes": 71,
+    "generated": 71,
+    "reference": 71,
+    "equal": 42,
+    "seconds": 19.72,
+    "slug": "autumn-leaves"
+  },
+  {
+    "song": "Passacaglia",
+    "measures": 8,
+    "notes": 119,
+    "generated": 118,
+    "reference": 119,
+    "equal": 78,
+    "seconds": 25.17,
+    "slug": "passacaglia"
+  },
+  {
+    "song": "Preludio",
+    "measures": 8,
+    "notes": 128,
+    "generated": 128,
+    "reference": 128,
+    "equal": 68,
+    "seconds": 25.48,
+    "slug": "preludio-in-do"
+  },
+  {
+    "song": "Preludio",
+    "measures": 8,
+    "notes": 185,
+    "generated": 184,
+    "reference": 185,
+    "equal": 111,
+    "seconds": 7.28,
+    "slug": "preludio-mi-minore"
+  }
+]
