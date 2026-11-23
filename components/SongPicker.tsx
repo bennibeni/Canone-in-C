@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { songTitle } from "@/lib/score";
-import { SONGS } from "@/lib/songs";
+import { SONGS, MAIN_SONGS } from "@/lib/songs";
+import { SALERNO } from "@/lib/songs/salerno";
+import type { Song } from "@/lib/score";
 import { chordName } from "@/lib/notes";
 import { useHiddenSongs } from "@/hooks/useHiddenSongs";
 
@@ -78,22 +80,46 @@ function SongPickerModal({ onClose }: { onClose: () => void }) {
             </span>
           </div>
         </div>
-        <ul className="overflow-y-auto px-3 py-2 flex-1">
-          {SONGS.map((s) => {
-            const on = draft.has(s.slug);
+        <div className="overflow-y-auto px-3 py-2 flex-1">
+          {([["Brani", MAIN_SONGS], ["Brani facili", SALERNO]] as [string, Song[]][]).map(([label, list]) => {
+            const all = list.every((s) => draft.has(s.slug));
             return (
-              <li key={s.slug}>
-                <label className={`flex items-start gap-3 rounded-lg px-2 py-2 cursor-pointer hover:bg-slate-800/50 ${on ? "" : "opacity-55"}`}>
-                  <input type="checkbox" checked={on} onChange={() => toggle(s.slug)} className="mt-1 h-4 w-4 accent-indigo-400" />
-                  <span>
-                    <span className="block text-sm font-semibold text-slate-100">{songTitle(s, (t) => chordName(t, "it"))}</span>
-                    <span className="block text-xs text-slate-400">{s.composer}</span>
-                  </span>
-                </label>
-              </li>
+              <div key={label} className="mb-2">
+                <div className="flex items-center px-2 pt-2 pb-1">
+                  <span className="text-[11px] uppercase tracking-widest text-slate-500 font-semibold">{label}</span>
+                  <button
+                    onClick={() =>
+                      setDraft((d) => {
+                        const n = new Set(d);
+                        list.forEach((s) => (all ? n.delete(s.slug) : n.add(s.slug)));
+                        return n;
+                      })
+                    }
+                    className="ml-auto text-xs text-indigo-300 hover:text-indigo-200"
+                  >
+                    {all ? "togli tutti" : "metti tutti"}
+                  </button>
+                </div>
+                <ul>
+                  {list.map((s) => {
+                    const on = draft.has(s.slug);
+                    return (
+                      <li key={s.slug}>
+                        <label className={`flex items-start gap-3 rounded-lg px-2 py-2 cursor-pointer hover:bg-slate-800/50 ${on ? "" : "opacity-55"}`}>
+                          <input type="checkbox" checked={on} onChange={() => toggle(s.slug)} className="mt-1 h-4 w-4 accent-indigo-400" />
+                          <span>
+                            <span className="block text-sm font-semibold text-slate-100">{songTitle(s, (t) => chordName(t, "it"))}</span>
+                            <span className="block text-xs text-slate-400">{s.composer}</span>
+                          </span>
+                        </label>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             );
           })}
-        </ul>
+        </div>
         <div className="px-5 py-3 border-t border-slate-800 flex items-center gap-2">
           {none && <span className="text-xs text-amber-300">Scegli almeno un brano.</span>}
           <button onClick={onClose} className="ml-auto px-3 py-1.5 rounded-lg text-sm border border-slate-700 text-slate-300 hover:border-slate-500">

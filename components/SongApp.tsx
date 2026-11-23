@@ -290,6 +290,15 @@ export default function SongApp({ slug }: { slug: string }) {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 py-5 space-y-5">
+        {song.audio && (
+          <section className="rounded-2xl border border-slate-800 bg-slate-900/40 px-4 py-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <div className="text-sm">
+              <div className="font-semibold text-slate-200">Ascolta l'esecuzione</div>
+              <div className="text-xs text-slate-400">Registrazione dell'autore, {song.composer}</div>
+            </div>
+            <audio controls preload="none" src={song.audio} className="h-9 flex-1 min-w-[240px]" />
+          </section>
+        )}
         {/* fascia 1: note che scendono + trasporto | parte, percorso, come suonare
             (il riquadro delle note si allunga fino all'altezza della colonna destra) */}
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_330px] items-stretch">

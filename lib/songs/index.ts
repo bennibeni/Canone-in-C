@@ -16,8 +16,13 @@ import { ceraUnaVolta } from "./cera-una-volta-in-america";
 import { whiterShadeOfPale } from "./whiter-shade-of-pale";
 import { addamsFamily } from "./addams-family";
 import { misty } from "./misty";
+import { SALERNO } from "./salerno";
 
 /** Elenco dei brani (ordine del menu). Per aggiungerne uno: crea il file in lib/songs e mettilo qui. */
-export const SONGS: Song[] = [canone, autumnLeaves, passacaglia, preludioDo, preludioMiMinore, cavalcataValchirie, primaveraVivaldi, ariaQuartaCorda, alleluja, allegroMozart, romanzaBeethoven, foglieMorte, wonderfulWorld, misty, whiterShadeOfPale, addamsFamily, ceraUnaVolta];
+/** Brani principali (menu «Brani») */
+export const MAIN_SONGS: Song[] = [canone, autumnLeaves, passacaglia, preludioDo, preludioMiMinore, cavalcataValchirie, primaveraVivaldi, ariaQuartaCorda, alleluja, allegroMozart, romanzaBeethoven, foglieMorte, wonderfulWorld, misty, whiterShadeOfPale, addamsFamily, ceraUnaVolta];
+
+/** Tutti i brani: principali e «Brani facili» (Christian Salerno) */
+export const SONGS: Song[] = [...MAIN_SONGS, ...SALERNO];
 
 export const getSong = (slug: string) => SONGS.find((s) => s.slug === slug);

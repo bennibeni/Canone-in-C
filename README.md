@@ -5,6 +5,9 @@ dagli arrangiamenti di @reeveswongpiano: **Canone** (Pachelbel, 4 parti) e **Aut
 Senza video: Preludio in Do (Bach), Preludio in Mi minore (Chopin) e, dall'antologia «Pianoforte» di Franco Concina
 (Nuova Carisch, con il permesso dell'editore; note e diteggiature dallo spartito): Cavalcata delle Valchirie, La primavera,
 Aria sulla IV corda, Alleluja, Allegro (Mozart), Romanza (Beethoven), Foglie morte, What a Wonderful World, Misty, A Whiter Shade of Pale, The Addams Family, C'era una volta in America.
+**Brani facili** (menu separato): i 23 brani di «Emozioni al Pianoforte» di Christian Salerno, con il permesso
+dell'autore, in `lib/songs/salerno/` (`collection: "facili"`), con la registrazione dell'autore in `public/audio/salerno/`
+(campo `audio`). Note e diteggiature sono lette dal PDF esportato da MuseScore con `scripts/salerno`.
 I brani possono essere in 4/4 (default) o 3/4 (`beats: 3` nel brano, es. la Cavalcata).
 I brani si scelgono dal menu verticale a sinistra; ogni brano ha il suo indirizzo (`/canone`, `/autumn-leaves`).
 

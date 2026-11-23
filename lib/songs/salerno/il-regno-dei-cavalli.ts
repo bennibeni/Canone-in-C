@@ -1,0 +1,81 @@
+// Il regno dei cavalli (Christian Salerno), da «Emozioni al Pianoforte». Pubblicato con il permesso dell'autore.
+// Note e DITEGGIATURE lette dal PDF (esportato da MuseScore) con scripts/salerno; dove lo spartito non
+// indica il dito, il dito è calcolato. Ogni mano è una sola voce; le legature tra battute diverse
+// non sono unite.
+import type { Song } from "../../score";
+
+export const s_il_regno_dei_cavalli: Song = {
+  slug: "il-regno-dei-cavalli",
+  title: "Il regno dei cavalli",
+  composer: "Christian Salerno",
+  credit: "Da «Emozioni al Pianoforte» di Christian Salerno, pubblicato con il permesso dell'autore. Note e diteggiature dallo spartito",
+  collection: "facili",
+  audio: "/audio/salerno/il-regno-dei-cavalli.mp3",
+  mode: "minor",
+  videoKey: "F",
+  baseKey: "F",
+  progression: ["Asus4", "Dm7", "E\u00f87", "Fsus4", "E\u00f87", "Fsus4", "Gsus4", "A7"],
+  progressionLabel: "gli accordi dell'inizio",
+  fullTips: ["Tonalità: Re minore (1 bemolle in chiave).", "Tempo indicato: semiminima = 110. Comincia molto più lento e alza il tempo solo quando le dita sono sicure.", "Il consiglio dell'autore: studia una mano alla volta, rispetta le alterazioni e le dita indicate, poi unisci le mani molto lentamente."],
+  parts: [
+    {
+      id: 1,
+      title: "Parte 1",
+      subtitle: "Battute 1–9",
+      focus: "Battute 1–9",
+      tempo: 100,
+      tips: ["Prima una mano alla volta, poi insieme, lentamente."],
+      measures: [
+        { chords: ["Asus4"], rh: "r:16", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 3 2" },
+        { chords: ["Asus4"], rh: "r:16", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: [], rh: "F5:8 D5:4 E5:4", rf: "5 3 4", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: ["Dm7"], rh: "F5:8 D5:4 C5:4", rf: "5 3 1", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: ["Eø7", "Fsus4"], rh: "Bb4:16", rf: "4", lh: "D3:2 Bb3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: ["Eø7", "Fsus4"], rh: "Bb4:16", rf: "4", lh: "D3:2 Bb3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: ["Gsus4"], rh: "r:16", lh: "C3:2 G3:2 C4:2 D4:2 E4:8", lf: "5 2 1 2 1" },
+        { chords: ["A7"], rh: "A4:4 Bb4:4 A4:4 G4:4", rf: "3 4 3 2", lh: "C3:2 G3:2 C4:2 D4:2 E4:8", lf: "5 2 1 2 1" },
+        { chords: [], rh: "F4:16", rf: "1", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+      ],
+    },
+    {
+      id: 2,
+      title: "Parte 2",
+      subtitle: "Battute 10–18",
+      focus: "Battute 10–18",
+      tempo: 100,
+      firstMeasure: 10,
+      tips: ["Prima una mano alla volta, poi insieme, lentamente."],
+      measures: [
+        { chords: ["Asus4"], rh: "r:16", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: [], rh: "E4+C5:4 F4+D5:4 F4+D5:4 E4+C5:4", rf: "1/4 1/5 2/5 1/4", lh: "C3:2 G3:2 C4:2 D4:2 E4:8", lf: "5 2 1 2 1" },
+        { chords: [], rh: "G4+E5:4 A4+F5:4 A4+F5:4 G4+E5:4", rf: "1/4 1/5 2/5 1/4", lh: "C3:2 G3:2 C4:2 D4:2 E4:8", lf: "5 2 1 2 1" },
+        { chords: [], rh: "F4+D5:8 r:8", rf: "1/5", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: [], rh: "G4+E5:4 A4+F5:4 A4+F5:4 G4+E5:4", rf: "1/4 1/5 2/5 1/4", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 3 2" },
+        { chords: ["C#°"], rh: "G4+E5:8 r:8", rf: "1/4", lh: "E4:4 C#4:4 A3:8", lf: "1 3 5" },
+        { chords: [], rh: "F5:8 D5:4 E5:4", rf: "5 3 4", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 3 2" },
+        { chords: ["Dm7"], rh: "F5:8 D5:4 C5:4", rf: "5 3 1", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: ["Eø7", "Fsus4"], rh: "Bb4:16", rf: "4", lh: "D3:2 Bb3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+      ],
+    },
+    {
+      id: 3,
+      title: "Parte 3",
+      subtitle: "Battute 19–27",
+      focus: "Battute 19–27",
+      tempo: 100,
+      firstMeasure: 19,
+      tips: ["Prima una mano alla volta, poi insieme, lentamente."],
+      measures: [
+        { chords: ["Eø7", "Fsus4"], rh: "Bb4:16", rf: "4", lh: "D3:2 Bb3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: ["Gsus4"], rh: "r:16", lh: "C3:2 G3:2 C4:2 D4:2 E4:8", lf: "5 2 1 2 1" },
+        { chords: ["A7"], rh: "A4:4 Bb4:4 A4:4 G4:4", rf: "3 4 3 2", lh: "C3:2 G3:2 C4:2 D4:2 E4:8", lf: "5 2 1 2 1" },
+        { chords: [], rh: "F4:16", rf: "1", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: ["Asus4"], rh: "r:16", lh: "D3:2 A3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: ["Eø7"], rh: "r:16", lh: "D3:2 Bb3:2 D4:2 E4:2 F4:8", lf: "5 2 1 2 1" },
+        { chords: ["Gsus4"], rh: "r:16", lh: "C3:2 G3:2 C4:2 D4:2 E4:8", lf: "5 2 1 2 1" },
+        { chords: ["Asus4"], rh: "r:16", lh: "D3:2 A3:2 D4:2 E4:2 F4:2 E4:2 D4:2 A3:2", lf: "5 2 1 3 2 3 1 2" },
+        { chords: [], rh: "r:16", lh: "D3:8 D2:8", lf: "5 3" },
+      ],
+    },
+  ],
+};

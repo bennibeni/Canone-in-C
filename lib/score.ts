@@ -154,6 +154,10 @@ export interface Song {
   progressionLabel?: string;
   /** diteggiatura ciclica della sinistra quando la battuta non ha `lf` */
   lhPattern?: number[];
+  /** raccolta del menu: "facili" = sezione «Brani facili» (default: brani principali) */
+  collection?: "facili";
+  /** registrazione dell'esecuzione (percorso in /public), mostrata con un lettore audio */
+  audio?: string;
   /** movimenti (semiminime) per battuta: 4 = 4/4 (default), 3 = 3/4 */
   beats?: number;
   fullTips: string[];

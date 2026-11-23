@@ -1,0 +1,80 @@
+// Giving My Way (Christian Salerno), da «Emozioni al Pianoforte». Pubblicato con il permesso dell'autore.
+// Note e DITEGGIATURE lette dal PDF (esportato da MuseScore) con scripts/salerno; dove lo spartito non
+// indica il dito, il dito è calcolato. Ogni mano è una sola voce; le legature tra battute diverse
+// non sono unite.
+import type { Song } from "../../score";
+
+export const s_giving_my_way: Song = {
+  slug: "giving-my-way",
+  title: "Giving My Way",
+  composer: "Christian Salerno",
+  credit: "Da «Emozioni al Pianoforte» di Christian Salerno, pubblicato con il permesso dell'autore. Note e diteggiature dallo spartito",
+  collection: "facili",
+  audio: "/audio/salerno/giving-my-way.mp3",
+  mode: "major",
+  videoKey: "F",
+  baseKey: "F",
+  progression: ["F", "Fsus4", "F", "Fsus4", "Dm7", "Csus4", "Bbmaj7", "Dm7"],
+  progressionLabel: "gli accordi dell'inizio",
+  fullTips: ["Tonalità: Fa maggiore (1 bemolle in chiave).", "Tempo indicato: semiminima = 110. Comincia molto più lento e alza il tempo solo quando le dita sono sicure.", "Il consiglio dell'autore: studia una mano alla volta, rispetta le alterazioni e le dita indicate, poi unisci le mani molto lentamente."],
+  parts: [
+    {
+      id: 1,
+      title: "Parte 1",
+      subtitle: "Battute 1–9",
+      focus: "Battute 1–9",
+      tempo: 100,
+      tips: ["Prima una mano alla volta, poi insieme, lentamente."],
+      measures: [
+        { chords: ["F"], rh: "C5:2 F4:2 C4:2 C5:2 F4:2 C4:2 C5:2 F4:2", rf: "5 2 1 5 2 1 5 2", lh: "F2:16", lf: "5" },
+        { chords: ["F"], rh: "C4:2 C5:2 F4:2 C4:2 C5:2 F4:2 C4:2 C5:2", rf: "1 5 2 1 5 2 1 5", lh: "F2:16", lf: "5" },
+        { chords: ["F"], rh: "F4:2 C4:2 C5:2 F4:2 C4:2 C5:2 F4:2 C4:2", rf: "2 1 5 2 1 5 2 1", lh: "A2:16", lf: "3" },
+        { chords: ["F"], rh: "C5:2 F4:2 C4:2 C5:2 F4:2 C4:2 C5:2 F4:2", rf: "5 2 1 5 2 1 5 2", lh: "A2:16", lf: "3" },
+        { chords: ["Fsus4"], rh: "C4:2 C5:2 F4:2 C4:2 G4+C5:2 F4:2 C4:2 C5:2", rf: "1 5 2 1 3/5 2 1 5", lh: "Bb2:16", lf: "2" },
+        { chords: ["Fsus4"], rh: "F4:2 C4:2 C5:2 F4:2 C4:2 G4+C5:2 F4:2 C4:2", rf: "2 1 5 2 1 3/5 2 1", lh: "Bb2:16", lf: "2" },
+        { chords: ["F"], rh: "C5:2 F4:2 C4:2 C5:2 F4:2 C4:2 C5:2 F4:2", rf: "5 2 1 5 2 1 5 2", lh: "F2:16", lf: "5" },
+        { chords: ["F"], rh: "C4:2 C5:2 F4:2 C4:2 C5:2 F4:2 C4:2 C5:2", rf: "1 5 2 1 5 2 1 5", lh: "F2:16", lf: "5" },
+        { chords: ["F"], rh: "F4:2 C4:2 C5:2 F4:2 C4:2 C5:2 F4:2 C4:2", rf: "2 1 5 2 1 5 2 1", lh: "A2:16", lf: "3" },
+      ],
+    },
+    {
+      id: 2,
+      title: "Parte 2",
+      subtitle: "Battute 10–18",
+      focus: "Battute 10–18",
+      tempo: 100,
+      firstMeasure: 10,
+      tips: ["Prima una mano alla volta, poi insieme, lentamente."],
+      measures: [
+        { chords: ["F"], rh: "C5:2 F4:2 C4:2 C5:2 F4:2 C4:2 C5:2 F4:2", rf: "5 2 1 5 2 1 5 2", lh: "A2:16", lf: "3" },
+        { chords: ["Fsus4"], rh: "C4:2 C5:2 F4:2 C4:2 G4+C5:2 F4:2 C4:2 C5:2", rf: "1 5 2 1 3/5 2 1 5", lh: "Bb2:16", lf: "2" },
+        { chords: ["Fsus4"], rh: "F4:2 C4:2 C5:2 F4:2 C4:2 G4+C5:2 F4:2 C4:2", rf: "2 1 5 2 1 3/5 2 1", lh: "Bb2:16", lf: "2" },
+        { chords: ["Dm7"], rh: "C5:2 F4:2 C4:2 C5:2 F4:2 C4:2 C5:2 F4:2", rf: "5 2 1 5 2 1 5 2", lh: "D3:16", lf: "1" },
+        { chords: ["Csus4"], rh: "C4:2 C5:2 F4:2 C4:2 C5:2 F4:2 C4:2 C5:2", rf: "1 5 2 1 5 2 1 5", lh: "C3:16", lf: "2" },
+        { chords: [], rh: "C4:2 D4:2 F4:2 A4:2 C5:2 D5:2 F5:2 A5:2", rf: "1 2 3 5 1 2 3 5", lh: "Bb2:16", lf: "3" },
+        { chords: ["Bbmaj7"], rh: "C6:2 D6:2 F6:2 A6:10", rf: "1 2 3 5", lh: "Bb2:16", lf: "3" },
+        { chords: ["Dm7"], rh: "C5:2 F4:2 C4:2 C5:2 F4:2 C4:2 C5:2 F4:2", rf: "5 2 1 5 2 1 5 2", lh: "D3:16", lf: "1" },
+        { chords: ["Csus4"], rh: "C4:2 C5:2 F4:2 C4:2 C5:2 F4:2 C4:2 C5:2", rf: "1 5 2 1 5 2 1 5", lh: "C3:16", lf: "2" },
+      ],
+    },
+    {
+      id: 3,
+      title: "Parte 3",
+      subtitle: "Battute 19–26",
+      focus: "Battute 19–26",
+      tempo: 100,
+      firstMeasure: 19,
+      tips: ["Prima una mano alla volta, poi insieme, lentamente."],
+      measures: [
+        { chords: ["Fsus4"], rh: "C4+F4:16", rf: "1/2", lh: "Bb1+Bb2:16", lf: "5/1" },
+        { chords: ["F"], rh: "C4:2 F3:2 C3:2 C4:2 F3:2 C3:2 C4:2 F3:2", rf: "5 2 1 5 2 1 5 2", lh: "F2:16", lf: "2" },
+        { chords: ["F"], rh: "C3:2 C4:2 F3:2 C3:2 C4:2 F3:2 C3:2 C4:2", rf: "1 5 2 1 5 2 1 5", lh: "F2:16", lf: "2" },
+        { chords: ["F"], rh: "F3:2 C3:2 C4:2 F3:2 C3:2 C4:2 F3:2 C3:2", rf: "2 1 5 2 1 5 2 1", lh: "A2:16", lf: "1" },
+        { chords: ["F"], rh: "C4:2 F3:2 C3:2 C4:2 F3:2 C3:2 C4:2 F3:2", rf: "5 2 1 5 2 1 5 2", lh: "A2:16", lf: "2" },
+        { chords: ["Fsus4"], rh: "C3:2 C4:2 F3:2 C3:2 C4:2 F3:2 C3:2 C4:2", rf: "1 5 2 1 5 2 1 5", lh: "Bb2:16", lf: "1" },
+        { chords: ["Fsus4"], rh: "F3:2 C3:2 C4:2 F3:2 C3:2 C4:2 F3:2 C3:2", rf: "2 1 5 2 1 5 2 1", lh: "Bb2:16", lf: "1" },
+        { chords: ["F"], rh: "C3+F3:16", rf: "1/2", lh: "F2:16", lf: "2" },
+      ],
+    },
+  ],
+};

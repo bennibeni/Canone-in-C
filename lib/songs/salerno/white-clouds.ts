@@ -1,0 +1,93 @@
+// White Clouds (Christian Salerno), da «Emozioni al Pianoforte». Pubblicato con il permesso dell'autore.
+// Note e DITEGGIATURE lette dal PDF (esportato da MuseScore) con scripts/salerno; dove lo spartito non
+// indica il dito, il dito è calcolato. Ogni mano è una sola voce; le legature tra battute diverse
+// non sono unite.
+import type { Song } from "../../score";
+
+export const s_white_clouds: Song = {
+  slug: "white-clouds",
+  title: "White Clouds",
+  composer: "Christian Salerno",
+  credit: "Da «Emozioni al Pianoforte» di Christian Salerno, pubblicato con il permesso dell'autore. Note e diteggiature dallo spartito",
+  collection: "facili",
+  audio: "/audio/salerno/white-clouds.mp3",
+  mode: "minor",
+  videoKey: "C",
+  progression: ["Am", "Dm", "G", "Em7", "Am", "Dm", "G", "Em7"],
+  progressionLabel: "gli accordi dell'inizio",
+  fullTips: ["Tonalità: La minore (nessuna alterazione in chiave).", "Tempo indicato: semiminima = 120. Comincia molto più lento e alza il tempo solo quando le dita sono sicure.", "Il consiglio dell'autore: studia una mano alla volta, rispetta le alterazioni e le dita indicate, poi unisci le mani molto lentamente."],
+  parts: [
+    {
+      id: 1,
+      title: "Parte 1",
+      subtitle: "Battute 1–8",
+      focus: "Battute 1–8",
+      tempo: 100,
+      tips: ["Prima una mano alla volta, poi insieme, lentamente."],
+      measures: [
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "3 2 3 1 3 2 3 1", lh: "r:16" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "3 2 3 1 3 2 3 1", lh: "r:16" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "3 2 3 1 3 2 3 1", lh: "A2:8 A3:8", lf: "5 1" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "3 2 3 1 3 2 3 1", lh: "A2:16", lf: "5" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "3 2 3 1 3 2 3 1", lh: "F2:8 F3:8", lf: "5 1" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "3 2 3 1 3 2 3 1", lh: "F2:16", lf: "5" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "3 2 3 1 3 2 3 1", lh: "A2:8 A3:8", lf: "5 1" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "3 2 3 1 3 2 3 1", lh: "A2:16", lf: "3" },
+      ],
+    },
+    {
+      id: 2,
+      title: "Parte 2",
+      subtitle: "Battute 9–16",
+      focus: "Battute 9–16",
+      tempo: 100,
+      firstMeasure: 9,
+      tips: ["Prima una mano alla volta, poi insieme, lentamente."],
+      measures: [
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "3 2 3 1 3 2 3 1", lh: "F2:8 F3:8", lf: "5 1" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "3 2 3 1 3 2 3 1", lh: "F2:16", lf: "5" },
+        { chords: ["Am"], rh: "A4:4 A4:4 C5:4 E5:4", rf: "1 1 2 4", lh: "A2:2 A2:2 A2:2 A2:2 A2:2 A2:2 A2:2 A2:2", lf: "2 2 2 2 2 2 2 2" },
+        { chords: ["Dm"], rh: "E5:4 D5:2 C5:2 D5:8", rf: "4 3 2 3", lh: "F2:2 F2:2 F2:2 F2:2 F2:2 F2:2 F2:2 F2:2", lf: "4 4 4 4 4 4 4 4" },
+        { chords: ["G", "Em7"], rh: "D5:4 B4:4 D5:4 E5:4", rf: "3 1 3 4", lh: "G2:2 G2:2 G2:2 G2:2 G2:2 G2:2 G2:2 G2:2", lf: "3 3 3 3 3 3 3 3" },
+        { chords: ["Am"], rh: "C5:4 C5:2 B4:2 C5:8", rf: "2 2 1 2", lh: "A2:2 A2:2 A2:2 A2:2 A2:2 A2:2 A2:2 A2:2", lf: "1 1 1 1 1 1 1 1" },
+        { chords: ["Am"], rh: "A4:4 A4:4 C5:4 E5:4", rf: "1 1 2 4", lh: "A2:2 A2:2 A2:2 A2:2 A2:2 A2:2 A2:2 A2:2", lf: "1 1 1 1 1 1 1 1" },
+        { chords: ["Dm"], rh: "E5:4 D5:2 C5:2 D5:8", rf: "4 3 2 3", lh: "F2:2 F2:2 F2:2 F2:2 F2:2 F2:2 F2:2 F2:2", lf: "3 3 3 3 3 3 3 3" },
+      ],
+    },
+    {
+      id: 3,
+      title: "Parte 3",
+      subtitle: "Battute 17–24",
+      focus: "Battute 17–24",
+      tempo: 100,
+      firstMeasure: 17,
+      tips: ["Prima una mano alla volta, poi insieme, lentamente."],
+      measures: [
+        { chords: ["G", "Em7"], rh: "D5:4 B4:4 D5:4 E5:4", rf: "3 1 3 4", lh: "G2:2 G2:2 G2:2 G2:2 G2:2 G2:2 G2:2 G2:2", lf: "2 2 2 2 2 2 2 2" },
+        { chords: ["Am"], rh: "C5:4 C5:2 B4:2 C5:8", rf: "2 2 1 2", lh: "A2:2 A2:2 A2:2 A2:2 A2:2 A2:2 A2:2 A2:2", lf: "1 1 1 1 1 1 1 1" },
+        { chords: ["F"], rh: "C5:4 C5:2 B4:2 C5:8", rf: "2 2 1 2", lh: "F2:2 F2:2 F2:2 F2:2 F2:2 F2:2 F2:2 F2:2", lf: "2 1 1 1 1 1 1 1" },
+        { chords: ["D7"], rh: "C5:4 C5:2 B4:2 C5:8", rf: "2 2 1 2", lh: "D2:2 D2:2 D2:2 D2:2 D2:2 D2:2 D2:2 D2:2", lf: "3 3 3 3 3 3 3 3" },
+        { chords: ["E"], rh: "B4:16", rf: "1", lh: "E2:16", lf: "2" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "2 1 2 1 2 1 2 1", lh: "A2:8 A3:8", lf: "1 1" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "2 1 2 1 2 1 2 1", lh: "A2:16", lf: "3" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "2 1 2 1 2 1 2 1", lh: "F2:8 F3:8", lf: "5 1" },
+      ],
+    },
+    {
+      id: 4,
+      title: "Parte 4",
+      subtitle: "Battute 25–29",
+      focus: "Battute 25–29",
+      tempo: 100,
+      firstMeasure: 25,
+      tips: ["Prima una mano alla volta, poi insieme, lentamente."],
+      measures: [
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "2 1 2 1 2 1 2 1", lh: "F2:16", lf: "5" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "2 1 2 1 2 1 2 1", lh: "F2:4 E2:4 D2:4 C2:4", lf: "1 2 3 4" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "2 1 2 1 2 1 2 1", lh: "B1:8 E2:8", lf: "5 1" },
+        { chords: [], rh: "C5:2 B4:2 C5:2 A4:2 C5:2 B4:2 C5:2 A4:2", rf: "2 1 2 1 2 1 2 1", lh: "A1:8 A2:8", lf: "5 1" },
+        { chords: [], rh: "A5:16", rf: "5", lh: "A1:16", lf: "5" },
+      ],
+    },
+  ],
+};
