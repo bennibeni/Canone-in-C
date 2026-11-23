@@ -18,7 +18,7 @@ want = {}
 for i, n in enumerate(notes):
     if n["x"] is None:
         continue
-    f0 = int(round(n["t0"] * 30))
+    f0 = round(n["t0"] * 30)
     for k in (2, 3, 4, 5):
         want.setdefault(f0 + k, []).append(i)
 det = vision.HandLandmarker.create_from_options(

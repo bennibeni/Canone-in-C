@@ -121,7 +121,7 @@ def finger(events, hand):
         for st, e in zip(states, events, strict=True)
     ]
     if len(events) == 1:
-        return [min(inner[0], key=inner[0].get)]
+        return [min(inner[0], key=lambda state: inner[0][state])]
     # stato (a, b) = dita degli eventi i-1, i
     best = {}
     for a in states[0]:
@@ -148,7 +148,7 @@ def finger(events, hand):
                     cur[key], bk[key] = cost, a
         best = cur
         backs.append(bk)
-    a, b = min(best, key=best.get)
+    a, b = min(best, key=lambda state: best[state])
     out = [b, a]
     for bk in reversed(backs):
         prev = bk[(a, b)]

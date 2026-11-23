@@ -22,7 +22,7 @@ cmd = [
     "rgb24",
     "-",
 ]
-raw = subprocess.run(cmd, capture_output=True).stdout
+raw = subprocess.run(cmd, capture_output=True, check=False).stdout
 h = y1 - y0
 n = len(raw) // (W * h * 3)
 fr = np.frombuffer(raw, np.uint8).reshape(n, h, W, 3).astype(int)

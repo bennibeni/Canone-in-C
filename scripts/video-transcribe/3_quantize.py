@@ -75,7 +75,7 @@ g = np.diff(on)
 idx = [0]
 for i, gi in enumerate(g):
     loc = np.median(g[max(0, i - 6) : i + 7])
-    idx.append(idx[-1] + max(1, int(round(gi / loc))))
+    idx.append(idx[-1] + max(1, round(gi / loc)))
 idx = np.array(idx, float)
 per0 = np.median(g)
 
@@ -92,8 +92,8 @@ q = []
 for n in notes:
     a = t2i(n["t0"])
     b = t2i(n["t1"])
-    st = int(round(a * 2))
-    du = max(1, int(round((b - a) * 2)))
+    st = round(a * 2)
+    du = max(1, round((b - a) * 2))
     q.append(
         {
             "hand": n["hand"],

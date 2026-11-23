@@ -19,25 +19,37 @@ STEP = {"C": 0, "D": 2, "E": 4, "F": 5, "G": 7, "A": 9, "B": 11}
 ACC = {-2: "bb", -1: "b", 0: "", 1: "#", 2: "##"}
 
 
+def _text(element, context):
+    if element.text is None or not element.text.strip():
+        raise ValueError(f"MusicXML element {context!r} has no text")
+    return element.text
+
+
+def _child_text(parent, path):
+    element = parent.find(path)
+    if element is None:
+        raise ValueError(f"MusicXML element <{parent.tag}> is missing {path!r}")
+    return _text(element, path)
+
+
 def parse(path):
     root = ET.parse(path).getroot()
     part = root.find("part")
+    if part is None:
+        raise ValueError("MusicXML file contains no part")
     div, notes, t0, pickup = 4, [], 0, 0
     for mi, meas in enumerate(part.findall("measure")):
         t = last = mlen = 0
         for el in meas:
             if el.tag == "attributes" and el.find("divisions") is not None:
-                div = int(el.find("divisions").text)
+                div = int(_child_text(el, "divisions"))
             elif el.tag == "backup":
-                t -= int(el.find("duration").text)
+                t -= int(_child_text(el, "duration"))
             elif el.tag == "forward":
-                t += int(el.find("duration").text)
+                t += int(_child_text(el, "duration"))
             elif el.tag == "note":
-                dur = (
-                    int(el.find("duration").text)
-                    if el.find("duration") is not None
-                    else 0
-                )
+                duration = el.find("duration")
+                dur = int(_text(duration, "duration")) if duration is not None else 0
                 if el.find("chord") is not None:
                     st = last
                 else:
@@ -47,14 +59,19 @@ def parse(path):
                 if el.find("rest") is not None or el.find("grace") is not None:
                     continue
                 p = el.find("pitch")
+                if p is None:
+                    raise ValueError("MusicXML note is missing 'pitch'")
+                alter_el = p.find("alter")
                 alter = (
-                    int(float(p.find("alter").text))
-                    if p.find("alter") is not None
+                    int(float(_text(alter_el, "alter")))
+                    if alter_el is not None
                     else 0
                 )
-                octv = int(p.find("octave").text)
-                midi = STEP[p.find("step").text] + alter + 12 * (octv + 1)
+                octv = int(_child_text(p, "octave"))
+                step = _child_text(p, "step")
+                midi = STEP[step] + alter + 12 * (octv + 1)
                 fe = el.find(".//fingering")
+                staff = el.find("staff")
                 notes.append(
                     {
                         "m": mi,
@@ -62,10 +79,10 @@ def parse(path):
                         "d": max(1, math.ceil(dur * 4 / div - 1e-9)),
                         "raw": (t0 + st) / div,
                         "p": midi,
-                        "name": f"{p.find('step').text}{ACC[alter]}{octv}",
-                        "hand": "R"
-                        if (el.find("staff") is None or el.find("staff").text == "1")
-                        else "L",
+                        "name": f"{step}{ACC[alter]}{octv}",
+                        "hand": (
+                            "R" if staff is None or _text(staff, "staff") == "1" else "L"
+                        ),
                         "tie": [x.get("type") for x in el.findall("tie")],
                         "f": int(fe.text)
                         if fe is not None and fe.text and fe.text.strip().isdigit()
@@ -79,7 +96,9 @@ def parse(path):
     full = 16
     tm = part.find("measure/attributes/time")
     if tm is not None:
-        full = int(tm.find("beats").text) * 16 // int(tm.find("beat-type").text)
+        full = int(_child_text(tm, "beats")) * 16 // int(
+            _child_text(tm, "beat-type")
+        )
     shift = full - pickup * 4 // div if pickup else 0
     for n in notes:
         n["s"] += shift
