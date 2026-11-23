@@ -89,6 +89,8 @@ export interface Song {
   progressionLabel?: string;
   /** diteggiatura ciclica della sinistra quando la battuta non ha `lf` */
   lhPattern?: number[];
+  /** movimenti (semiminime) per battuta: 4 = 4/4 (default), 3 = 3/4 */
+  beats?: number;
   fullTips: string[];
   parts: Part[];
 }
@@ -185,7 +187,8 @@ function parseVoice(
   fingers: number[][] | null,
   pattern: number[] | undefined,
   key: KeyDef,
-  rests: ScoreRest[]
+  rests: ScoreRest[],
+  mlen = 16
 ): ScoreNote[] {
   const out: ScoreNote[] = [];
   let t = offset;
@@ -212,7 +215,7 @@ function parseVoice(
   if (fingers && fingers.length !== k) {
     console.warn(`Battuta ${measure + 1} (${hand}): ${k} note ma ${fingers.length} diteggiature`);
   }
-  if (t - offset !== 16) {
+  if (t - offset !== mlen) {
     console.warn(`Battuta ${measure + 1} (${hand}) dura ${t - offset} sedicesimi`);
   }
   return out;
@@ -230,6 +233,8 @@ export interface BuiltPart {
   key: KeyDef;
   /** battuta in cui inizia ciascuna parte (nel brano completo; altrimenti [0]) */
   partStarts: number[];
+  /** durata di una battuta in sedicesimi (16 in 4/4, 12 in 3/4) */
+  mlen: number;
   /** nome di ogni battuta da mostrare ("Levare", "1", "2", …) */
   labels: string[];
   /** battute vere (levare escluso) */
@@ -255,9 +260,10 @@ export function buildPart(
   };
   const notes: ScoreNote[] = [];
   const rests: ScoreRest[] = [];
+  const mlen = (song.beats ?? 4) * 4;
   source.measures.forEach((m, i) => {
-    notes.push(...parseVoice(m.rh, "R", i, i * 16, 4, nums(m.rf), undefined, key, rests));
-    notes.push(...parseVoice(m.lh, "L", i, i * 16, 2, nums(m.lf), song.lhPattern, key, rests));
+    notes.push(...parseVoice(m.rh, "R", i, i * mlen, 4, nums(m.rf), undefined, key, rests, mlen));
+    notes.push(...parseVoice(m.lh, "L", i, i * mlen, 2, nums(m.lf), song.lhPattern, key, rests, mlen));
   });
   notes.sort((a, b) => a.start - b.start || a.midi - b.midi);
   const midis = notes.map((n) => n.midi);
@@ -265,7 +271,8 @@ export function buildPart(
     part,
     notes,
     rests,
-    length: part.measures.length * 16,
+    length: part.measures.length * mlen,
+    mlen,
     minMidi: Math.min(...midis),
     maxMidi: Math.max(...midis),
     key,

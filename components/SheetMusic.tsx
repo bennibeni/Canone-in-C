@@ -113,8 +113,8 @@ export function SheetMusic({ built, live, measure, playing, labelMode, loop, onS
             treble.addClef("treble").addKeySignature(keySig);
             bass.addClef("bass").addKeySignature(keySig);
             if (r === 0) {
-              treble.addTimeSignature("4/4");
-              bass.addTimeSignature("4/4");
+              treble.addTimeSignature(`${built.mlen / 4}/4`);
+              bass.addTimeSignature(`${built.mlen / 4}/4`);
             }
           }
           if (m === total - 1) {
@@ -163,7 +163,7 @@ export function SheetMusic({ built, live, measure, playing, labelMode, loop, onS
                 start: r.start,
               }));
             const ticks = [...notes, ...rests].sort((a, b) => a.start - b.start).map((x) => x.sn);
-            const voice = new Voice({ numBeats: 4, beatValue: 4 }).setMode(Voice.Mode.SOFT);
+            const voice = new Voice({ numBeats: built.mlen / 4, beatValue: 4 }).setMode(Voice.Mode.SOFT);
             voice.addTickables(ticks);
             Accidental.applyAccidentals([voice], keySig);
             return { voice, notes, ticks };

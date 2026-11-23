@@ -60,7 +60,7 @@ export function usePlayer(opts: PlayerOptions) {
 
   const bounds = useCallback((): [number, number] => {
     const { loop, built } = o.current;
-    if (loop) return [loop[0] * 16, (loop[1] + 1) * 16];
+    if (loop) return [loop[0] * built.mlen, (loop[1] + 1) * built.mlen];
     return [0, built.length];
   }, []);
 
@@ -121,7 +121,7 @@ export function usePlayer(opts: PlayerOptions) {
       activeKey.current = key;
       setActive(act);
     }
-    const m = Math.max(0, Math.min(built.part.measures.length - 1, Math.floor(pos / 16)));
+    const m = Math.max(0, Math.min(built.part.measures.length - 1, Math.floor(pos / built.mlen)));
     if (m !== measureRef.current) {
       measureRef.current = m;
       setMeasure(m);
@@ -198,7 +198,8 @@ export function usePlayer(opts: PlayerOptions) {
           for (let b = Math.ceil(from / 4) * 4; b < horizon; b += 4) {
             if (!metronome && b >= start) break;
             const when = anchorCtx.current + (b - anchorPos.current) / rate;
-            playClick(when, ((b % 16) + 16) % 16 === 0);
+            const ml = o.current.built.mlen;
+            playClick(when, ((b % ml) + ml) % ml === 0);
           }
         }
         scheduledUpTo.current = horizon;
@@ -226,7 +227,7 @@ export function usePlayer(opts: PlayerOptions) {
     if (p < start || p >= end - 0.01) p = start;
     const c = getCtx();
     const lead = 0.08;
-    const countIn = o.current.countIn ? 16 : 0;
+    const countIn = o.current.countIn ? o.current.built.mlen : 0;
     // con il count-in l'ancora è una battuta prima
     anchorPos.current = p - countIn;
     anchorCtx.current = c.currentTime + lead;

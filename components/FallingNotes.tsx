@@ -106,8 +106,8 @@ export function FallingNotes(p: Props) {
 
       // fuori dal loop
       if (loop) {
-        const a = yOf(loop[0] * 16);
-        const b = yOf((loop[1] + 1) * 16);
+        const a = yOf(loop[0] * built.mlen);
+        const b = yOf((loop[1] + 1) * built.mlen);
         ctx.fillStyle = "rgba(2,6,23,0.6)";
         if (a < H) ctx.fillRect(0, a, W, H - a);
         if (b > 0) ctx.fillRect(0, 0, W, b);
@@ -115,8 +115,9 @@ export function FallingNotes(p: Props) {
 
       // linee di battuta e movimento + accordi
       for (let m = 0; m <= total; m++) {
-        for (let beat = 0; beat < 4; beat++) {
-          const t = m * 16 + beat * 4;
+        const nb = built.mlen / 4;
+        for (let beat = 0; beat < nb; beat++) {
+          const t = m * built.mlen + beat * 4;
           const y = yOf(t);
           if (y < -20 || y > H + 2) continue;
           if (beat === 0) {
@@ -133,7 +134,7 @@ export function FallingNotes(p: Props) {
           }
           // accordi distribuiti in parti uguali della battuta (1 = sul primo movimento, 2 = sul primo e sul terzo…)
           const chs = m < total ? built.part.measures[m].chords : [];
-          const slot = chs.length ? (beat * chs.length) / 4 : -1;
+          const slot = chs.length ? (beat * chs.length) / nb : -1;
           if (m < total && chs.length && Number.isInteger(slot)) {
             const ch = chs[slot];
             const label = chordName(ch, sys);

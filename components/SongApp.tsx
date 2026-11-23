@@ -205,9 +205,9 @@ export default function SongApp({ slug }: { slug: string }) {
   const goTo = (m: number) => {
     if (playing) pause();
     if (loop) {
-      pendingSeek.current = m * 16; // dopo che il loop è stato tolto
+      pendingSeek.current = m * built.mlen; // dopo che il loop è stato tolto
       setLoop(null);
-    } else seek(m * 16);
+    } else seek(m * built.mlen);
   };
   const dense = hasSixteenths(gridRange[0], gridRange[1]);
 
@@ -341,7 +341,7 @@ export default function SongApp({ slug }: { slug: string }) {
               <button
                 onClick={() => {
                   pause();
-                  seek(loop ? loop[0] * 16 : 0);
+                  seek(loop ? loop[0] * built.mlen : 0);
                 }}
                 className="w-10 h-10 rounded-full border border-slate-600 text-slate-200 grid place-items-center hover:border-slate-400"
                 aria-label="Torna all'inizio"
@@ -579,7 +579,7 @@ export default function SongApp({ slug }: { slug: string }) {
                 singleRow={singleRow}
                 onGoToMeasure={(m) => {
                   if (playing) pause();
-                  seek(m * 16);
+                  seek(m * built.mlen);
                 }}
               />
             </div>
