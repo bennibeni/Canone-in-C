@@ -1,12 +1,16 @@
-import json
+import os
 import sys
 from fractions import Fraction as F
 from math import gcd
 
 import pymupdf as fitz
 
-from reader import read_page, find_staves, parse_system, split_measures, onsets
+# fingering.py e chords.py sono in scripts/musicxml
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "musicxml"))
+
 import fingering
+from chords import chord_name
+from reader import find_staves, onsets, parse_system, read_page, split_measures
 
 
 def finger(events, hand, fixed=None):
@@ -30,9 +34,9 @@ def finger(events, hand, fixed=None):
         return fingering.finger(events, hand)
     finally:
         fingering.chord_states = orig
-from chords import chord_name
-
-PDF = "/home/claude/emo.pdf"
+# PDF del libro: primo argomento «--pdf percorso» oppure variabile d'ambiente SALERNO_PDF
+PDF = os.environ.get("SALERNO_PDF", os.path.join(os.path.expanduser("~"), "Desktop", "Christian Salerno",
+    "Emozioni al Pianoforte 20 Brani per i primi 2 anni di Pianoforte (Italian Edition) (Christian Salerno) (z-library.sk, 1lib.sk, z-lib.sk).pdf"))
 doc = fitz.open(PDF)
 
 

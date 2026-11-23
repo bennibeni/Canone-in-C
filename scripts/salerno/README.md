@@ -13,6 +13,8 @@ riconoscimento ottico.
 ```
 pip install pymupdf
 cd scripts/salerno
-python gen.py        # PDF in /home/claude/emo.pdf: cambia PDF in convert.py
+python gen.py        # scrive lib/songs/salerno/*.ts
 ```
-Richiede `fingering.py` e `chords.py` di `scripts/musicxml` nello stesso percorso di import.
+Il PDF è cercato in `Desktop/Christian Salerno`; per un altro percorso imposta la variabile `SALERNO_PDF`.
+`fingering.py` e `chords.py` vengono da `scripts/musicxml` (aggiunto al percorso da `convert.py`; per l'editor
+c'è `pyrightconfig.json` nella radice del progetto).

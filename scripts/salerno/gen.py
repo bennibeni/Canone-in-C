@@ -4,10 +4,11 @@ import os
 from fractions import Fraction as F
 
 from songs import SONGS
-from convert import read_song, to_app, build_measures
+from convert import read_song, to_app, build_measures  # aggiunge scripts/musicxml al percorso
 from chords import chord_name
 
-OUT = "/home/claude/sal/out"
+# i file .ts vanno direttamente in lib/songs/salerno
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "lib", "songs", "salerno")
 os.makedirs(OUT, exist_ok=True)
 MAJOR_SHARP = ["C", "G", "D", "A", "E", "B", "F#"]
 MAJOR_FLAT = ["C", "F", "Bb", "Eb", "Ab", "Db", "Gb"]

@@ -5,7 +5,6 @@ stanghette), le travature (poligoni pieni), le legature (curve) e le diteggiatur
 ricostruisce per ogni battuta gli eventi delle due mani con altezza, attacco e durata (in sedicesimi, Fraction).
 """
 from fractions import Fraction as F
-import pymupdf as fitz
 
 LET = "CDEFGAB"
 HEAD = {0xE0A4: "black", 0xE0A3: "half", 0xE0A2: "whole"}
@@ -97,7 +96,8 @@ def find_staves(hl):
                 if cur:
                     long.append((y, cur[0], cur[1]))
                 cur = [a, b]
-        long.append((y, cur[0], cur[1]))
+        if cur:
+            long.append((y, cur[0], cur[1]))
     long = sorted((y, round(a), round(b)) for y, a, b in long if b - a > 100)
     staves, used = [], set()
     for i, (y, x0, x1) in enumerate(long):
@@ -128,6 +128,7 @@ class Event:
         self.kind = kind
         self.tuplet = None
         self.onset = None
+        self.measure_rest = False
         self.tie_from_prev = set()
 
 
@@ -177,7 +178,7 @@ def parse_system(glyphs, texts, vl, fills, curves, staves, hl_all):
     for g in allheads:
         if tb + sp * 0.6 < g.y < bt - sp * 0.6:
             here = [y for y, x0, x1 in ledgers if x0 - 1 < g.xc < x1 + 1]
-            has = lambda ly: any(abs(ly - y) < 0.8 for y in here)
+            has = lambda ly, here=here: any(abs(ly - y) < 0.8 for y in here)
             nt, nb = needed(g.y, tb, 1), needed(g.y, bt, -1)
             ok_t = all(has(l) for l in nt) and not any(has(l) for l in nb if all(abs(l - m) > 0.8 for m in nt))
             ok_b = all(has(l) for l in nb) and not any(has(l) for l in nt if all(abs(l - m) > 0.8 for m in nb))
@@ -216,20 +217,22 @@ def parse_system(glyphs, texts, vl, fills, curves, staves, hl_all):
         for c in FLAT_ORDER[:nflat]:
             keysig[c] = -1
 
-        def clef_at(x):
+        def clef_at(x, clefs=clefs, first_clef=first_clef):
             c = None
             for g in clefs:
                 if g.x0 < x:
                     c = g
             return c or first_clef
 
-        def pitch_of(y, x):
+        def pitch_of(y, x, L=L):
             c = clef_at(x)
-            if c.code in (0xE050, 0xE07A):  # Sol: origine sulla riga del Sol4
+            if c is not None and c.code in (0xE050, 0xE07A):  # Sol: origine sulla riga del Sol4
                 base = 4 + 7 * 4
+                clef_y = c.y
             else:  # Fa: origine sulla riga del Fa3
                 base = 3 + 7 * 3
-            return base + round((c.y - y) / (sp / 2))
+                clef_y = c.y if c is not None else L[1]
+            return base + round((clef_y - y) / (sp / 2))
 
         accs = [g for g in mine if g.code in ACCG and g not in keyacc]
         dots = [g for g in mine if g.code == 0xE1E7]
@@ -325,16 +328,15 @@ def parse_system(glyphs, texts, vl, fills, curves, staves, hl_all):
     # diteggiature (Edwin-Roman, cifre)
     fdig = [t for t in texts if t[0] == "Edwin-Roman" and t[2].isdigit() and top < t[4] < bot]
     for t in fdig:
-        _, _, c, x, y, yt, yb = t
+        _, _, c, x, y, _yt, _yb = t
         si = staff_of(y)
         # candidati: teste con x vicino
         best = None
         for e in out["staff"][si]["events"]:
             for h in e.heads:
                 dx = abs((h["x0"] + h["x1"]) / 2 - x)
-                if dx < 5:
-                    if best is None or dx < best[0]:
-                        best = (dx, e)
+                if dx < 5 and (best is None or dx < best[0]):
+                    best = (dx, e)
         if best:
             best[1].__dict__.setdefault("fdig", []).append((y, int(c)))
     for s in out["staff"]:
@@ -343,7 +345,7 @@ def parse_system(glyphs, texts, vl, fills, curves, staves, hl_all):
             if not fd:
                 continue
             fd.sort()  # dall'alto in basso
-            hs = sorted(e.heads, key=lambda h: -h["midi"])  # dalla nota più alta
+            hs: list[dict] = sorted(e.heads, key=lambda h: -h["midi"])  # dalla nota più alta
             if len(fd) == len(hs):
                 for h, (_, f) in zip(hs, fd):
                     h["finger"] = f
@@ -360,7 +362,7 @@ def parse_system(glyphs, texts, vl, fills, curves, staves, hl_all):
         x, y = t[3], t[4]
         best = None
         for si in (0, 1):
-            evs = [e for e in out["staff"][si]["events"] if e.kind == "note" or True]
+            evs = list(out["staff"][si]["events"])
             for i in range(len(evs) - 2):
                 trio = evs[i : i + 3]
                 if any(e.tuplet for e in trio):
