@@ -4,6 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { KEYS, buildFull, buildPart, keyTonic, relativeKey, songTitle, transposeChord, type Song } from "@/lib/score";
 import { getSong } from "@/lib/songs";
 import { SongMenu } from "./SongMenu";
+import { SongPickerButton } from "./SongPicker";
+import { HarmonyButton } from "./HarmonyInfo";
 import { chordName, rangeFor, spelledName, type LabelMode, type NameSystem } from "@/lib/notes";
 import { preloadPiano, setSoundMode, type SoundMode } from "@/lib/audio";
 import { usePlayer, type FinishResult, type HandSet, type Mode } from "@/hooks/usePlayer";
@@ -73,7 +75,7 @@ export default function SongApp({ slug }: { slug: string }) {
 
   useEffect(() => {
     setLoop(null);
-    setZoom(built.notes.some((n) => n.dur === 1) ? 22 : 13);
+    setZoom(built.notes.some((n) => n.dur < 2) ? 22 : 13);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [partIdx]);
 
@@ -185,7 +187,7 @@ export default function SongApp({ slug }: { slug: string }) {
   const partRange: [number, number] = isFull
     ? [starts[gridPart], starts[gridPart + 1] ?? built.part.measures.length]
     : [0, built.part.measures.length];
-  const hasSixteenths = (a: number, b: number) => built.notes.some((n) => n.dur === 1 && n.measure >= a && n.measure < b);
+  const hasSixteenths = (a: number, b: number) => built.notes.some((n) => n.dur < 2 && n.measure >= a && n.measure < b);
   const pages: [number, number][] = [];
   for (let m = partRange[0]; m < partRange[1]; ) {
     const end8 = Math.min(partRange[1], m + 8);
@@ -234,9 +236,18 @@ export default function SongApp({ slug }: { slug: string }) {
       <header className="border-b border-slate-800/80 bg-[#070b17]">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-end gap-x-6 gap-y-3">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-indigo-300 via-violet-300 to-teal-200 bg-clip-text text-transparent">
-              {songTitle(song, (t) => chordName(t, sys), key.id)}
-            </h1>
+            <div className="flex items-center gap-3 flex-wrap">
+              <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-indigo-300 via-violet-300 to-teal-200 bg-clip-text text-transparent">
+                {songTitle(song, (t) => chordName(t, sys), key.id)}
+              </h1>
+              <HarmonyButton
+                slug={slug}
+                title={songTitle(song, (t) => chordName(t, "it"))}
+                tkey={tkey}
+                sys={sys}
+                transposed={keyId !== (song.baseKey ?? "C")}
+              />
+            </div>
             <p className="text-sm text-slate-400">
               {song.composer} · {song.progressionLabel ?? "progressione"}{" "}
               <span className="text-emerald-300 font-semibold">{progression.join(" → ")}</span>
@@ -257,6 +268,7 @@ export default function SongApp({ slug }: { slug: string }) {
               ))}
             </select>
           </label>
+          <SongPickerButton />
           <nav className="flex flex-wrap gap-1.5 ml-auto" aria-label="Parti">
             {[...song.parts.map((p) => p.title), ...(nParts > 1 ? ["Brano completo"] : [])].map((t, i) => {
               return (

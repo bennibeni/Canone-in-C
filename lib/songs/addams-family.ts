@@ -1,20 +1,20 @@
 // The Addams Family (Main Title), testo e musica di Hoyt S. Curtin, William Hanna e Joseph Barbera. Adattamento di Franco Concina
 // (trascrizione di proprietà di Nuova Carisch s.r.l.), in Do maggiore, 22 battute. Pubblicato con il permesso dell'editore.
 // Note e DITEGGIATURE dallo spartito; alle note senza dito stampato è dato quello della posizione della mano.
-// TERZINE: l'app divide il tempo in sedicesimi, quindi ogni terzina di crome (un movimento) è approssimata
-// con croma + due semicrome (2 + 1 + 1). Le note legate sono unite in una nota sola.
+// Terzine scritte come gruppi irregolari ("[G4 A4 B4]:4"). Le note legate sono unite in una nota sola;
+// battuta 5 (e 17): il Do è legato alla prima nota della terzina, qui al suo posto c'è una pausa di terzina.
 import type { Song } from "../score";
 
 type Ms = { chords: string[]; rh: string; rf: string; lh: string; lf: string };
 const M = (chords: string[], rh: string, rf: string, lh: string, lf: string): Ms => ({ chords, rh, rf, lh, lf });
-const t = (a: string, b: string, c: string) => `${a}:2 ${b}:1 ${c}:1`;
+const t = (a: string, b: string, c: string) => `[${a} ${b} ${c}]:4`; // terzina di crome
 
 // prima sezione: le terzine
 const b1 = M([], `r:12 ${t("G4", "A4", "B4")}`, "1 2 3", `r:12 ${t("G2", "A2", "B2")}`, "4 3 2");
 const b2 = M(["C", "A7"], `C5:4 r:8 ${t("A4", "B4", "C#5")}`, "4 1 2 3", `C3:4 r:8 ${t("A2", "B2", "C#3")}`, "1 4 3 2");
 const b3 = M(["Dm", "A7"], `D5:4 r:8 ${t("A4", "B4", "C#5")}`, "4 1 2 3", `D3:4 r:8 ${t("A2", "B2", "C#3")}`, "1 4 3 2");
 const b4 = M(["Dm", "G"], `D5:4 ${t("A4", "B4", "C#5")} D5:4 ${t("G4", "A4", "B4")}`, "4 1 2 3 4 1 2 3", `D3:4 ${t("A2", "B2", "C#3")} D3:4 ${t("G2", "A2", "B2")}`, "1 4 3 2 1 4 3 2");
-const b5 = M(["C"], "C5:10 G4:1 G4:1 G4:2 G4:1 G4:1", "4 1 1 1 1 1", "C3:8 r:8", "1");
+const b5 = M(["C"], `C5:8 [r G4 G4]:4 ${t("G4", "G4", "G4")}`, "4 1 1 1 1 1", "C3:8 r:8", "1");
 // seconda sezione: croma puntata e semicroma
 const frase = (ultima: string, uf: string) =>
   M(["C", "A7", "Dm", "D7"], `C5:3 E5:1 C5:3 A4:1 F4:3 D5:1 r:3 ${ultima}:1`, `4 5 4 2 1 5 ${uf}`, "C3:7 C#3:1 D3:4 F3:3 F#3:1", "5 4 3 1 2");
@@ -34,7 +34,7 @@ export const addamsFamily: Song = {
   progressionLabel: "la sigla",
   fullTips: [
     "Allegretto, in Do maggiore. Due sezioni alternate: le terzine con le pause (che creano brusche interruzioni) e il ritmo saltellante di croma puntata e semicroma.",
-    "Le terzine nell'app sono approssimate: nello spartito le tre note sono uguali, distribuite su un movimento.",
+    "Le terzine: tre crome uguali nello spazio di un movimento. Contale «tri-o-la» senza affrettarle.",
     "Rispetta i crescendo sotto ogni frase: danno il carattere altalenante del brano.",
   ],
   parts: [

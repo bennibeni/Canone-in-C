@@ -4,6 +4,9 @@
 // 4 semiminima, 6 semiminima puntata, 8 minima, 12 minima puntata, 16 semibreve).
 // Più note insieme: "G2+C4". Pausa: "r:4". Ogni battuta deve sommare 16 (4/4).
 // Nella mano sinistra la durata predefinita è la croma.
+// Gruppi irregolari (terzine…): "[A4 B4 C#5]:4" = tre note uguali nello spazio di 4 sedicesimi (una semiminima).
+// Dentro le parentesi ogni nota può avere un peso relativo ("[A4:2 B4]:4" = semiminima + croma di terzina)
+// e ci possono essere pause ("[r A4 B4]:4").
 
 export type Hand = "R" | "L";
 
@@ -15,6 +18,19 @@ export interface ScoreNote {
   measure: number; // indice battuta (0-based)
   label: string; // nota scritta nella tonalità scelta, es. "F#5"
   finger?: number; // diteggiatura (1 = pollice … 5 = mignolo)
+  /** gruppo irregolare (terzina…) a cui appartiene la nota */
+  tuplet?: TupletInfo;
+}
+
+export interface TupletInfo {
+  /** identificativo del gruppo, uguale per tutte le note e pause del gruppo */
+  id: string;
+  /** quante note "scritte" ci sono nel gruppo (3 per la terzina) */
+  num: number;
+  /** nello spazio di quante (2 per la terzina) */
+  occupied: number;
+  /** durata scritta della nota, in sedicesimi (2 = croma) */
+  written: number;
 }
 
 export interface ScoreRest {
@@ -22,6 +38,55 @@ export interface ScoreRest {
   dur: number;
   hand: Hand;
   measure: number;
+  tuplet?: TupletInfo;
+}
+
+/** Il tempo si conta in unità intere di 1/TICK di sedicesimo e si divide solo alla fine: così le note delle
+ *  terzine che cadono nello stesso istante (anche in mani diverse) hanno esattamente lo stesso valore. */
+const TICK = 60;
+const ticksToSixteenths = (t: number) => t / TICK;
+
+interface Token {
+  pitches: string;
+  ticks: number;
+  tuplet?: TupletInfo;
+}
+
+/** potenza di 2 più grande minore del numero di note (terzina → 2, quintina → 4, sestina → 4) */
+const occupiedFor = (n: number) => {
+  let o = 1;
+  while (o * 2 < n) o *= 2;
+  return o;
+};
+
+/** divide la riga di una battuta in note/pause con la durata in tick, espandendo i gruppi irregolari */
+function tokenize(src: string, defDur: number, where: string): Token[] {
+  const out: Token[] = [];
+  const re = /\[([^\]]*)\]:(\d+)|(\S+)/g;
+  let m: RegExpExecArray | null;
+  let g = 0;
+  while ((m = re.exec(src))) {
+    if (m[3]) {
+      if (m[3].includes("[") || m[3].includes("]")) throw new Error(`${where}: gruppo scritto male: ${m[3]}`);
+      const [pitches, d] = m[3].split(":");
+      out.push({ pitches, ticks: (d ? parseInt(d) : defDur) * TICK });
+      continue;
+    }
+    const total = parseInt(m[2]) * TICK;
+    const inner = m[1].trim().split(/\s+/).map((t) => {
+      const [pitches, w] = t.split(":");
+      return { pitches, w: w ? parseInt(w) : 1 };
+    });
+    const sumW = inner.reduce((a, x) => a + x.w, 0);
+    const occupied = occupiedFor(sumW);
+    const id = `${where}#${g++}`;
+    for (const x of inner) {
+      const ticks = (total * x.w) / sumW;
+      if (!Number.isInteger(ticks)) throw new Error(`${where}: il gruppo [${m[1]}] non si divide in parti esatte`);
+      out.push({ pitches: x.pitches, ticks, tuplet: { id, num: sumW, occupied, written: (parseInt(m[2]) * x.w) / occupied } });
+    }
+  }
+  return out;
 }
 
 export interface Measure {
@@ -191,32 +256,33 @@ function parseVoice(
   mlen = 16
 ): ScoreNote[] {
   const out: ScoreNote[] = [];
-  let t = offset;
+  const where = `Battuta ${measure + 1} (${hand})`;
+  let t = offset * TICK; // in tick
   let k = 0; // indice tra le note (pause escluse)
-  for (const tok of src.trim().split(/\s+/)) {
-    const [pitches, d] = tok.split(":");
-    const dur = d ? parseInt(d) : defDur;
-    if (pitches === "r") {
-      rests.push({ start: t, dur, hand, measure });
-      t += dur;
+  for (const tok of tokenize(src, defDur, where)) {
+    const start = ticksToSixteenths(t);
+    const dur = ticksToSixteenths(tok.ticks);
+    if (tok.pitches === "r") {
+      rests.push({ start, dur, hand, measure, tuplet: tok.tuplet });
+      t += tok.ticks;
       continue;
     }
     // un dito per nota; negli accordi le dita si separano con "/" (es. "5/3/1" per Mi+Sol#+Si)
     const fs = fingers ? fingers[k] ?? [] : pattern ? [pattern[k % pattern.length]] : [];
-    pitches.split("+").forEach((p, j) => {
+    tok.pitches.split("+").forEach((p, j) => {
       const label = transposeSpelled(p, key);
       // senza dita per l'accordo: nella sinistra la nota acuta va al pollice
       const f = fs[j] ?? (j > 0 && hand === "L" && fs.length < 2 ? 1 : undefined);
-      out.push({ midi: noteToMidi(label), start: t, dur, hand, measure, label, finger: f || undefined });
+      out.push({ midi: noteToMidi(label), start, dur, hand, measure, label, finger: f || undefined, tuplet: tok.tuplet });
     });
-    t += dur;
+    t += tok.ticks;
     k++;
   }
   if (fingers && fingers.length !== k) {
-    console.warn(`Battuta ${measure + 1} (${hand}): ${k} note ma ${fingers.length} diteggiature`);
+    console.warn(`${where}: ${k} note ma ${fingers.length} diteggiature`);
   }
-  if (t - offset !== mlen) {
-    console.warn(`Battuta ${measure + 1} (${hand}) dura ${t - offset} sedicesimi`);
+  if (t - offset * TICK !== mlen * TICK) {
+    console.warn(`${where} dura ${ticksToSixteenths(t) - offset} sedicesimi`);
   }
   return out;
 }

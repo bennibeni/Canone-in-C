@@ -3,8 +3,8 @@
 // Pubblicato con il permesso dell'editore. Note e DITEGGIATURE dallo spartito; alle note senza dito stampato
 // è dato quello della posizione della mano.
 // Lo spartito ha parti polifoniche (una nota lunga sopra o sotto le crome): l'app suona una voce per mano,
-// quindi la nota lunga suona insieme alla prima croma e non resta tenuta. Battuta 24: la terzina è approssimata
-// (3 + 3 + 2 sedicesimi). Il ritornello con la 1ª volta (battuta 32 dello spartito) non è ripetuto:
+// quindi la nota lunga suona insieme alla prima croma e non resta tenuta. Battuta 24: terzina di semiminime
+// nello spazio di una minima. Il ritornello con la 1ª volta (battuta 32 dello spartito) non è ripetuto:
 // qui c'è direttamente la 2ª volta; per ripetere usa il loop.
 import type { Song } from "../score";
 
@@ -88,13 +88,13 @@ export const whiterShadeOfPale: Song = {
       tempo: 66,
       firstMeasure: 23,
       tips: [
-        "Battuta 24: la terzina Si+Mi – Mi – Sol, crescendo.",
+        "Battuta 24: la terzina di semiminime Si+Mi – Mi – Sol (tre note uguali in due movimenti), crescendo.",
         "Battuta 25: forte, accordo La – Mi tenuto e Sol puntato col 4.",
         "Battute 31–32: Mi – Re – Do con 5-4-3 sopra il Do della sinistra.",
       ],
       measures: [
         domanda,
-        M(["Dm", "G"], "F4+C5:2 A4:6 B4+E5:3 E5:3 G5:2", "1/4 2 1/2 3 4", "D3:4 E3:4 G3:8", "4 3 1"),
+        M(["Dm", "G"], "F4+C5:2 A4:6 [B4+E5 E5 G5]:8", "1/4 2 1/2 3 4", "D3:4 E3:4 G3:8", "4 3 1"),
         M(["C", "G/B"], "E5+A5:8 G5:6 A4+C5+E5:2", "2/5 4 1/2/4", "C3:4 C3:4 B2:4 B2:4", "3 3 4 4"),
         M(["Am", "C"], "E5:2 D5:2 C5:12", "3 2 1", "A2:8 C3:4 E3:4", "5 3 2"),
         domanda,

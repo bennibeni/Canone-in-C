@@ -4,7 +4,7 @@ App Next.js (App Router, React 19, Tailwind 4) per imparare brani al pianoforte 
 dagli arrangiamenti di @reeveswongpiano: **Canone** (Pachelbel, 4 parti) e **Autumn Leaves** (Kosma, 2 parti).
 Senza video: Preludio in Do (Bach), Preludio in Mi minore (Chopin) e, dall'antologia «Pianoforte» di Franco Concina
 (Nuova Carisch, con il permesso dell'editore; note e diteggiature dallo spartito): Cavalcata delle Valchirie, La primavera,
-Aria sulla IV corda, Alleluja, Allegro (Mozart), Romanza (Beethoven), Foglie morte, What a Wonderful World, A Whiter Shade of Pale, The Addams Family, C'era una volta in America.
+Aria sulla IV corda, Alleluja, Allegro (Mozart), Romanza (Beethoven), Foglie morte, What a Wonderful World, Misty, A Whiter Shade of Pale, The Addams Family, C'era una volta in America.
 I brani possono essere in 4/4 (default) o 3/4 (`beats: 3` nel brano, es. la Cavalcata).
 I brani si scelgono dal menu verticale a sinistra; ogni brano ha il suo indirizzo (`/canone`, `/autumn-leaves`).
 
@@ -64,6 +64,9 @@ Ogni battuta ha due accordi, la mano destra e la sinistra:
 
 `NOTA:durata` con durata in sedicesimi (1 semicroma, 2 croma, 4 semiminima, 6 semiminima puntata, 8 minima).
 Note simultanee con `+` (es. `G2+C4`). Nella sinistra la durata predefinita è la croma.
+Gruppi irregolari (terzine…) tra parentesi quadre, con lo spazio totale in sedicesimi: `[A4 B4 C#5]:4` è una terzina
+di crome in una semiminima, `[B4+E5 E5 G5]:8` una terzina di semiminime in una minima. Dentro il gruppo le note possono
+avere un peso (`[A4:2 B4]:4` = semiminima + croma di terzina) e ci possono essere pause (`[r G4 G4]:4`).
 Ogni battuta deve sommare 16: in console compare un avviso se non torna.
 
 ## Aggiungere un brano

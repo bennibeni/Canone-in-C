@@ -27,6 +27,9 @@ const GAP = 118; // distanza tra violino e basso
 const ROW_H = TOP + GAP + 120;
 const LEFT = 14;
 
+/** durata da disegnare: per le note dei gruppi irregolari quella scritta (la croma della terzina), non quella reale */
+const writtenDur = (n: { dur: number; tuplet?: { written: number } }) => (n.tuplet ? n.tuplet.written : n.dur);
+
 /** "F#5" → "f#/5" */
 const vfKey = (label: string) => {
   const m = /^([A-G])(##|#|bb|b)?(-?\d)$/.exec(label)!;
@@ -74,7 +77,7 @@ export function SheetMusic({ built, live, measure, playing, labelMode, loop, onS
         await document.fonts.load("30px Bravura");
       } catch {}
       if (cancelled) return;
-      const { Renderer, Stave, StaveNote, Voice, Formatter, Beam, Accidental, Dot, StaveConnector, FretHandFinger, Modifier } = VF;
+      const { Renderer, Stave, StaveNote, Voice, Formatter, Beam, Accidental, Dot, StaveConnector, FretHandFinger, Modifier, Tuplet } = VF;
 
       const host = hostRef.current!;
       host.innerHTML = "";
@@ -82,7 +85,7 @@ export function SheetMusic({ built, live, measure, playing, labelMode, loop, onS
 
       const keySig = built.key.id;
       const nAcc = Math.abs([0, -5, 2, -3, 4, -1, 6, 1, -4, 3, -2, 5][["C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"].indexOf(keySig)] ?? 0);
-      const dense = built.notes.some((n) => n.dur === 1);
+      const dense = built.notes.some((n) => n.dur < 2);
       const minW = dense ? 330 : 230;
       const perRow = Math.max(1, Math.min(4, Math.floor((width - LEFT * 2) / minW)));
       const total = built.part.measures.length;
@@ -143,8 +146,9 @@ export function SheetMusic({ built, live, measure, playing, labelMode, loop, onS
             }
             const notes = groups.map((g) => {
               g.sort((a, b) => a.midi - b.midi);
-              const sn = new StaveNote({ keys: g.map((n) => vfKey(n.label)), duration: VF_DUR[g[0].dur] ?? "8", clef, autoStem: true });
-              if (VF_DUR[g[0].dur]?.endsWith("d")) Dot.buildAndAttach([sn], { all: true });
+              const vd = VF_DUR[writtenDur(g[0])] ?? "8";
+              const sn = new StaveNote({ keys: g.map((n) => vfKey(n.label)), duration: vd, clef, autoStem: true });
+              if (vd.endsWith("d")) Dot.buildAndAttach([sn], { all: true });
               if (labelMode === "fingers") {
                 g.forEach((n, k) => {
                   if (!n.finger) return;
@@ -153,20 +157,35 @@ export function SheetMusic({ built, live, measure, playing, labelMode, loop, onS
                   sn.addModifier(f, k);
                 });
               }
-              return { sn, key: `${hand}:${g[0].start}`, start: g[0].start };
+              return { sn, key: `${hand}:${g[0].start}`, start: g[0].start, tuplet: g[0].tuplet };
             });
             // pause della battuta (in mezzo al pentagramma)
             const rests = built.rests
               .filter((r) => r.measure === m && r.hand === hand)
               .map((r) => ({
-                sn: new StaveNote({ keys: [clef === "treble" ? "b/4" : "d/3"], duration: (VF_DUR[r.dur] ?? "8") + "r", clef }),
+                sn: new StaveNote({ keys: [clef === "treble" ? "b/4" : "d/3"], duration: (VF_DUR[writtenDur(r)] ?? "8") + "r", clef }),
                 start: r.start,
+                tuplet: r.tuplet,
               }));
-            const ticks = [...notes, ...rests].sort((a, b) => a.start - b.start).map((x) => x.sn);
+            const sorted = [...notes, ...rests].sort((a, b) => a.start - b.start);
+            const ticks = sorted.map((x) => x.sn);
+            // gruppi irregolari (terzine…): vanno creati prima di formattare, perché cambiano la durata delle note
+            const tupletGroups = new Map<string, typeof sorted>();
+            for (const x of sorted) {
+              if (!x.tuplet) continue;
+              const arr = tupletGroups.get(x.tuplet.id) ?? [];
+              arr.push(x);
+              tupletGroups.set(x.tuplet.id, arr);
+            }
+            const tuplets = [...tupletGroups.values()].map((arr) => {
+              const ti = arr[0].tuplet!;
+              // nel gruppo con pesi diversi (es. semiminima + croma) il numero di note non è il numero scritto
+              return new Tuplet(arr.map((x) => x.sn), { numNotes: ti.num, notesOccupied: ti.occupied, bracketed: arr.some((x) => !(x.sn.getDuration() === "8" || x.sn.getDuration() === "16")) || arr.length < 2 });
+            });
             const voice = new Voice({ numBeats: built.mlen / 4, beatValue: 4 }).setMode(Voice.Mode.SOFT);
             voice.addTickables(ticks);
             Accidental.applyAccidentals([voice], keySig);
-            return { voice, notes, ticks };
+            return { voice, notes, ticks, tuplets };
           };
           const rh = build("R", "treble");
           const lh = build("L", "bass");
@@ -181,6 +200,7 @@ export function SheetMusic({ built, live, measure, playing, labelMode, loop, onS
           rh.voice.draw(ctx, treble);
           lh.voice.draw(ctx, bass);
           beams.forEach((b) => b.setContext(ctx).draw());
+          [...rh.tuplets, ...lh.tuplets].forEach((t) => t.setContext(ctx).draw());
 
           for (const { sn, key } of [...rh.notes, ...lh.notes]) {
             const el = sn.getSVGElement();

@@ -20,9 +20,18 @@ interface Props {
   range?: [number, number];
 }
 
+/** nome della durata (per le note dei gruppi irregolari: "croma di terzina") */
+const durLabel = (n: { dur: number; tuplet?: { num: number; written: number } }) => {
+  const base = DUR_LABEL[n.tuplet ? n.tuplet.written : n.dur];
+  if (n.tuplet) return `${base ?? "nota"} di ${TUPLET_NAME[n.tuplet.num] ?? `gruppo di ${n.tuplet.num}`}`;
+  return base ?? `${+n.dur.toFixed(2)}/16`;
+};
+const TUPLET_NAME: Record<number, string> = { 3: "terzina", 5: "quintina", 6: "sestina", 7: "settimina" };
+
 const DUR_LABEL: Record<number, string> = {
   1: "semicroma",
   2: "croma",
+  3: "croma puntata",
   4: "semiminima",
   6: "semiminima puntata",
   8: "minima",
@@ -58,7 +67,7 @@ function Row({
     <div className="flex gap-[2px] h-7">
       {items.map((g) => {
         if (!Array.isArray(g))
-          return <div key={"r" + g.start + hand} style={{ flex: g.dur }} title={`pausa — ${DUR_LABEL[g.dur] ?? g.dur + "/16"}`} />;
+          return <div key={"r" + g.start + hand} style={{ flex: g.dur }} title={`pausa — ${durLabel(g)}`} />;
         const d = g[0].dur;
         const on = live.has(hand + ":" + g[0].start);
         const text =
@@ -70,7 +79,7 @@ function Row({
         return (
           <div
             key={g[0].start + hand}
-            title={`${g.map((n) => spelledName(n.label, sys, true)).join(" + ")} — ${DUR_LABEL[d] ?? d + "/16"}`}
+            title={`${g.map((n) => spelledName(n.label, sys, true)).join(" + ")} — ${durLabel(g[0])}`}
             className={`rounded-[4px] flex items-center justify-center font-bold leading-none overflow-hidden text-slate-900 ${
               labelMode === "fingers" ? "text-[12px]" : "text-[10px]"
             } ${on ? "chip-live" : ""}`}
