@@ -477,4 +477,655 @@ export const HARMONY: Record<string, Harmony> = {
       },
     ],
   },
+
+  "blues-esercizio-1": {
+    key: "Do maggiore",
+    summary:
+      "È il giro di blues di 12 battute, la struttura di quasi tutto il blues e di tanto rock'n'roll e jazz. Usa solo tre accordi: quelli costruiti sul I, sul IV e sul V grado della scala.",
+    concepts: ["giro di blues di 12 battute", "I – IV – V", "fondamentale e terza", "turnaround"],
+    sections: [
+      {
+        title: "Le 12 battute",
+        text: "Quattro battute di Do (I), due di Fa (IV), due di Do (I), poi Sol (V) – Fa (IV) – Do – Do. Si legge bene in tre frasi di quattro battute: la prima resta sulla tonica, la seconda va al IV e torna, la terza scende dal V al IV e chiude sul I.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Fondamentale e terza",
+        text: "La sinistra suona solo due note per accordo: la fondamentale, che dà il nome all'accordo, e la terza, che dice se è maggiore o minore. Do–Mi, Fa–La e Sol–Si sono tre terze maggiori: tre accordi maggiori.",
+      },
+      {
+        title: "La chiusura e il «Repeat»",
+        text: "Le ultime due battute portano di nuovo all'inizio: il blues gira in tondo, e ogni giro si chiama «chorus». Nei blues più elaborati qui si mette un Sol (V) per rilanciare il giro successivo: è il turnaround.",
+      },
+    ],
+  },
+
+  "blues-esercizio-2": {
+    key: "Do maggiore",
+    summary:
+      "Lo stesso giro di blues di 12 battute dell'Esercizio 1 (I – IV – V), con una melodia alla destra costruita quasi tutta sulle note della scala pentatonica di Do.",
+    concepts: ["giro di blues di 12 battute", "scala pentatonica", "note dell'accordo", "domanda e risposta"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do. La sinistra suona fondamentale e terza di ogni accordo, come nell'Esercizio 1.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Le note della melodia",
+        text: "La destra usa Sol, La, Do e Re: sono quattro delle cinque note della pentatonica di Do (Do – Re – Mi – Sol – La), la scala più usata per improvvisare sul blues. Il Si e il Fa non compaiono mai.",
+      },
+      {
+        title: "La melodia e l'accordo",
+        text: "Le note lunghe stanno sull'accordo: il Sol è la quinta del Do, il La è la terza del Fa, il Re è la quinta del Sol. Sul Fa della battuta 10 il Re è una sesta: un colore tipico del blues, che risolve sul Do della battuta 11.",
+      },
+      {
+        title: "Tre frasi uguali",
+        text: "Le tre righe hanno la stessa forma: nota lunga legata, una piccola figura, nota d'arrivo. Ripetere un'idea su accordi diversi è il principio di domanda e risposta del blues; l'ultima frase scende al Do grave per chiudere.",
+      },
+    ],
+  },
+
+  "a-blue-note-blues": {
+    key: "Do maggiore",
+    summary:
+      "Il giro di blues di 12 battute in Do (I – IV – V) con una melodia costruita sulle blue note: Mi bemolle, Fa diesis e Si bemolle, le note «stonate» rispetto alla scala maggiore che danno al blues il suo colore.",
+    concepts: ["blue note", "scala blues", "cromatismo", "giro di blues di 12 battute"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Gli stessi degli esercizi: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do. La sinistra suona fondamentale e terza; nell'ultima battuta resta solo il Do grave.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Le blue note",
+        text: "Il Mib è la terza abbassata: la sinistra suona Mi naturale e la destra Mib, e lo scontro tra maggiore e minore è il suono tipico del blues. Il Fa# (o Solb) è la quinta abbassata, la blue note più aspra. Il Sib, nella battuta 7, è la settima abbassata: trasforma il Do in un Do7.",
+      },
+      {
+        title: "La scala blues",
+        text: "Do – Mib – Fa – Fa# – Sol – Sib – Do è la scala blues di Do: la pentatonica minore (Do – Mib – Fa – Sol – Sib) con in più il Fa#. Quasi tutte le note della destra vengono da qui; la figura della battuta 9 la sale, quelle delle battute 2, 6 e 10 la scendono.",
+      },
+      {
+        title: "La figura cromatica",
+        text: "Fa# – Fa – Mib – Do scende per semitoni e poi salta sulla tonica. Torna su accordi diversi (Do, Fa, Fa) senza cambiare: nel blues la stessa frase va bene su tutti e tre gli accordi, ed è proprio l'attrito con l'accordo che cambia a renderla espressiva.",
+      },
+    ],
+  },
+
+  "three-note-bass-line": {
+    key: "Do maggiore",
+    summary:
+      "Il giro di blues di 12 battute in Do (I – IV – V) con un basso che suona per intero ogni accordo: fondamentale, terza e quinta, cioè la triade arpeggiata dal basso.",
+    concepts: ["giro di blues di 12 battute", "triade", "arpeggio", "I – IV – V"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do: è lo stesso giro di tutti i brani di questa serie.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "La triade",
+        text: "Un accordo maggiore è fatto di tre note: la fondamentale, la terza maggiore (quattro semitoni sopra) e la quinta (sette semitoni sopra). Do–Mi–Sol, Fa–La–Do e Sol–Si–Re sono le triadi del I, del IV e del V grado. Nell'Esercizio 1 mancava la quinta; qui l'accordo è completo.",
+      },
+      {
+        title: "Un basso che cammina",
+        text: "Suonare le note dell'accordo una dopo l'altra (arpeggio) invece che insieme fa muovere il basso e dà la spinta ritmica: è il primo passo verso i bassi del boogie-woogie e il walking bass, che aggiungono la sesta, la settima e note di passaggio.",
+      },
+    ],
+  },
+
+  "first-time-blues": {
+    key: "Do maggiore",
+    summary:
+      "Il primo blues completo della serie: due giri di 12 battute in Do (I – IV – V), con il basso a tre note alla sinistra e alla destra una melodia sulla scala blues, che nel secondo giro sale al Do acuto.",
+    concepts: ["giro di blues di 12 battute", "scala blues", "blue note", "chorus", "variazione"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Ogni giro è quello di tutta la serie: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do. Il brano ne suona due di fila: nel linguaggio del blues e del jazz ogni giro si chiama chorus.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Il basso",
+        text: "La sinistra arpeggia la triade di ogni accordo: fondamentale, terza e quinta (Do–Mi–Sol, Fa–La–Do, Sol–Si–Re). Solo l'ultima battuta è un Do grave tenuto, che chiude il brano.",
+      },
+      {
+        title: "Le blue note",
+        text: "La destra usa la scala blues di Do: Do – Mib – Fa – Fa# – Sol – Sib. Il Mib contro il Mi della sinistra, il Fa# (quinta abbassata) e il Sib (settima abbassata, battute 7, 10 e 18) danno il colore blues; la figura Do – Mib – Fa – Fa# sale verso il Sol, quella Fa# – Fa – Mib – Do scende verso il Do.",
+      },
+      {
+        title: "Il secondo giro",
+        text: "Il secondo chorus comincia come il primo, poi alle battute 16–19 sposta la melodia sul Do acuto e la fa salire con Fa# – Sol – Sib – Do. Ripetere una frase cambiandone solo una parte è il modo più semplice di variare un blues senza perdere la forma.",
+      },
+    ],
+  },
+
+  "kitty-cat-blues": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V). La destra suona a seste, che scivolano di un semitono sulle blue note; la sinistra cammina sulle note di ogni accordo.",
+    concepts: ["seste", "scivolamento cromatico", "tritono", "blue note", "basso che cammina"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Le seste",
+        text: "Sol+Mi e Mi+Do sono seste: due note dell'accordo di Do a distanza di sei gradi, con un suono pieno e morbido. Il Solb+Mib che segue è la stessa forma un semitono sotto: ci si appoggia per un attimo sulle blue note (Mib = terza abbassata, Solb = quinta abbassata) e si torna su. È lo «scivolamento» tipico del piano blues.",
+      },
+      {
+        title: "Il tritono del Do7",
+        text: "Nella battuta 4, Mi+Sib sono la terza e la settima del Do7: tra loro c'è un tritono (tre toni), l'intervallo più instabile, che chiede di andare all'accordo di Fa della battuta dopo. Allo stesso modo Fa+Re nella battuta 9 sono settima e quinta del Sol7.",
+      },
+      {
+        title: "La terza che oscilla",
+        text: "Nella battuta 10 la melodia fa Mib – Mi – Mib – Re: è la blue note che oscilla tra terza minore e terza maggiore del Do. Nella battuta 22 la stessa idea è suonata a seste, e nella 16 il Sol# porta per semitono al La dell'accordo di Fa.",
+      },
+      {
+        title: "Il basso",
+        text: "La sinistra suona fondamentale – terza – quinta – terza in semiminime: è la triade arpeggiata di «Three Note Bass-Line», con un movimento continuo che fa «camminare» il brano.",
+      },
+    ],
+  },
+
+  "walking-the-blues": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V). La sinistra cammina sulle note degli accordi, la destra suona bicordi in terzine che partono da una blue note e scivolano di un semitono sulla nota dell'accordo: è il «crush» del piano blues.",
+    concepts: ["terzine", "scivolamento (crush)", "blue note", "nota di volta cromatica", "basso che cammina"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Lo scivolamento",
+        text: "Sul Do il Mib scivola sul Mi: dalla terza minore (blue note) alla terza maggiore dell'accordo. Sul Sol il Sib scivola sul Si, la terza del Sol. Sul Fa il Sol# scivola sul La, la terza del Fa, e nella battuta 19 il Fa# scivola sul Sol. È sempre lo stesso gesto: un semitono sotto la nota dell'accordo, poi la nota giusta.",
+      },
+      {
+        title: "Il Mib sul Fa",
+        text: "Nelle battute 5–6 il Mib+Sol resta fermo sul Fa: lì il Mib non è una blue note da risolvere, ma la settima dell'accordo (Fa7), e il Sol è la nona. Lo stesso bicordo cambia funzione quando cambia l'accordo sotto.",
+      },
+      {
+        title: "Le terzine",
+        text: "Ogni movimento è diviso in tre crome uguali: è la base del ritmo «swing» e «shuffle» del blues, dove le crome non sono mai dritte.",
+      },
+      {
+        title: "Il finale",
+        text: "Nella battuta 16 la nota alta scende Mi – Mib – Re – Do, nella 22 la nota bassa scende La – Lab – Sol: sono linee cromatiche che portano verso l'accordo di Do. Il brano chiude su Mi+Sol+Do, la triade completa.",
+      },
+    ],
+  },
+
+  "triple-blues": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V) con una melodia quasi tutta in terzine, costruita sulla scala blues. La sinistra cammina sulle note degli accordi.",
+    concepts: ["terzine", "scala blues", "blue note", "note di avvicinamento cromatiche", "terze parallele"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "La scala blues",
+        text: "Fa – Mib – Do (battute 1, 3, 7) e Fa# – Sol – Sib (battute 13–20) sono pezzi della scala blues di Do: Do – Mib – Fa – Fa# – Sol – Sib. La stessa scala va bene sopra tutti e tre gli accordi; quello che cambia è l'attrito con l'accordo sotto.",
+      },
+      {
+        title: "Avvicinarsi per semitono",
+        text: "Sul Fa il Sol# sale al La, la terza del Fa (battute 5, 10, 22); sul Sol il Sib sale al Si, la terza del Sol (battute 9, 21). Una nota un semitono sotto la nota dell'accordo è il modo più semplice di «colorare» un arpeggio nel blues.",
+      },
+      {
+        title: "Il Mib sul Fa",
+        text: "Nelle battute 6 e 17–18 il Mib sopra l'accordo di Fa è la sua settima: Fa – La – Do – Mib è un Fa7. Nel blues tutti e tre gli accordi sono di solito di settima (Do7, Fa7, Sol7).",
+      },
+      {
+        title: "Le terze che scendono",
+        text: "Nella battuta 11 i bicordi Mi+Sol – Mib+Solb – Re+Fa scendono per semitoni e si posano su Do+Mi: un piccolo turnaround cromatico che chiude il primo giro. Il secondo giro chiude invece con la melodia che scende Mi – Re – Do.",
+      },
+    ],
+  },
+
+  "walking-the-blues-2": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V). La sinistra suona un vero «walking bass» a quattro note per battuta, la destra accordi di settima e di sesta e bicordi sulle blue note che scivolano nell'accordo successivo.",
+    concepts: ["walking bass", "accordo di sesta", "accordi di settima", "scivolamento (crush)", "blue note"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Il walking bass",
+        text: "La sinistra sale fondamentale – terza – quinta – sesta (Do – Mi – Sol – La) e nella battuta dopo riscende (Do – La – Sol – Mi). Aggiungere la sesta alla triade dà al basso quattro note diverse per battuta: è il basso «che cammina» del boogie-woogie e dello swing. Sul Fa e sul Sol la forma è la stessa: Fa – La – Do – Re, Sol – Si – Re – Mi.",
+      },
+      {
+        title: "Accordi di settima e di sesta",
+        text: "Sol7 (battuta 9) è suonato senza fondamentale, Fa – Si – Re: la fondamentale la fa il basso. Fa7 è Fa – La – Mib, e nella battuta 5 La – Mib – Sol aggiunge la nona (Sol). Il Do finale è un Do6: Mi – Sol – La – Do, il suono tipico della chiusura di un blues o di uno swing.",
+      },
+      {
+        title: "Gli scivolamenti",
+        text: "Mib+Solb scivola su Mi+Sol, Solb+Mib su Sol+Mi, Sib+Reb su Si+Re: ogni volta un bicordo un semitono sotto, sulle blue note, che si risolve sulle note dell'accordo nella battuta dopo. Nella battuta 20 lo scivolamento Sib+Reb → Si+Re porta dal Do al Sol7.",
+      },
+    ],
+  },
+
+  "walking-the-blues-3": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V). Il walking bass scende passando per la settima abbassata (Sib sul Do, Mib sul Fa), e la destra alterna accordi pieni (Do6, Fa7, Fa9) e accordi di Do che oscillano sulle blue note.",
+    concepts: ["walking bass", "settima abbassata", "accordo di sesta", "accordi di settima e nona", "blue note"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Il basso con la settima",
+        text: "Quando sale il basso suona fondamentale, terza, quinta e sesta (Do – Mi – Sol – La). Quando scende parte dalla settima abbassata: Sib – La – Sol – Mi sul Do, Mib – Re – Do – La sul Fa. Il Sib trasforma il Do in Do7 e il Mib il Fa in Fa7: nel blues tutti gli accordi sono «di settima».",
+      },
+      {
+        title: "L'accordo che oscilla",
+        text: "Nelle battute 2 e 4 la destra alterna Mib+Solb+Do e Mi+Sol+Do: terza e quinta abbassate (le blue note) e poi quelle dell'accordo, sopra un Do che resta fermo. È lo stesso scivolamento di «Walking The Blues», fatto con un accordo intero.",
+      },
+      {
+        title: "Sesta, settima e nona",
+        text: "Il Do6 (Mi – Sol – La – Do) è il Do con la sesta, il suono della chiusura. Sul Fa, Mib – Sol – La – Do è un Fa9 senza fondamentale (settima Mib, nona Sol); Fa – La – Mib è il Fa7 e Mib – La – Re aggiunge la tredicesima (Re).",
+      },
+      {
+        title: "Il secondo giro",
+        text: "Il secondo chorus usa l'ottava Sol+Sol come risposta all'accordo di Do, poi sul Fa una frase in terzine Do – Re – Mib, cioè la scala blues sopra il Fa7. Il finale riprende le seste che scivolano (Solb+Mib → Fa+Re → Mi+Do) e chiude sul Do.",
+      },
+    ],
+  },
+
+  "jump-the-blues": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V) con solo tre accordi alla destra, suonati in controtempo sopra un basso in semiminime: è il ritmo del jump blues, il blues veloce e ballabile degli anni Quaranta.",
+    concepts: ["controtempo", "swing", "accordo di sesta", "accordi di nona e di settima", "giro di blues di 12 battute"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Tre forme vicine",
+        text: "Do6 = Mi – Sol – La – Do. Fa9 = Mib – Sol – La – Do: le stesse note con il Mi abbassato, che diventa la settima del Fa (il Sol è la nona, il La la terza, il Do la quinta). Sol7 = Fa – Sol – Si – Re. Passare da un accordo all'altro muovendo il meno possibile le dita si chiama condotta delle parti.",
+      },
+      {
+        title: "Il controtempo",
+        text: "Nel primo giro l'accordo cade sulla seconda croma di ogni movimento, esattamente a metà tra due battiti. Nel secondo giro il movimento è diviso in tre (terzina) e l'accordo cade sulla terza parte: arriva un po' più tardi ed è più vicino al battito dopo. È la differenza tra crome «dritte» e crome «swing».",
+      },
+      {
+        title: "Il basso",
+        text: "Nel primo giro la sinistra arpeggia fondamentale – terza – quinta – terza; nel secondo sale fino alla sesta (Do – Mi – Sol – La), come nei walking bass della serie.",
+      },
+    ],
+  },
+
+  "walking-the-dog-blues": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V). Sopra un walking bass, la destra alterna un accordo che scivola dalle blue note all'accordo vero e una risposta in terzine: è il «domanda e risposta» del blues.",
+    concepts: ["scivolamento (crush)", "blue note", "domanda e risposta", "walking bass", "accordi di settima e di sesta"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Lo scivolamento",
+        text: "Su ogni accordo la destra parte un semitono sotto la terza e la quinta: Mib+Solb → Mi+Sol sul Do, Lab → La sul Fa, Sib+Reb → Si+Re sul Sol. Le prime sono blue note (terza e quinta abbassate), le seconde le note dell'accordo: il blues «stona» per un attimo e poi si appoggia.",
+      },
+      {
+        title: "Domanda e risposta",
+        text: "Nel primo giro le battute dispari sono la «domanda» (l'accordo che scivola) e quelle pari la «risposta» in terzine: Sol – Sol# – La, cioè quinta, quinta aumentata e sesta del Do, poi di nuovo Do e Sol. Il Sol# è una nota di passaggio cromatica verso il La.",
+      },
+      {
+        title: "Il basso",
+        text: "Il walking bass sale fondamentale – terza – quinta – sesta e scende partendo dalla settima abbassata: Sib – La – Sol – Mi sul Do, Mib – Re – Do – La sul Fa. Il Sib e il Mib rendono gli accordi di settima (Do7, Fa7).",
+      },
+      {
+        title: "Il secondo giro",
+        text: "La stessa idea un'ottava sopra, con terzine di bicordi Mi+Sol in movimento continuo. Sul Fa compaiono Fa7 (Fa – La – Mib) e Fa6 (Fa – La – Re); nella battuta 20 il Sib+Reb prepara il Sol7 (Fa – Si – Re); il brano chiude sul Do6.",
+      },
+    ],
+  },
+
+  "first-boogie-blues": {
+    key: "Do maggiore",
+    summary:
+      "Il primo boogie della serie: due giri di blues di 12 battute in Do (I – IV – V) con la sinistra che martella quinte in semiminime e la destra che suona terze lunghe, con lo scivolamento sulle blue note.",
+    concepts: ["boogie-woogie", "quinta vuota", "terze", "scivolamento (crush)", "blue note"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "La quinta vuota",
+        text: "Do+Sol, Fa+Do e Sol+Re sono quinte: fondamentale e quinta dell'accordo, senza la terza. Non dicono se l'accordo è maggiore o minore, e proprio per questo lasciano libera la destra di suonare la terza maggiore o la blue note. È la base dei bassi del boogie-woogie e del rock'n'roll.",
+      },
+      {
+        title: "Le terze e le blue note",
+        text: "Mi+Sol sono terza e quinta del Do. Mib+Solb è la stessa terza un semitono sotto: terza e quinta abbassate, le blue note. Sul Fa, Mib+Sol è settima e nona del Fa7; sul Sol il Sib scivola sul Si (la terza del Sol), sul Fa il Sol# scivola sul La (la terza del Fa).",
+      },
+      {
+        title: "Il secondo giro",
+        text: "Nella battuta 13 le terze scendono per semitoni, Mi+Sol – Mib+Solb – Re+Fa, e arrivano su Do+Mi: una piccola linea cromatica. Il resto riprende gli scivolamenti del primo giro, con qualche variante sul Sol e sul Fa.",
+      },
+    ],
+  },
+
+  "up-n-down-blues": {
+    key: "Do maggiore",
+    summary:
+      "Il giro di blues di 12 battute in Do (I – IV – V), suonato due volte, con il basso «su e giù» del boogie-woogie: sopra la fondamentale la nota alta alterna quinta e sesta.",
+    concepts: ["boogie-woogie", "quinta e sesta", "terze", "scivolamento (crush)", "blue note"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Il basso su e giù",
+        text: "Do+Sol è una quinta, Do+La una sesta: alternandole la nota alta oscilla di un tono sopra una fondamentale ferma. Sul Fa diventa Fa+Do / Fa+Re, sul Sol Sol+Re / Sol+Mi. È il basso più classico del boogie-woogie e del rock'n'roll (lo si sente in tantissimi brani di Chuck Berry).",
+      },
+      {
+        title: "La destra",
+        text: "È la stessa di «First Boogie Blues»: terze lunghe, con Mib+Solb (terza e quinta abbassate, le blue note) che scivola su Mi+Sol, Mib+Sol sul Fa (settima e nona), Sib → Si sul Sol e Sol# → La sul Fa.",
+      },
+    ],
+  },
+
+  "straight-blues": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V) a crome dritte: la sinistra suona otto crome per battuta alternando quinta e sesta, la destra accordi pieni che scivolano sulle blue note.",
+    concepts: ["crome dritte (straight)", "boogie-woogie", "blue note", "accordo di passaggio", "scivolamento (crush)"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Dritto o swing",
+        text: "Negli altri brani le crome erano spesso «swing» (lunga-corta, come in una terzina). Qui sono dritte, tutte uguali: è il suono del rock'n'roll e del boogie più moderno. Il basso è quello di «Up 'n' Down Blues» (quinta e sesta), raddoppiato in crome.",
+      },
+      {
+        title: "Le blue note negli accordi",
+        text: "Sul Do, Mib+Solb+Do porta dentro l'accordo terza e quinta abbassate. Sul Fa la blue note è il Lab (terza abbassata del Fa), sul Sol il Sib e il Reb. Ogni volta l'accordo «stona» per un momento e torna sull'accordo vero.",
+      },
+      {
+        title: "Accordi di passaggio",
+        text: "Fa+Sib+Re (battute 5 e 18) è un accordo di Sib in secondo rivolto sopra il Fa: un modo antico (gospel, blues) di muovere la mano sopra un accordo fermo. Nella battuta 3 le terze salgono per semitoni, Re+Fa → Mib+Solb → Mi+Sol.",
+      },
+    ],
+  },
+
+  "shuffle-boogie-blues": {
+    key: "Do maggiore",
+    summary:
+      "Gli stessi accordi di «Straight Blues» (due giri di blues di 12 battute in Do, I – IV – V) con il basso in ritmo shuffle: lunga-corta su ogni movimento, alternando quinta e sesta.",
+    concepts: ["shuffle", "boogie-woogie", "quinta e sesta", "blue note", "accordo di passaggio"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Lo shuffle",
+        text: "Nello spartito ogni movimento è scritto come croma puntata + semicroma: la prima nota dura tre volte la seconda. È il ritmo «zoppo» dello shuffle, parente stretto dello swing (dove il rapporto è due a uno, come in una terzina). Confronta con «Straight Blues»: stesse note, ritmo diverso, carattere completamente diverso.",
+      },
+      {
+        title: "Il basso",
+        text: "La nota alta alterna quinta e sesta a ogni movimento (Do+Sol / Do+La): la quinta sulla parte lunga, la sesta su quella corta. È il basso shuffle del boogie e del rock'n'roll.",
+      },
+      {
+        title: "La destra",
+        text: "Accordi pieni che scivolano sulle blue note: Mib+Solb+Do sul Do, Lab sul Fa, Sib+Reb sul Sol, più l'accordo di passaggio Fa+Sib+Re sopra il Fa.",
+      },
+    ],
+  },
+
+  "triple-blues-shuffle": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V). La destra suona terze in terzine, la sinistra lo shuffle: due modi diversi di dividere il movimento che si sovrappongono, il cuore ritmico del blues.",
+    concepts: ["terzine", "shuffle", "terze parallele", "blue note", "scivolamento (crush)"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Terzine sopra lo shuffle",
+        text: "La destra divide ogni movimento in tre parti uguali, la sinistra in lunga-corta (croma puntata + semicroma). Nella pratica i pianisti blues avvicinano lo shuffle alla terzina: la semicroma cade quasi sulla terza nota della terzina, e le mani «si incastrano».",
+      },
+      {
+        title: "Le terze che scivolano",
+        text: "Mi+Sol è terza e quinta del Do; Mib+Solb la stessa coppia abbassata (le blue note); Re+Fa e Do+Mi portano giù verso la tonica. Sul Sol la stessa scala si sale (Do+Mi – Re+Fa – Mib+Solb – Mi+Sol) e arriva sulla sesta e la nona del Sol; sul Fa Do+Mib è quinta e settima del Fa7, e Lab → La la terza blues del Fa.",
+      },
+      {
+        title: "Il finale",
+        text: "Nella battuta 19 Solb+Do (quinta abbassata e tonica) scivola su Sol+Do, con la piccola frase cromatica Sol – Sol# – La. Il brano chiude su Mi+Do, preceduto da Mib+Do: l'ultimo scivolamento dalla terza blues alla terza maggiore.",
+      },
+    ],
+  },
+
+  "triple-feel-blues": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V) in «triple feel»: le crome scritte si suonano swing, come semiminima + croma di terzina. La destra alterna accordi e nota singola, muovendo l'accordo tra I e IV sopra un pedale.",
+    concepts: ["swing (triple feel)", "pedale", "accordo di IV sopra il I", "accordi di settima", "boogie-woogie"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Triple feel",
+        text: "L'indicazione in testa allo spartito (due crome = semiminima + croma in terzina) dice di non suonare le crome uguali ma lunga-corta, in rapporto due a uno. È lo swing: si scrive dritto per comodità e si suona «in tre».",
+      },
+      {
+        title: "Il IV sopra il I",
+        text: "Sopra il Do che resta fermo (un pedale) la destra alterna Do+Mi+Sol e Do+Fa+La: il secondo è l'accordo di Fa in secondo rivolto. Sul Fa lo stesso gesto dà Fa+La+Do / Fa+Sib+Re, sul Sol Sol+Si+Re / Sol+Do+Mi: ogni volta il IV dell'accordo, sopra la sua fondamentale. È il «rocking» tipico del boogie e del rock'n'roll.",
+      },
+      {
+        title: "Le settime",
+        text: "Nel secondo giro compaiono le settime: Do+Mi+Sib (Do7) nelle battute 14, 16 e 23, Sol+Re+Fa (Sol7) nella 21, Fa+Do+Mib (Fa7) nella 22. Il finale chiude con le terze che scendono per semitoni, Mib+Solb – Re+Fa – Do+Mi.",
+      },
+    ],
+  },
+
+  "seventh-blues": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V), in swing, dove compaiono le settime: nel basso (Do+Sib, Fa+Mib) e negli accordi della destra (Do7, Fa7, Sol7). Sono le settime a dare al blues il suo suono tipico.",
+    concepts: ["accordo di settima di dominante", "settima nel basso", "swing (triple feel)", "IV sopra il I", "avvicinamento cromatico"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte dopo una battuta di attacco: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Tre accordi di settima",
+        text: "Do7 = Do – Mi – Sol – Sib, Fa7 = Fa – La – Do – Mib, Sol7 = Sol – Si – Re – Fa. Nella musica classica solo il V è un accordo di settima di dominante; nel blues lo sono tutti e tre. Alla destra compaiono in forma ridotta: Do+Sol+Sib, Fa+Do+Mib, Sol+Re+Fa.",
+      },
+      {
+        title: "La settima nel basso",
+        text: "Il basso alterna quinta e sesta (Do+Sol, Do+La) come nei brani precedenti; in metà delle battute la sesta sale alla settima abbassata (Do+Sib, Fa+Mib). È il basso boogie «5 – 6 – b7 – 6».",
+      },
+      {
+        title: "Avvicinamenti cromatici",
+        text: "L'attacco Do – Mib – Mi scivola dalla terza blues alla terza maggiore. Nella battuta 11 Sol#+Si → La+Do sale di un semitono verso l'accordo di Do; nella 22 il Do# porta al Re; nel finale Mib+Solb → Re+Fa scendono verso il Do.",
+      },
+    ],
+  },
+
+  "first-nola-blues": {
+    key: "Do maggiore",
+    summary:
+      "Due giri di blues di 12 battute in Do (I – IV – V) in stile New Orleans («Nola»): la sinistra suona il ritmo 3+3+2 sulle note degli accordi, la destra accordi in sincope con le blue note.",
+    concepts: ["ritmo 3+3+2 (tresillo)", "sincope", "blue note", "accordo di nona", "accordo di settima"],
+    sections: [
+      {
+        title: "Gli accordi",
+        text: "Lo stesso giro di tutta la serie, suonato due volte: quattro battute di Do, due di Fa, due di Do, poi Sol – Fa – Do – Do.",
+        chords: ["C", "C", "C", "C", "F", "F", "C", "C", "G", "F", "C", "C"],
+      },
+      {
+        title: "Il ritmo di New Orleans",
+        text: "Semiminima puntata, semiminima puntata, semiminima: le otto crome della battuta divise in 3+3+2. È il «tresillo», arrivato a New Orleans dai Caraibi, ed è la base del piano di Professor Longhair e Fats Domino. La sinistra lo suona su fondamentale, terza e quinta.",
+      },
+      {
+        title: "Gli accordi della destra",
+        text: "Sul Do la destra suona Sol + Mi+Sol (quinta, terza e quinta all'ottava); il Mib è la blue note che scivola sul Mi. Sul Fa, La + Mib + Sol sono terza, settima e nona: un Fa9 senza fondamentale. Sul Sol, Sol + Re+Fa è il Sol7.",
+      },
+      {
+        title: "La sincope",
+        text: "Gli accordi cadono spesso fuori dal battito: croma, semiminima, semiminima puntata. Contro il 3+3+2 della sinistra questo crea l'incastro ritmico tipico del blues di New Orleans. Nel secondo giro la destra diventa melodia: La – Mib – Re – Do sul Fa, e frasi in crome con il Sol# che sale al La.",
+      },
+    ],
+  },
+
+  "georgia-on-my-mind": {
+    key: "Fa maggiore",
+    summary:
+      "Una ballata in forma A A B A (32 battute). Le sezioni A girano attorno al Fa con accordi di passaggio cromatici (Mi diminuito, Sib minore) e catene di dominanti; il ponte va in Re minore, il relativo minore.",
+    concepts: ["forma AABA", "accordo diminuito di passaggio", "IV minore (prestito)", "dominanti secondarie", "relativo minore"],
+    sections: [
+      {
+        title: "La sezione A",
+        text: "Fa – Mi° – Rem7 – Sol – Sibm, poi Fa – Mi7 – Solm – Do7. Il basso scende Fa – Mi – Re: il Mi diminuito è un accordo di passaggio tra Fa e Rem7. Il Sol (maggiore!) è la dominante della dominante, il Sib minore è il IV minore preso in prestito da Fa minore: un colore malinconico tipico di Carmichael.",
+        chords: ["F", "E°", "Dm7", "G", "Bbm", "F", "E7", "Gm", "C7"],
+      },
+      {
+        title: "Catene di dominanti",
+        text: "Mi7 → Lam7 → Re7 → Solm7 → Do7 → Fa: ogni accordo di settima porta a quello una quinta sotto. Il Do7 con la quinta aumentata (Do – Mi – Sol# – Sib) nella battuta 8 tende ancora di più verso il Fa.",
+        chords: ["E7", "Am7", "D7", "Gm7", "C7", "F"],
+      },
+      {
+        title: "Il ponte",
+        text: "Le battute 17–24 vanno in Re minore: Rem7 – Rem6 – Rem(+5) – Rem6, con la voce interna che si muove Do – Si – Sib – Si (la linea cromatica nel basso della sinistra). Poi Lam – Mi, la dominante di La, e la catena Rem7 – Solm – Lam – Mi7 – Lam7 – Re7 – Solm7 – Do7 che riporta al Fa.",
+        chords: ["Dm7", "Dm6", "Dm7", "Gm", "Am", "E", "Am7", "D7", "Gm7", "C7"],
+      },
+    ],
+  },
+
+  "body-and-soul": {
+    key: "Sol maggiore",
+    summary:
+      "Una delle ballate jazz più suonate (1930), in forma A A B A. In questo arrangiamento in Sol, la sezione A parte dal La minore (il ii) e torna al Sol attraverso linee cromatiche: il basso scende per semitoni e gli accordi di passaggio sono diminuiti o di settima un semitono sopra (sostituti di tritono).",
+    concepts: ["linea cromatica (line cliché)", "accordo diminuito di passaggio", "sostituto di tritono", "ii – V – I"],
+    sections: [
+      {
+        title: "Il La minore che scende",
+        text: "Lam – Lam(maj7) – Lam7 – Lam6: l'accordo resta lo stesso, ma la nota La scende La – Sol# – Sol – Fa#. È il «line cliché», un movimento cromatico dentro un accordo fermo (lo stesso di «My Funny Valentine» o «Michelle»).",
+        chords: ["Am", "Am(maj7)", "Am7", "Am6"],
+      },
+      {
+        title: "Accordi diminuiti di passaggio",
+        text: "Sol/Si – Sib° – Lam: il basso scende Si – Sib – La per semitoni. Re7 – Re#° – Mim7: qui sale, Re – Re# – Mi. L'accordo diminuito collega due accordi a distanza di un tono.",
+        chords: ["G/B", "Bb°", "Am", "D7", "D#°", "Em7"],
+      },
+      {
+        title: "Sostituti di tritono",
+        text: "Mim7 – Mib7 – Re7 – Sol: il Mib7 sta un semitono sopra il Re7 e ne prende il posto per un attimo (hanno le stesse terza e settima, scambiate). Nell'introduzione la stessa idea in catena: Solmaj7 – Solb7 – Fa7 – Mi7, tutti un semitono sotto il precedente, fino al Mi7 che porta al La minore del tema.",
+        chords: ["Em7", "Eb7", "D7", "G", "Gmaj7", "Gb7", "F7", "E7"],
+      },
+      {
+        title: "Il ponte un semitono sopra",
+        text: "Il ponte salta in La bemolle, un semitono sopra la tonalità: Lab – Sibm – Labmaj7 – Rebm – Lab/Mib – Mib7 – Lab (un ii – V – I in Lab). Poi Labm – Reb7 – Solb, e Labm – Reb7 ancora. Per tornare si scende di semitono in semitono: Solb7 – Fa7 – Mi7, fino al La minore della A finale. Il Rebm (iv minore di Lab) e il La° di passaggio sono gli stessi colori della sezione A.",
+        chords: ["Ab", "Bbm", "Abmaj7", "Dbm", "Ab/Eb", "Eb7", "Ab", "Abm", "Db7", "Gb", "A°", "Gb7", "F7", "E7"],
+      },
+    ],
+  },
+
+  fever: {
+    key: "La minore",
+    summary:
+      "Un blues in minore costruito quasi tutto su un solo accordo, il La minore, con la nota bassa che scende cromaticamente; poi Fa7 – Mi7 – La minore chiude ogni frase. Pochissimi accordi, tutto il carattere sta nel ritmo e nelle blue note.",
+    concepts: ["line cliché (linea cromatica)", "cadenza VI7 – V7 – i", "blue note", "ritmo puntato"],
+    sections: [
+      {
+        title: "Il La minore che scende",
+        text: "Lam – Lam(maj7) – Lam7 – Lam6: sopra le note fisse Do e Mi, la nota bassa scende La – Sol# – Sol – Fa#. È lo stesso «line cliché» di Body And Soul (e del tema di James Bond): un solo accordo che si muove dall'interno.",
+        chords: ["Am", "Am(maj7)", "Am7", "Am6"],
+      },
+      {
+        title: "Fa7 – Mi7 – La minore",
+        text: "Ogni frase finisce scendendo di un semitono: Fa7 → Mi7 → Lam. Il Fa7 (VI grado, con la settima Mib) sta un semitono sopra il Mi7 e funziona come il suo sostituto di tritono; il Mi7 è la dominante vera. È la cadenza tipica del blues minore e del flamenco.",
+        chords: ["F7", "E7", "Am"],
+      },
+      {
+        title: "Le blue note",
+        text: "Il Mib nella melodia e nell'accordo di Fa7 è la quinta abbassata del La: la blue note più aspra. Il Sol# all'ottava di «Fever!» è invece la sensibile, che sale al La.",
+      },
+    ],
+  },
+
+  "lover-man": {
+    key: "Fa maggiore",
+    summary:
+      "Una ballata in forma A A B A. La sezione A parte lontano dal Fa, con due ii – V (Rem7 – Sol7, Solm7 – Do7), poi passa per gli accordi di settima di stile blues (Fa7, Sib7) e arriva alla dominante attraverso il Reb7, un semitono sopra il Do7.",
+    concepts: ["ii – V", "shell voicings", "IV7 blues", "sostituto di tritono", "line cliché"],
+    sections: [
+      {
+        title: "La sezione A",
+        text: "Rem7 – Sol7 è un ii – V che non va al Do ma si sposta su Solm7 – Do7, il ii – V di Fa. Poi Fa7 – Sib7: I7 e IV7, come in un blues. Infine Reb7 – Do7 – Fa: il Reb7 è il sostituto di tritono del Sol7 e scivola di un semitono sul Do7.",
+        chords: ["Dm7", "G7", "Gm7", "C7", "F7", "Bb7", "Db7", "C7", "F"],
+      },
+      {
+        title: "Shell voicings",
+        text: "La sinistra suona solo le note essenziali dell'accordo: fondamentale e settima (Re + Do per il Rem7, Sol + Fa per il Solm7) o terza e settima (Fa + Si per il Sol7, Sib + Mi per il Do7). È il modo in cui i pianisti jazz accompagnano, lasciando la quinta da parte.",
+      },
+      {
+        title: "Il ponte",
+        text: "Lam – Lam(maj7) – Lam7 – Lam6 e poi Solm – Solm(maj7) – Solm7 – Solm6: due volte il «line cliché», la nota interna che scende per semitoni dentro un accordo minore fermo. In mezzo Solmaj7 – Sol7 – Sol6 – Sol+5: il Sol aumentato (Re#) prepara il Sol minore. Mim7 – La7 chiude il ponte e riporta al Rem7 della A.",
+        chords: ["Am", "Am(maj7)", "Am7", "Am6", "Gmaj7", "G7", "G6", "G+5", "Gm", "Gm(maj7)", "Gm7", "Gm6", "F", "Eb7", "Em7", "A7"],
+      },
+    ],
+  },
+
+  summertime: {
+    key: "La minore",
+    summary:
+      "Una ninna nanna in minore (da «Porgy and Bess», 1935). L'armonia oscilla tra La minore con la sesta (Lam6) e Mi7, la dominante; poi una frase più lunga passa per Rem – Mim7 – Fa – Fa#° e arriva al Mi, preparato dal suo Si7.",
+    concepts: ["minore con la sesta (dorico)", "oscillazione i – V", "diminuito di passaggio", "dominante della dominante", "line cliché"],
+    sections: [
+      {
+        title: "Lam6 – Mi7",
+        text: "Il Lam6 (La – Do – Mi – Fa#) ha la sesta maggiore, il Fa#: è il colore della scala dorica, più chiaro del minore naturale. Nella destra il Fa# scende di un tono al Sol# del Mi7 e risale: una voce interna che dondola, come la culla della ninna nanna.",
+        chords: ["Am6", "E7", "Am6", "E7"],
+      },
+      {
+        title: "Il basso che sale",
+        text: "Rem – Mim7 – Fa – Fa#° – Mi: il basso sale Re – Mi – Fa – Fa# e poi si appoggia sul Mi. Il Fa# diminuito è un accordo di passaggio cromatico; il Si7 è la dominante del Mi (V del V) e rende il Mi ancora più atteso.",
+        chords: ["Dm", "Em7", "F", "F#°", "E", "B7", "E"],
+      },
+      {
+        title: "La chiusura",
+        text: "Lam – Re9 – Do – Lam – Re7 – Sol7: in mezzo al minore compare per un momento il Do maggiore (il relativo), con la sua dominante Sol7. Nel finale la sinistra fa scendere La – Sol – Fa# – Fa (Lam – Lam7 – Lam6 – Fa): lo stesso «line cliché» di Body And Soul e Fever. L'ultimo accordo è ancora il Lam6, che resta sospeso.",
+        chords: ["Am", "D9", "C", "Am", "D7", "G7", "Am", "Am7", "Am6", "F"],
+      },
+    ],
+  },
 };

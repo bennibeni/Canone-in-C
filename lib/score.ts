@@ -118,7 +118,8 @@ export interface Part {
   measures: Measure[];
   /** la prima battuta è un levare: si chiama "Levare" e le altre si numerano da 1 */
   pickup?: boolean;
-  /** numero della prima battuta (default 1): per numerare le battute di seguito nel brano */
+  /** numero della prima battuta nel brano (default 1): la parte da sola si numera da 1,
+   *  il brano completo numera le battute di seguito e lo mostra anche accanto al contatore della parte */
   firstMeasure?: number;
   videos?: VideoDef[];
 }
@@ -154,8 +155,8 @@ export interface Song {
   progressionLabel?: string;
   /** diteggiatura ciclica della sinistra quando la battuta non ha `lf` */
   lhPattern?: number[];
-  /** raccolta del menu: "facili" = sezione «Brani facili» (default: brani principali) */
-  collection?: "facili";
+  /** raccolta del menu: "facili" = sezione «Brani facili», "blues" = sezione «Blues», "standards" = sezione «Standards» (default: brani principali) */
+  collection?: "facili" | "blues" | "standards";
   /** registrazione dell'esecuzione (percorso in /public), mostrata con un lettore audio */
   audio?: string;
   /** movimenti (semiminime) per battuta: 4 = 4/4 (default), 3 = 3/4 */
@@ -309,10 +310,13 @@ export interface BuiltPart {
   labels: string[];
   /** battute vere (levare escluso) */
   measureCount: number;
+  /** nome di ogni battuta nella numerazione del brano completo (uguale a `labels` nel brano completo) */
+  pieceLabels: string[];
 }
 
-const measureLabels = (p: Part) => {
-  const first = p.firstMeasure ?? 1;
+/** nomi delle battute; `inPiece` = numerazione del brano completo (da firstMeasure), altrimenti da 1 */
+const measureLabels = (p: Part, inPiece = false) => {
+  const first = inPiece ? (p.firstMeasure ?? 1) : 1;
   return p.measures.map((_, i) => (p.pickup ? (i === 0 ? "Levare" : String(i + first - 1)) : String(i + first)));
 };
 
@@ -321,7 +325,8 @@ export function buildPart(
   source: Part,
   key: KeyDef = KEYS[0],
   partStarts: number[] = [0],
-  labels: string[] = measureLabels(source)
+  labels: string[] = measureLabels(source),
+  pieceLabels: string[] = measureLabels(source, true)
 ): BuiltPart {
   // accordi trasposti nella tonalità scelta
   const part: Part = {
@@ -349,6 +354,7 @@ export function buildPart(
     partStarts,
     labels,
     measureCount: labels.filter((l) => l !== "Levare").length,
+    pieceLabels,
   };
 }
 
@@ -369,7 +375,8 @@ export function buildFull(song: Song, key: KeyDef = KEYS[0]): BuiltPart {
     tips: song.fullTips,
     measures: song.parts.flatMap((p) => p.measures),
   };
-  return buildPart(song, all, key, starts, song.parts.flatMap(measureLabels));
+  const labels = song.parts.flatMap((p) => measureLabels(p, true));
+  return buildPart(song, all, key, starts, labels, labels);
 }
 
 /** nome della tonalità per il menu: maggiore, oppure la relativa minore */

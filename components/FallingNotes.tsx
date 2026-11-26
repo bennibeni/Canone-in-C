@@ -213,11 +213,14 @@ export function FallingNotes(p: Props) {
     };
   }, []);
 
-  // scorrimento con rotellina / trascinamento quando è in pausa
+  // trascinamento quando è in pausa; la rotellina sposta la musica solo tenendo premuto Maiusc
+  // (senza Maiusc la rotellina fa scorrere la pagina e non deve cambiare battuta)
   const drag = useRef<{ y: number; pos: number } | null>(null);
   const onWheel = (e: React.WheelEvent) => {
-    if (p.playing) return;
-    p.onSeek(p.posRef.current + e.deltaY / p.zoom);
+    if (p.playing || !e.shiftKey) return;
+    // con Maiusc alcuni browser mettono lo scorrimento in deltaX
+    const d = e.deltaY || e.deltaX;
+    p.onSeek(p.posRef.current + d / p.zoom);
   };
 
   return (
@@ -225,6 +228,7 @@ export function FallingNotes(p: Props) {
       ref={wrapRef}
       className="relative w-full overflow-hidden flex-1"
       style={{ minHeight: p.height, cursor: p.playing ? "default" : "ns-resize" }}
+      title={p.playing ? undefined : "Trascina per spostarti nella musica (oppure Maiusc + rotellina)"}
       onWheel={onWheel}
       onPointerDown={(e) => {
         if (p.playing) return;

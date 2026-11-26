@@ -375,6 +375,11 @@ export default function SongApp({ slug }: { slug: string }) {
                 <div className="font-bold tabular-nums">
                   {built.labels[player.measure] === "Levare" ? "levare" : built.labels[player.measure]} / {built.labels.filter((l) => l !== "Levare").at(-1)}
                 </div>
+                {built.pieceLabels[player.measure] !== built.labels[player.measure] && (
+                  <div className="text-[11px] text-slate-500 tabular-nums" title="Numero della battuta nel brano completo">
+                    nel brano: {built.pieceLabels[player.measure]}
+                  </div>
+                )}
               </div>
 
               <div className="flex rounded-lg overflow-hidden border border-slate-700 text-sm font-semibold ml-1">
@@ -511,7 +516,7 @@ export default function SongApp({ slug }: { slug: string }) {
               <p className="px-4 pb-4 text-xs text-slate-400">
                 In modalità attesa le note si fermano sul tasto evidenziato in arancione: premi <kbd className="kbd">Spazio</kbd> (o
                 clicca il tasto) per suonarle e andare avanti. Negli altri momenti <kbd className="kbd">Spazio</kbd> avvia e mette in
-                pausa. In pausa puoi scorrere le note con la rotellina.
+                pausa. In pausa puoi spostarti nelle note trascinandole, o con Maiusc + rotellina.
               </p>
             </details>
           </aside>
