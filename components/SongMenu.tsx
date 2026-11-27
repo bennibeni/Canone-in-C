@@ -3,16 +3,16 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { songTitle, type Song } from "@/lib/score";
-import { MAIN_SONGS, STANDARDS } from "@/lib/songs";
+import { MAIN_SONGS, STANDARDS, FROM_MIDI } from "@/lib/songs";
 import { SALERNO } from "@/lib/songs/salerno";
 import { BLUES } from "@/lib/songs/blues";
 import { chordName } from "@/lib/notes";
 import { useHiddenSongs } from "@/hooks/useHiddenSongs";
 
 /** Menu dei brani: colonna verticale a sinistra su schermi larghi, riga orizzontale su telefono.
- *  Tre sezioni a fisarmonica: «Brani», «Brani facili» (Christian Salerno), «Blues» e «Standards».
+ *  Tre sezioni a fisarmonica: «Brani», «Brani facili» (Christian Salerno), «Blues», «Standards» e «Da MIDI».
  *  All'apertura è aperta la sezione del brano corrente; le sezioni aperte sono ricordate nel browser. */
-type SectionId = "brani" | "facili" | "blues" | "standards";
+type SectionId = "brani" | "facili" | "blues" | "standards" | "midi";
 const STORE = "canone-in-do:menu-open";
 
 export function SongMenu({ current }: { current: string }) {
@@ -23,9 +23,10 @@ export function SongMenu({ current }: { current: string }) {
   const easy = visible(SALERNO);
   const blues = visible(BLUES);
   const standards = visible(STANDARDS);
+  const midi = visible(FROM_MIDI);
 
   const sectionOf = (slug: string): SectionId =>
-    STANDARDS.some((x) => x.slug === slug) ? "standards" : BLUES.some((x) => x.slug === slug) ? "blues" : SALERNO.some((x) => x.slug === slug) ? "facili" : "brani";
+    FROM_MIDI.some((x) => x.slug === slug) ? "midi" : STANDARDS.some((x) => x.slug === slug) ? "standards" : BLUES.some((x) => x.slug === slug) ? "blues" : SALERNO.some((x) => x.slug === slug) ? "facili" : "brani";
   const [open, setOpen] = useState<SectionId[]>(() => [sectionOf(current)]);
   // sezioni aperte salvate nel browser; quella del brano corrente si apre sempre
   useEffect(() => {
@@ -97,6 +98,7 @@ export function SongMenu({ current }: { current: string }) {
         {section("facili", "Brani facili", easy, "lg:border-t lg:border-slate-800 lg:mt-2")}
         {section("blues", "Blues", blues, "lg:border-t lg:border-slate-800 lg:mt-2")}
         {section("standards", "Standards", standards, "lg:border-t lg:border-slate-800 lg:mt-2")}
+        {section("midi", "Da MIDI", midi, "lg:border-t lg:border-slate-800 lg:mt-2")}
         <Link href="/confronto-pianoplayer" aria-current={current === "confronto-pianoplayer" ? "page" : undefined} className="shrink-0 rounded-xl border border-teal-800 px-3 py-2 text-sm text-teal-200 hover:bg-teal-950 lg:mt-3">Confronto PianoPlayer</Link>
       </nav>
     </aside>

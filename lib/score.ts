@@ -155,10 +155,12 @@ export interface Song {
   progressionLabel?: string;
   /** diteggiatura ciclica della sinistra quando la battuta non ha `lf` */
   lhPattern?: number[];
-  /** raccolta del menu: "facili" = sezione «Brani facili», "blues" = sezione «Blues», "standards" = sezione «Standards» (default: brani principali) */
-  collection?: "facili" | "blues" | "standards";
+  /** raccolta del menu: "facili" = sezione «Brani facili», "blues" = sezione «Blues», "standards" = sezione «Standards», "midi" = sezione «Da MIDI» (default: brani principali) */
+  collection?: "facili" | "blues" | "standards" | "midi";
   /** registrazione dell'esecuzione (percorso in /public), mostrata con un lettore audio */
   audio?: string;
+  /** link esterni al brano (es. un'esecuzione su YouTube), mostrati sotto i riconoscimenti */
+  links?: { label: string; url: string }[];
   /** movimenti (semiminime) per battuta: 4 = 4/4 (default), 3 = 3/4 */
   beats?: number;
   fullTips: string[];

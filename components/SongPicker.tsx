@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { songTitle } from "@/lib/score";
-import { SONGS, MAIN_SONGS, STANDARDS } from "@/lib/songs";
+import { SONGS, MAIN_SONGS, STANDARDS, FROM_MIDI } from "@/lib/songs";
 import { SALERNO } from "@/lib/songs/salerno";
 import { BLUES } from "@/lib/songs/blues";
 import type { Song } from "@/lib/score";
@@ -82,7 +82,7 @@ function SongPickerModal({ onClose }: { onClose: () => void }) {
           </div>
         </div>
         <div className="overflow-y-auto px-3 py-2 flex-1">
-          {([["Brani", MAIN_SONGS], ["Brani facili", SALERNO], ["Blues", BLUES], ["Standards", STANDARDS]] as [string, Song[]][]).map(([label, list]) => {
+          {([["Brani", MAIN_SONGS], ["Brani facili", SALERNO], ["Blues", BLUES], ["Standards", STANDARDS], ["Da MIDI", FROM_MIDI]] as [string, Song[]][]).map(([label, list]) => {
             const all = list.every((s) => draft.has(s.slug));
             return (
               <div key={label} className="mb-2">
